@@ -2,7 +2,7 @@
 <phpunit bootstrap="./test/bootstrap.php">
     <testsuites>
         <testsuite name="unit">
-            <directory suffix="Test.php">test/Unit</directory>
+            <directory suffix="Test.php">.test/Unit</directory>
             <exclude>tests/Integration</exclude>
         </testsuite>
         <testsuite name="integration">
