@@ -36,4 +36,4 @@ jobs:
     - name: Upload to Codecov
       run: curl -Os https://uploader.codecov.io/latest/linux/codecov
            chmod +x codecov
-           ./codecov -t ${{ CODE_COV_TOKEN }}
+           ./codecov -t ${ CODE_COV_TOKEN }
