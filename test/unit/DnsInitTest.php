@@ -58,5 +58,4 @@ class DnsInitTest extends TestCase
         $subject->setFactory($factory);
         $this->assertSame($factory, $subject->getFactory());
     }
-
 }
