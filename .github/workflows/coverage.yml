@@ -34,7 +34,8 @@ jobs:
         args: test --coverage-clover coverage.xml
 
     - name: Upload to Codecov
-      run: | 
-           curl -Os https://uploader.codecov.io/latest/linux/codecov
-           chmod +x codecov
-           ./codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${CODECOV_TOKEN}
+        files: coverage.xml
+        verbose: true
