@@ -31,10 +31,10 @@ jobs:
         bootstrap: vendor/autoload.php
         configuration: phpunit.xml
         php_extensions: xdebug
-        args: test --coverage-clover ./coverage.xml
+        args: test --coverage-clover coverage.xml
 
     - name: Upload to Codecov
       run: |
         curl -Os https://uploader.codecov.io/latest/linux/codecov
-        chmod +x codecov
+        chmod +x coverage.xml
         ./coverage.xml -t ${CODE_COV_TOKEN}
