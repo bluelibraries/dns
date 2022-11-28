@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\DNS\Test\Unit;
+namespace MamaOmida\Dns\Test\Unit;
 
 use MamaOmida\Dns\Dns;
 use MamaOmida\Dns\Handlers\DnsHandlerException;

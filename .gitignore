@@ -1,9 +1,6 @@
 *.phar
 *.zip
 build/artifacts
-phpunit.xml
-/Config
-/Makefile
 .idea
 .php_cs.cache
 .phpunit.result.cache

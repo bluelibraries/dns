@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\DNS\Test\Unit\Handlers\Types;
+namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
 
 class DnsGetRecordTest
 {
