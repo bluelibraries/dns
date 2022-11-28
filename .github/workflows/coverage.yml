@@ -37,5 +37,5 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODE_COV_TOKEN }}
-        files: ./coverage.xml
+        files: coverage.xml
         verbose: true
