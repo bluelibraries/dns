@@ -1,4 +1,4 @@
-name: Coverage
+name: PHPUnit
 
 on:
   push:
@@ -23,19 +23,5 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    - name: PHPUnit Coverage Tests
-      uses: php-actions/phpunit@v3
-      env:
-        XDEBUG_MODE: coverage
-      with:
-        bootstrap: vendor/autoload.php
-        configuration: phpunit.xml
-        php_extensions: xdebug
-        args: test --coverage-clover ./coverage.xml
-
-    - name: Upload to Codecov
-      uses: codecov/codecov-action@v2
-      with:
-        token: ${{ secrets.CODE_COV_TOKEN }}
-        files: ./coverage.xml
-        verbose: true
+    - name: Run test suite
+      run: composer run-script test
