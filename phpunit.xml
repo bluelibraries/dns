@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="./test/bootstrap.php">
     <testsuites>
-        <testsuite>
+        <testsuite name="unit">
             <directory suffix="Test.php">test</directory>
         </testsuite>
     </testsuites>

@@ -34,4 +34,4 @@ jobs:
         args: test --coverage-clover coverage.xml
 
     - name: Upload to Codecov
-      run: bash <(curl -s https://codecov.io/bash)
+      run: bash <(curl -s https://codecov.io/bash -t ${{ secrets.CODECOV_TOKEN }})
