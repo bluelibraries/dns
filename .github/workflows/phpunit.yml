@@ -1,4 +1,4 @@
-name: PHPUnit
+name: Coverage
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    - name: PHPUnit Tests
+    - name: PHPUnit Coverage Tests
       uses: php-actions/phpunit@v3
       env:
         XDEBUG_MODE: coverage
