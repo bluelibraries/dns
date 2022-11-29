@@ -15,7 +15,7 @@ class A extends AbstractRecord
 
     public function getIp(): ?string
     {
-        return $this->raw['ip'] ?? null;
+        return $this->data['ip'] ?? null;
     }
 
 }

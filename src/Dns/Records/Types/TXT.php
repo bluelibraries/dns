@@ -15,7 +15,7 @@ class TXT extends AbstractRecord
 
     public function getTxt(): ?string
     {
-        return $this->raw['txt'] ?? null;
+        return $this->data['txt'] ?? null;
     }
 
 }

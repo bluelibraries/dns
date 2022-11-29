@@ -15,21 +15,25 @@ class SOA extends AbstractRecord
 
     public function getMasterNameServer(): ?string
     {
-        return $this->raw['mname'] ?? null;
+        return $this->data['mname'] ?? null;
     }
 
     public function getRawEmailName(): ?string
     {
-        return $this->raw['rname'] ?? null;
+        return $this->data['rname'] ?? null;
     }
 
     public function getAdministratorEmailAddress(): ?string
     {
-        if (empty($this->raw) || empty($this->raw['rname'])) {
+        if (
+            empty($this->data)
+            || empty($this->data['rname'])
+            || !is_string($this->data['rname'])
+        ) {
             return null;
         }
 
-        $parts = explode('.', $this->raw['rname']);
+        $parts = explode('.', $this->data['rname']);
         $partsLength = count($parts);
 
         if ($partsLength < 3) {
@@ -51,27 +55,27 @@ class SOA extends AbstractRecord
 
     public function getSerial(): ?int
     {
-        return $this->raw['serial'] ?? null;
+        return $this->data['serial'] ?? null;
     }
 
     public function getRefresh(): ?int
     {
-        return $this->raw['refresh'] ?? null;
+        return $this->data['refresh'] ?? null;
     }
 
     public function getRetry(): ?int
     {
-        return $this->raw['retry'] ?? null;
+        return $this->data['retry'] ?? null;
     }
 
     public function getExpire(): ?int
     {
-        return $this->raw['expire'] ?? null;
+        return $this->data['expire'] ?? null;
     }
 
     public function getMinimumTtl(): ?int
     {
-        return $this->raw['minimum-ttl'] ?? null;
+        return $this->data['minimum-ttl'] ?? null;
     }
 
 }

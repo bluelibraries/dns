@@ -15,7 +15,7 @@ class NS extends AbstractRecord
 
     public function getTarget(): ?string
     {
-        return $this->raw['target'] ?? null;
+        return $this->data['target'] ?? null;
     }
 
 }

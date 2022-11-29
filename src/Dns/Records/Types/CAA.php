@@ -15,17 +15,17 @@ class CAA extends AbstractRecord
 
     public function getFlags(): ?string
     {
-        return $this->raw['flags'] ?? null;
+        return $this->data['flags'] ?? null;
     }
 
-    public function getWeight(): ?string
+    public function getTag(): ?string
     {
-        return $this->raw['tag'] ?? null;
+        return $this->data['tag'] ?? null;
     }
 
     public function getValue(): ?string
     {
-        return $this->raw['value'] ?? null;
+        return $this->data['value'] ?? null;
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\DNS\Test\Unit\Handlers\Types;
+namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
 
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\Types\Dig;
@@ -87,8 +87,6 @@ class DigTest extends TestCase
      */
     public function testGetDnsDataValidData()
     {
-        $value = 'test.com 0 IN A 20.81.111.85';
-
         $this->setValueInExecuteCommand(['test.com 0 IN A 20.81.111.85']);
         $this->assertSame(
             [
@@ -204,5 +202,30 @@ class DigTest extends TestCase
         $this->assertSame($finalData, $this->subject->getPropertiesData($recordTypeId));
     }
 
+    public function testExecuteCommandInvalidArgumentsThrowsError()
+    {
+        $subject = new Dig();
+        $this->assertSame([], $subject->getDnsRawResult('ls', DNS_TXT));
+    }
+
+    public function testGetDnsRawResultInvalidGetCommandReturnsEmptyArray()
+    {
+        $subject = $this->getMockBuilder(Dig::class)
+            ->onlyMethods(['getCommand'])
+            ->getMock();
+        $subject->method('getCommand')->willReturn('ls');
+        $this->assertSame([], $subject->getDnsRawResult('test.com', DNS_TXT));
+    }
+
+    public function testGetCommandNoRecordName()
+    {
+        $this->assertSame([], $this->subject->getDnsRawResult('test.com', 99999999999999));
+    }
+
+    public function testCanExecuteDig()
+    {
+        $subject = new Dig();
+        $this->assertTrue($subject->canUseDig());
+    }
 
 }

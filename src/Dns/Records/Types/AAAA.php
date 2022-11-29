@@ -15,7 +15,7 @@ class AAAA extends AbstractRecord
 
     public function getIPV6(): ?string
     {
-        return $this->raw['ipv6'] ?? null;
+        return $this->data['ipv6'] ?? null;
     }
 
 }

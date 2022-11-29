@@ -27,17 +27,19 @@ abstract class AbstractRecord implements RecordInterface
 
     public function getHost(): ?string
     {
-        return $this->raw['host'] ?? null;
+        return $this->data['host'] ?? null;
     }
 
     public function getClass(): ?string
     {
-        return $this->raw['class'] ?? null;
+        return $this->data['class'] ?? null;
     }
 
     public function getTtl(): ?int
     {
-        return $this->raw['ttl'] ?? null;
+        return isset($this->data['ttl'])
+            ? (int)$this->data['ttl']
+            : null;
     }
 
 }

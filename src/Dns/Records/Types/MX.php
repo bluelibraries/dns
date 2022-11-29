@@ -15,12 +15,12 @@ class MX extends AbstractRecord
 
     public function getTarget(): ?string
     {
-        return $this->raw['target'] ?? null;
+        return $this->data['target'] ?? null;
     }
 
     public function getPriority(): ?int
     {
-        return $this->raw['pri'] ?? null;
+        return $this->data['pri'] ?? null;
     }
 
 

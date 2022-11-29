@@ -15,23 +15,22 @@ class SRV extends AbstractRecord
 
     public function getPriority(): ?int
     {
-        return $this->raw['pri'] ?? null;
+        return $this->data['pri'] ?? null;
     }
 
     public function getWeight(): ?int
     {
-        return $this->raw['weight'] ?? null;
+        return $this->data['weight'] ?? null;
     }
 
     public function getPort(): ?int
     {
-        return $this->raw['port'] ?? null;
+        return $this->data['port'] ?? null;
     }
 
     public function getTarget(): ?string
     {
-        return $this->raw['target'] ?? null;
+        return $this->data['target'] ?? null;
     }
-
 
 }
