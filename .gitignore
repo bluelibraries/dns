@@ -11,3 +11,4 @@ composer.lock
 vendor
 src/package.xml
 clover.xml
+coverage.xml
