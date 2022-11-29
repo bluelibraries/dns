@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records;
+namespace MamaOmidaTest\Dns\Unit\Records;
 
 use MamaOmida\Dns\Records\RecordInterface;
 use PHPUnit\Framework\TestCase;

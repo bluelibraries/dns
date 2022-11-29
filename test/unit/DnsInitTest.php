@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit;
+namespace MamaOmidaTest\Dns\Unit;
 
 use MamaOmida\Dns\Dns;
 use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
