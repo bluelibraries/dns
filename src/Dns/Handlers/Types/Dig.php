@@ -24,6 +24,17 @@ class Dig extends AbstractDnsHandler
         DnsRecordTypes::SRV   => ['pri', 'weight', 'port', 'target'],
     ];
 
+    protected static array $numberProperties = [
+        'ttl',
+        'minimum-ttl',
+        'expire',
+        'retry',
+        'refresh',
+        'port',
+        'pri',
+        'weight'
+    ];
+
     /**
      * @throws DnsHandlerException
      */
@@ -36,17 +47,23 @@ class Dig extends AbstractDnsHandler
         );
     }
 
-    private function getDnsRawResult($hostName, $type): array
+    protected function getDnsRawResult($hostName, $type): array
     {
         $command = $this->getCommand($hostName, $type);
-        exec($command, $output, $resultCode);
+        $output = $this->executeCommand($command);
         return array_filter($output);
     }
 
     private function getCommand(string $hostName, int $type): string
     {
         $result = 'dig +nocmd +noall +authority +answer +nomultiline +tries=3 +time=' . $this->timeout;
-        return $result . ' ' . $hostName . ' ' . DnsRecordTypes::getName($type).' @8.8.8.8';
+        return $result . ' ' . $hostName . ' ' . DnsRecordTypes::getName($type) . ' @8.8.8.8';
+    }
+
+    protected function executeCommand(string $command): array
+    {
+        $result = exec($command, $output, $resultCode);
+        return $result === false ? [] : $output;
     }
 
     public function getPropertiesData($typeId): ?array
@@ -80,16 +97,17 @@ class Dig extends AbstractDnsHandler
 
     private function getRawData(array $configData, string $rawLine): ?array
     {
-        if (empty($rawLine) || ($configDataLen = count($configData)) < 4) {
-            return null;
-        }
 
-        $array = $this->lineToArray($rawLine, $configDataLen);
+        $array = $this->lineToArray($rawLine, count($configData));
 
         $result = [];
 
         foreach ($array as $key => $value) {
-            $result[$configData[$key]] = $value;
+            $propertyName = $configData[$key];
+            $isNumber = in_array($propertyName, self::$numberProperties);
+            $result[$propertyName] = $isNumber
+                ? $value + 0
+                : $value;
         }
 
         return $result;

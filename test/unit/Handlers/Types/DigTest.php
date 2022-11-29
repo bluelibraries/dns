@@ -1,25 +1,25 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
+namespace MamaOmida\DNS\Test\Unit\Handlers\Types;
 
 use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
+use MamaOmida\Dns\Handlers\Types\Dig;
+use MamaOmida\Dns\Records\DnsRecordTypes;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DnsGetRecordTest extends TestCase
+class DigTest extends TestCase
 {
     /**
-     * @var DnsGetRecord|MockObject
+     * @var Dig|MockObject
      */
     protected $subject;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->subject = $this->getMockBuilder(DnsGetRecord::class)
-            ->onlyMethods(['getDnsRecord'])
+        $this->subject = $this->getMockBuilder(Dig::class)
+            ->onlyMethods(['executeCommand'])
             ->getMock();
     }
 
@@ -78,7 +78,7 @@ class DnsGetRecordTest extends TestCase
      */
     public function testGetDnsDataEmptyData()
     {
-        $this->setValueInGetDnsRecord([]);
+        $this->setValueInExecuteCommand([]);
         $this->assertSame([], $this->subject->getDnsData('test.com', DNS_ALL));
     }
 
@@ -87,18 +87,21 @@ class DnsGetRecordTest extends TestCase
      */
     public function testGetDnsDataValidData()
     {
-        $value =
+        $value = 'test.com 0 IN A 20.81.111.85';
+
+        $this->setValueInExecuteCommand(['test.com 0 IN A 20.81.111.85']);
+        $this->assertSame(
             [
                 [
                     'host'  => 'test.com',
-                    'class' => 'IN',
                     'ttl'   => 0,
+                    'class' => 'IN',
                     'type'  => 'A',
                     'ip'    => '20.81.111.85',
                 ]
-            ];
-        $this->setValueInGetDnsRecord($value);
-        $this->assertSame($value, $this->subject->getDnsData('test.com', DNS_ALL));
+            ],
+            $this->subject->getDnsData('test.com', DNS_ALL)
+        );
     }
 
     public function testGetTimeout()
@@ -153,58 +156,53 @@ class DnsGetRecordTest extends TestCase
         $this->assertSame(['Ana', 'are', 'mere'], $this->subject->lineToArray("Ana are \n mere", 10));
     }
 
-    protected function setValueInGetDnsRecord($value)
+    protected function setValueInExecuteCommand(array $value)
     {
-        $this->subject->method('getDnsRecord')
+        $this->subject->method('executeCommand')
             ->willReturn($value);
     }
 
-    public function testGetDnsRawNotFoundResultValue()
+    public function testGetDnsDataNotFoundResultMakesOnlyOneCall()
     {
-        $this->setValueInGetDnsRecord(false);
-        $this->assertSame([], $this->subject->getDnsRawResult('test.com', DNS_TXT));
-    }
-
-    public function testGetDnsRawNotFoundResultMakesOnlyOneCall()
-    {
-        $this->setValueInGetDnsRecord(false);
+        $this->setValueInExecuteCommand([]);
         $this->subject->expects(
             $this->once()
-        )->method('getDnsRecord');
-        $this->assertSame([], $this->subject->getDnsRawResult('test.com', DNS_TXT));
+        )->method('executeCommand');
+        $this->assertSame([], $this->subject->getDnsData('test.com', DNS_TXT));
     }
 
-    public function testGetDnsRawEmptyResultMaxRetries()
+    public function testGetPropertiesDataNoDefinedProperties()
     {
-        $this->setValueInGetDnsRecord([]);
-        $this->subject->expects(
-            $this->exactly($this->subject->getRetries() + 1)
-        )->method('getDnsRecord');
-        $this->assertSame([], $this->subject->getDnsRawResult('test.com', DNS_TXT));
+        $this->assertNull($this->subject->getPropertiesData(0));
     }
 
-    public function testGetDnsRawResult()
+    public function getPropertiesDataProvider(): array
     {
-        $value =
-            [
-                [
-                    'host'  => 'test.com',
-                    'class' => 'IN',
-                    'ttl'   => 0,
-                    'type'  => 'A',
-                    'ip'    => '20.81.111.85',
-                ]
-            ];
-        $this->setValueInGetDnsRecord($value);
-        $this->assertSame($value, $this->subject->getDnsRawResult('test.com', DNS_TXT));
+        return [
+            [DnsRecordTypes::A, ['ip'],],
+            [DnsRecordTypes::AAAA, ['ipv6'],],
+            [DnsRecordTypes::CAA, ['flags', 'tag', 'value'],],
+            [DnsRecordTypes::CNAME, ['target'],],
+            [DnsRecordTypes::SOA, ['mname', 'rname', 'serial', 'refresh', 'retry', 'expire', 'minimum-ttl'],],
+            [DnsRecordTypes::TXT, ['txt'],],
+            [DnsRecordTypes::NS, ['target'],],
+            [DnsRecordTypes::MX, ['pri', 'target'],],
+            [DnsRecordTypes::PTR, ['target'],],
+            [DnsRecordTypes::SRV, ['pri', 'weight', 'port', 'target'],],
+        ];
     }
 
-    public function testGetDnsRecordInvalidValueExpectsError()
+    /**
+     * @param int $recordTypeId
+     * @param array $additionalData
+     * @return void
+     * @dataProvider getPropertiesDataProvider
+     */
+    public function testGetPropertiesDataValid(int $recordTypeId, array $additionalData)
     {
-        $this->expectError();
-        $this->expectErrorMessage('dns_get_record(): An unexpected server failure occurred.');
-        $subject = new DnsGetRecord();
-        $this->assertFalse($subject->getDnsRawResult('', DNS_TXT));
+        $finalData = array_merge(['host', 'ttl', 'class', 'type'], $additionalData);
+        $this->assertSame($finalData, $this->subject->getPropertiesData($recordTypeId));
     }
+
 
 }
