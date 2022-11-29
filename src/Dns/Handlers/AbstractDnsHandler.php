@@ -2,10 +2,11 @@
 
 namespace MamaOmida\Dns\Handlers;
 
+
 abstract class AbstractDnsHandler implements DnsHandlerInterface
 {
 
-    protected int $retries = 10;
+    protected int $retries = 5;
 
     /**
      * maximum number of seconds DNS interrogation retries are allowed
@@ -52,7 +53,7 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
      * @param string $hostName
      * @throws DnsHandlerException
      */
-    private function validateHostName(string $hostName): void
+    protected function validateHostName(string $hostName): void
     {
         if (empty($hostName)) {
             throw new DnsHandlerException(
@@ -90,25 +91,30 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
         }
     }
 
+    protected function validateType(int $type)
+    {
+        if (!is_int($type) || $type < 0) {
+            throw new DnsHandlerException(
+                'Invalid records typeId: ' . json_encode($type) . ' !',
+                DnsHandlerException::TYPE_ID_INVALID
+            );
+        }
+    }
+
     /**
      * @throws DnsHandlerException
      */
     protected function validateParams(string $hostName, int $type)
     {
         $this->validateHostName($hostName);
+        $this->validateType($type);
     }
 
-    /**
-     * @throws DnsHandlerException
-     */
-    public function getValidatedDnsData(string $hostName, int $type): array
+    public function lineToArray(string $line, ?int $limit = 0): array
     {
-        $this->validateParams($hostName, $type);
-        return $this->getDnsData($hostName, $type);
-    }
-
-    protected function lineToArray(string $line, ?int $limit = null): array
-    {
+        if (empty($line)) {
+            return [];
+        }
         return explode(
             ' ',
             preg_replace('/\s+/', ' ', $line),

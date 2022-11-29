@@ -23,13 +23,23 @@ class DnsGetRecord extends AbstractDnsHandler
         $startProcess = time();
         for ($i = 0; $i < $this->retries; $i++) {
             if (
-                ($result = dns_get_record($hostName, $type)) !== []
+                ($result = $this->getDnsRecord($hostName, $type)) !== []
                 || ((time() - $startProcess) >= $this->timeout)
             ) {
                 return is_array($result) ? $result : [];
             }
         }
         return [];
+    }
+
+    /**
+     * @param string $hostName
+     * @param int $type
+     * @return array|false
+     */
+    private function getDnsRecord(string $hostName, int $type)
+    {
+        return dns_get_record($hostName, $type);
     }
 
 }
