@@ -91,9 +91,12 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
         }
     }
 
+    /**
+     * @throws DnsHandlerException
+     */
     protected function validateType(int $type)
     {
-        if (!is_int($type) || $type <= 0) {
+        if ($type <= 0) {
             throw new DnsHandlerException(
                 'Invalid records typeId: ' . json_encode($type) . ' !',
                 DnsHandlerException::TYPE_ID_INVALID

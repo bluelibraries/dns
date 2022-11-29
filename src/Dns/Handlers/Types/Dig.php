@@ -47,15 +47,31 @@ class Dig extends AbstractDnsHandler
         );
     }
 
-    protected function getDnsRawResult($hostName, $type): array
+    public function getDnsRawResult($hostName, $type): array
     {
         $command = $this->getCommand($hostName, $type);
+
+        if (is_null($command)) {
+            return [];
+        }
+
+        if (!$this->isValidCommand($command)) {
+            return [];
+        }
+
         $output = $this->executeCommand($command);
+
         return array_filter($output);
     }
 
-    private function getCommand(string $hostName, int $type): ?string
+    protected function getCommand(string $hostName, int $type): ?string
     {
+        try {
+            $this->validateParams($hostName, $type);
+        } catch (DnsHandlerException $e) {
+            return null;
+        }
+
         $recordName = DnsRecordTypes::getName($type);
 
         if (is_null($recordName)) {
@@ -64,13 +80,24 @@ class Dig extends AbstractDnsHandler
 
         $result = 'dig +nocmd +noall +authority +answer +nomultiline +tries=' . ($this->retries + 1) . ' +time=' . $this->timeout;
 
-        return $result . ' ' . $hostName . ' ' . $recordName . ' @8.8.8.8';
+        return $result . ' ' . $hostName . ' ' . $recordName;//. ' @8.8.8.8';
     }
 
     protected function executeCommand(string $command): array
     {
-        $result = exec($command, $output, $resultCode);
+        $result = exec($command, $output);
         return $result === false ? [] : $output;
+    }
+
+    public function isValidCommand(string $command)
+    {
+        return preg_match('/dig \+nocmd \+noall \+authority \+answer \+nomultiline \+tries=\d+ \+time=\d+ ([a-z0-9.\-_]+) ([A-Z]+)/i', $command);
+    }
+
+    public function canUseDig(): bool
+    {
+        $result = $this->executeCommand('dig -v 2>&1');
+        return !empty($result[0]) && stripos($result[0], 'dig') === 0 ;
     }
 
     public function getPropertiesData(int $typeId): ?array

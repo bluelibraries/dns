@@ -40,11 +40,10 @@ class DnsGetRecord extends AbstractDnsHandler
     protected function getDnsRecord(string $hostName, int $type)
     {
         try {
-            $result = dns_get_record($hostName, $type);
+            return dns_get_record($hostName, $type);
         } catch (Throwable $exception) {
             return false;
         }
-        return $result;
     }
 
 }
