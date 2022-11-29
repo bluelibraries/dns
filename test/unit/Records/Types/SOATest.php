@@ -133,7 +133,4 @@ class SOATest extends AbstractRecordTestClass
         $this->assertSame($expected, $this->subject->getAdministratorEmailAddress());
     }
 
-
-
-
 }
