@@ -87,16 +87,15 @@ class DnsGetRecordTest extends TestCase
      */
     public function testGetDnsDataValidData()
     {
-        $value =
+        $value = [
             [
-                [
-                    'host'  => 'test.com',
-                    'class' => 'IN',
-                    'ttl'   => 0,
-                    'type'  => 'A',
-                    'ip'    => '20.81.111.85',
-                ]
-            ];
+                'host'  => 'test.com',
+                'class' => 'IN',
+                'ttl'   => 0,
+                'type'  => 'A',
+                'ip'    => '20.81.111.85',
+            ]
+        ];
         $this->setValueInGetDnsRecord($value);
         $this->assertSame($value, $this->subject->getDnsData('test.com', DNS_ALL));
     }
@@ -204,7 +203,6 @@ class DnsGetRecordTest extends TestCase
         $this->expectError();
         $this->expectErrorMessage('dns_get_record(): An unexpected server failure occurred.');
         $subject = new DnsGetRecord();
-        $this->assertFalse($subject->getDnsRawResult('', DNS_TXT));
+        $this->assertSame([], $subject->getDnsRawResult('', DNS_TXT));
     }
-
 }
