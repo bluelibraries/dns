@@ -34,11 +34,28 @@ class DnsGetRecord extends AbstractDnsHandler
     /**
      * @param string $hostName
      * @param int $type
-     * @return array|false
+     * @return array
+     * @throws DnsHandlerException
      */
-    protected function getDnsRecord(string $hostName, int $type)
+    protected function getDnsRecord(string $hostName, int $type): array
     {
-        return dns_get_record($hostName, $type);
+        try {
+            $result = dns_get_record($hostName, $type);
+        } catch (\Throwable $exception) {
+            throw new DnsHandlerException(
+                'Unable to get dns record, for hostname: ' . json_encode($hostName) .
+                ' and type: ' . json_encode($type) . ' error message: ' . json_encode($exception->getMessage()),
+                DnsHandlerException::UNABLE_TO_GET_RECORD
+            );
+        }
+        if ($result === false) {
+            throw new DnsHandlerException(
+                'Unable to get dns record, for hostname: ' . json_encode($hostName) .
+                ' and type: ' . json_encode($type) . ' invalid result',
+                DnsHandlerException::UNABLE_TO_GET_RECORD
+            );
+        }
+        return $result;
     }
 
 }

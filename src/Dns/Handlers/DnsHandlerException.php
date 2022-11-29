@@ -12,4 +12,5 @@ class DnsHandlerException extends Exception
     const HOSTNAME_LENGTH_INVALID = 4;
     const HOSTNAME_TLD_LENGTH_INVALID = 5;
     const TYPE_ID_INVALID = 6;
+    const UNABLE_TO_GET_RECORD = 7;
 }
