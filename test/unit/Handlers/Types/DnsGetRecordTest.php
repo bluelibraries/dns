@@ -200,8 +200,6 @@ class DnsGetRecordTest extends TestCase
 
     public function testGetDnsRecordInvalidValueExpectsError()
     {
-        $this->expectError();
-        $this->expectErrorMessage('dns_get_record(): An unexpected server failure occurred.');
         $subject = new DnsGetRecord();
         $this->assertSame([], $subject->getDnsRawResult('', DNS_TXT));
     }

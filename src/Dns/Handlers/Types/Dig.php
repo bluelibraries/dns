@@ -54,10 +54,17 @@ class Dig extends AbstractDnsHandler
         return array_filter($output);
     }
 
-    private function getCommand(string $hostName, int $type): string
+    private function getCommand(string $hostName, int $type): ?string
     {
-        $result = 'dig +nocmd +noall +authority +answer +nomultiline +tries=3 +time=' . $this->timeout;
-        return $result . ' ' . $hostName . ' ' . DnsRecordTypes::getName($type) . ' @8.8.8.8';
+        $recordName = DnsRecordTypes::getName($type);
+
+        if (is_null($recordName)) {
+            return null;
+        }
+
+        $result = 'dig +nocmd +noall +authority +answer +nomultiline +tries=' . ($this->retries + 1) . ' +time=' . $this->timeout;
+
+        return $result . ' ' . $hostName . ' ' . $recordName . ' @8.8.8.8';
     }
 
     protected function executeCommand(string $command): array
@@ -66,7 +73,7 @@ class Dig extends AbstractDnsHandler
         return $result === false ? [] : $output;
     }
 
-    public function getPropertiesData($typeId): ?array
+    public function getPropertiesData(int $typeId): ?array
     {
         if (empty(self::$properties[$typeId])) {
             return null;
