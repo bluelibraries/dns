@@ -2,7 +2,6 @@
 
 namespace MamaOmida\Dns\Handlers;
 
-
 abstract class AbstractDnsHandler implements DnsHandlerInterface
 {
 
@@ -14,6 +13,8 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
     protected int $timeout = 5; //seconds
 
     protected ?string $nameserver = null;
+
+    public abstract function getDnsData(string $hostName, int $type): array;
 
     /**
      * @return int
@@ -76,30 +77,33 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
             );
         }
 
+        $hostnameErrorInfo = 'Invalid hostname ' . json_encode($hostName);
+
         if (strlen($hostName) < 3) {
             throw new DnsHandlerException(
-                'Invalid hostname ' . json_encode($hostName) . ' length. It must be 3 or more!',
+                $hostnameErrorInfo . ' length. It must be 3 or more!',
                 DnsHandlerException::HOSTNAME_LENGTH_TOO_SMALL
             );
         }
 
-        if (!preg_match('/^(([a-z\d\_\-]+\.)*)?([a-z\d\-]+)\.([a-z\d]+)$/i', $hostName)) {
+        if (!preg_match('/^(([a-z\d_\-]+\.)+)?([a-z\d\-]+)\.([a-z\d]+)$/i', $hostName)) {
             throw new DnsHandlerException(
-                'Invalid hostname ' . json_encode($hostName) . ' format! (characters "A-Za-z0-9.-" allowed)',
+                $hostnameErrorInfo . ' format! (characters "A-Za-z0-9.-" allowed)',
                 DnsHandlerException::HOSTNAME_FORMAT_INVALID
             );
         }
 
         if (!preg_match('/^.{3,253}$/', $hostName)) {
             throw new DnsHandlerException(
-                'Invalid hostname ' . json_encode($hostName) . ' length! (min 3, max 253 characters allowed)',
+                $hostnameErrorInfo . ' length! (min 3, max 253 characters allowed)',
                 DnsHandlerException::HOSTNAME_LENGTH_INVALID
             );
         }
 
         if (!preg_match('/^[^.]{1,63}(\.[^.]{1,63})*$/', $hostName)) {
             throw new DnsHandlerException(
-                'Invalid hostname ' . json_encode($hostName) . ' TLD (extension) length! (min 1, max 63 characters allowed)',
+                $hostnameErrorInfo .
+                ' TLD (extension) length! (min 1, max 63 characters allowed)',
                 DnsHandlerException::HOSTNAME_TLD_LENGTH_INVALID
             );
         }
@@ -138,7 +142,5 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
             $limit
         );
     }
-
-    public abstract function getDnsData(string $hostName, int $type): array;
 
 }
