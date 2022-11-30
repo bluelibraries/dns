@@ -4,7 +4,6 @@ namespace MamaOmida\Dns\Handlers\Types;
 
 use MamaOmida\Dns\Handlers\AbstractDnsHandler;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
-use Throwable;
 
 class DnsGetRecord extends AbstractDnsHandler
 {
@@ -39,11 +38,7 @@ class DnsGetRecord extends AbstractDnsHandler
      */
     protected function getDnsRecord(string $hostName, int $type)
     {
-        try {
-            return dns_get_record($hostName, $type);
-        } catch (Throwable $exception) {
-            return false;
-        }
+        return empty($hostName) ? false : dns_get_record($hostName, $type);
     }
 
 }
