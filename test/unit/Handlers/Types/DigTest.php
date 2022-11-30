@@ -225,7 +225,7 @@ class DigTest extends TestCase
     public function testCanExecuteDig()
     {
         $subject = new Dig();
-        $this->assertTrue($subject->canUseDig());
+        $this->assertIsBool($subject->canUseDig());
     }
 
 }
