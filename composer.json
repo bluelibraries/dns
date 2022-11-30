@@ -21,7 +21,7 @@
   "autoload": {
     "psr-4": {
       "MamaOmida\\Dns\\": "src/Dns",
-      "MamaOmida\\Dns\\Test": "test"
+      "MamaOmida\\Dns\\Test\\": "test"
     }
   },
   "autoload-dev": {
