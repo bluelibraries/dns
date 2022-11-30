@@ -83,7 +83,7 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
             );
         }
 
-        if (!preg_match('/^(([a-z\d_\-]+\.)*)?([a-z\d\-]+)\.([a-z\d]+)$/i', $hostName)) {
+        if (!preg_match('/^(([a-z\d\_\-]+\.)*)?([a-z\d\-]+)\.([a-z\d]+)$/i', $hostName)) {
             throw new DnsHandlerException(
                 'Invalid hostname ' . json_encode($hostName) . ' format! (characters "A-Za-z0-9.-" allowed)',
                 DnsHandlerException::HOSTNAME_FORMAT_INVALID

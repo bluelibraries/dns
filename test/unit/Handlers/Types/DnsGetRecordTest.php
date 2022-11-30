@@ -47,6 +47,14 @@ class DnsGetRecordTest extends TestCase
         $this->subject->getDnsData('ana*are*mere.com', DNS_ALL);
     }
 
+    public function testGetDnsDataInvalidHostNameBadSpecialCharacters()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionMessage('Invalid hostname "an\t\naaremere.com" format! (characters "A-Za-z0-9.-" allowed)');
+        $this->expectExceptionCode(DnsHandlerException::HOSTNAME_FORMAT_INVALID);
+        $this->subject->getDnsData("an\t\naaremere.com", DNS_ALL);
+    }
+
     public function testGetDnsDataHostNameFormatExceededLength()
     {
         $hostName = str_repeat('a', 250) . '.com';
