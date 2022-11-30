@@ -55,7 +55,9 @@ class Dig extends AbstractDnsHandler
 
         $result = 'dig +nocmd +noall +authority +answer +nomultiline +tries=' . ($this->retries + 1) . ' +time=' . $this->timeout;
 
-        return $result . ' ' . $hostName . ' ' . $recordName;//. ' @8.8.8.8';
+        $result .= ' ' . $hostName . ' ' . $recordName;
+
+        return $result . (empty($this->nameserver) ? '' : '@' . $this->nameserver);
     }
 
     protected function executeCommand(string $command): array
@@ -64,9 +66,9 @@ class Dig extends AbstractDnsHandler
         return $result === false ? [] : $output;
     }
 
-    public function isValidCommand(string $command)
+    public function isValidCommand(string $command): bool
     {
-        return preg_match('/dig \+nocmd \+noall \+authority \+answer \+nomultiline \+tries=\d+ \+time=\d+ ([a-z0-9.\-_]+) ([A-Z]+)/i', $command);
+        return preg_match('/dig \+nocmd \+noall \+authority \+answer \+nomultiline \+tries=\d+ \+time=\d+ ([a-z0-9.\-_]+) ([A-Z]{1,5})( @\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/i', $command) === 1;
     }
 
     public function canUseDig(): bool

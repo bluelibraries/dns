@@ -41,4 +41,15 @@ class DnsGetRecord extends AbstractDnsHandler
         return empty($hostName) ? false : dns_get_record($hostName, $type);
     }
 
+    /**
+     * @throws DnsHandlerException
+     */
+    public function setNameserver(?string $nameserver): self
+    {
+        throw new DnsHandlerException(
+            'Unable to set nameserver, as `dns_get_record` cannot use custom nameservers!',
+            DnsHandlerException::UNABLE_TO_USE_CUSTOM_NAMESERVER
+        );
+    }
+
 }

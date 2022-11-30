@@ -13,6 +13,8 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
      */
     protected int $timeout = 5; //seconds
 
+    protected ?string $nameserver = null;
+
     /**
      * @return int
      */
@@ -46,6 +48,18 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
     public function setTimeout(int $timeout): self
     {
         $this->timeout = $timeout;
+        return $this;
+    }
+
+    public function setNameserver(?string $nameserver): self
+    {
+        if (filter_var($nameserver, FILTER_VALIDATE_IP) === false) {
+            throw new DnsHandlerException(
+                'Unable to set nameserver, as ' . json_encode($nameserver) . ' is an invalid IPV4 format!',
+                DnsHandlerException::INVALID_NAMESERVER
+            );
+        }
+        $this->nameserver = $nameserver;
         return $this;
     }
 
