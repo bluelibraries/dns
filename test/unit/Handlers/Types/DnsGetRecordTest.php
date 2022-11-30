@@ -204,4 +204,20 @@ class DnsGetRecordTest extends TestCase
         $this->assertSame([], $subject->getDnsRawResult('', DNS_TXT));
     }
 
+    public function testSetNameserverNullValueThrowsException()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionMessage('Unable to set nameserver, as `dns_get_record` cannot use custom nameservers!');
+        $this->expectExceptionCode(DnsHandlerException::UNABLE_TO_USE_CUSTOM_NAMESERVER);
+        $this->subject->setNameserver(null);
+    }
+
+    public function testSetNameserverStringValueThrowsException()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionMessage('Unable to set nameserver, as `dns_get_record` cannot use custom nameservers!');
+        $this->expectExceptionCode(DnsHandlerException::UNABLE_TO_USE_CUSTOM_NAMESERVER);
+        $this->subject->setNameserver('8.8.8.8');
+    }
+
 }

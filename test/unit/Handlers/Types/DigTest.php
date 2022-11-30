@@ -228,4 +228,52 @@ class DigTest extends TestCase
         $this->assertIsBool($subject->canUseDig());
     }
 
+    public function validCommandsDataProvider(): array
+    {
+        return [
+            ['', false],
+            ['ls', false],
+            ['dir', false],
+            ['dig | ls', false],
+            ['wget', false],
+            ['wget', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com ABCDEF', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A ', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8 ', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1 ', false],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.1168.0.1', false],
+
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com ABCDE', true],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A', true],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8', true],
+            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1', true],
+        ];
+    }
+
+    /**
+     * @return void
+     * @dataProvider validCommandsDataProvider
+     */
+    public function testIsValidCommand($command, $expected)
+    {
+        $this->assertSame($expected, $this->subject->isValidCommand($command));
+    }
+
+    public function testSetNameserverInvalidThrowsException()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionMessage('Unable to set nameserver, as "test" is an invalid IPV4 format!');
+        $this->expectExceptionCode(DnsHandlerException::INVALID_NAMESERVER);
+        $this->subject->setNameserver('test');
+    }
+
+    /**
+     * @throws DnsHandlerException
+     */
+    public function testSetNameserverValidReturnsSelf()
+    {
+        $this->assertSame($this->subject, $this->subject->setNameserver('8.8.8.8'));
+    }
+
 }

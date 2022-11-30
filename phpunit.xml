@@ -7,8 +7,11 @@
     </testsuites>
     <coverage>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory suffix=".php">src/Dns</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">test</directory>
+        </exclude>
     </coverage>
     <logging>
         <testdoxXml outputFile="coverage.xml"/>
