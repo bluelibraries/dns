@@ -28,4 +28,34 @@ class TXTTest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getTxt());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN TXT', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'ttl'  => 7200,
+                'host' => 'test.com',
+                'txt'  => 'text here'
+            ]
+        );
+        $this->assertSame('test.com 7200 IN TXT text here', $this->subject->toString());
+    }
+
+    public function testToStringCompleteWithChaosClass()
+    {
+        $this->subject->setData(
+            [
+                'ttl'   => 7200,
+                'class' => 'CH',
+                'host'  => 'test.com',
+                'txt'   => 'text here'
+            ]
+        );
+        $this->assertSame('test.com 7200 CH TXT text here', $this->subject->toString());
+    }
+
 }

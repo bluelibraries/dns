@@ -5,9 +5,7 @@ namespace MamaOmida\Dns\Records;
 interface RecordInterface
 {
 
-    public function setData(array $rawData): self;
-
-    public function toArray(): array;
+    public function setData(array $data): self;
 
     public function getTypeId(): int;
 
@@ -16,5 +14,9 @@ interface RecordInterface
     public function getClass(): ?string;
 
     public function getTtl(): ?int;
+
+    public function toArray(): array;
+
+    public function toString(string $separator = ' '): string;
 
 }

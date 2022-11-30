@@ -133,4 +133,26 @@ class SOATest extends AbstractRecordTestClass
         $this->assertSame($expected, $this->subject->getAdministratorEmailAddress());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN SOA', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host'        => 'test.com',
+                'serial'      => 123456789,
+                'retry'       => 10,
+                'mname'       => 'test.com',
+                'refresh'     => 3600,
+                'minimum-ttl' => 1200,
+                'rname'       => 'admin.test.com',
+                'expire'      => 1800,
+            ]
+        );
+        $this->assertSame('test.com 0 IN SOA test.com admin.test.com 123456789 3600 10 1800 1200', $this->subject->toString());
+    }
+
 }

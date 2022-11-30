@@ -28,4 +28,20 @@ class ATest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getIp());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN A', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host' => 'test.com',
+                'ip' => '192.168.0.1'
+            ]
+        );
+        $this->assertSame('test.com 0 IN A 192.168.0.1', $this->subject->toString());
+    }
+
 }

@@ -203,4 +203,5 @@ class DnsGetRecordTest extends TestCase
         $subject = new DnsGetRecord();
         $this->assertSame([], $subject->getDnsRawResult('', DNS_TXT));
     }
+
 }

@@ -28,4 +28,20 @@ class AAAATest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getIPV6());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN AAAA', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host' => 'test.com',
+                'ipv6' => '::ffff:1451:6f55'
+            ]
+        );
+        $this->assertSame('test.com 0 IN AAAA ::ffff:1451:6f55', $this->subject->toString());
+    }
+
 }

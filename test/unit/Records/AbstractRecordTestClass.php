@@ -22,7 +22,7 @@ abstract class AbstractRecordTestClass extends TestCase
 
     public function testGetHostDefaultNull()
     {
-        $this->assertNull($this->subject->getHost());
+        $this->assertSame('', $this->subject->getHost());
     }
 
     public function testGetHostValue()
@@ -34,7 +34,7 @@ abstract class AbstractRecordTestClass extends TestCase
 
     public function testGetClass()
     {
-        $this->assertNull($this->subject->getClass());
+        $this->assertSame('IN', $this->subject->getClass());
     }
 
     public function testGetClassValue()
@@ -46,7 +46,7 @@ abstract class AbstractRecordTestClass extends TestCase
 
     public function testGetTtl()
     {
-        $this->assertNull($this->subject->getTtl());
+        $this->assertSame(0, $this->subject->getTtl());
     }
 
     public function testGetTtlValue()

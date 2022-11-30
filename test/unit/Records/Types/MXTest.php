@@ -40,6 +40,21 @@ class MXTest extends AbstractRecordTestClass
         $this->assertSame((int)$value, $this->subject->getPriority());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN MX', $this->subject->toString());
+    }
 
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host'   => 'test.com',
+                'pri'    => 10,
+                'target' => '192.168.0.1'
+            ]
+        );
+        $this->assertSame('test.com 0 IN MX 10 192.168.0.1', $this->subject->toString());
+    }
 
 }

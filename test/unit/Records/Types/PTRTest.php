@@ -28,4 +28,20 @@ class PTRTest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getTarget());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN PTR', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host'   => 'test.com',
+                'target' => '192.168.0.1'
+            ]
+        );
+        $this->assertSame('test.com 0 IN PTR 192.168.0.1', $this->subject->toString());
+    }
+
 }

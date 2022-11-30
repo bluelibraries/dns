@@ -28,4 +28,20 @@ class CNAMETest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getTarget());
     }
 
+    public function testToStringDefault()
+    {
+        $this->assertSame('0 IN CNAME', $this->subject->toString());
+    }
+
+    public function testToStringComplete()
+    {
+        $this->subject->setData(
+            [
+                'host' => 'test.com',
+                'target' => 'target.test.com'
+            ]
+        );
+        $this->assertSame('test.com 0 IN CNAME target.test.com', $this->subject->toString());
+    }
+
 }

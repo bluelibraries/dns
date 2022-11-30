@@ -4,36 +4,11 @@ namespace MamaOmida\Dns\Handlers\Types;
 
 use MamaOmida\Dns\Handlers\AbstractDnsHandler;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
+use MamaOmida\Dns\Records\DnsRecordProperties;
 use MamaOmida\Dns\Records\DnsRecordTypes;
 
 class Dig extends AbstractDnsHandler
 {
-
-    protected static array $defaultProperties = ['host', 'ttl', 'class', 'type'];
-
-    protected static array $properties = [
-        DnsRecordTypes::A     => ['ip'],
-        DnsRecordTypes::AAAA  => ['ipv6'],
-        DnsRecordTypes::CAA   => ['flags', 'tag', 'value'],
-        DnsRecordTypes::CNAME => ['target'],
-        DnsRecordTypes::SOA   => ['mname', 'rname', 'serial', 'refresh', 'retry', 'expire', 'minimum-ttl'],
-        DnsRecordTypes::TXT   => ['txt'],
-        DnsRecordTypes::NS    => ['target'],
-        DnsRecordTypes::MX    => ['pri', 'target'],
-        DnsRecordTypes::PTR   => ['target'],
-        DnsRecordTypes::SRV   => ['pri', 'weight', 'port', 'target'],
-    ];
-
-    protected static array $numberProperties = [
-        'ttl',
-        'minimum-ttl',
-        'expire',
-        'retry',
-        'refresh',
-        'port',
-        'pri',
-        'weight'
-    ];
 
     /**
      * @throws DnsHandlerException
@@ -97,15 +72,16 @@ class Dig extends AbstractDnsHandler
     public function canUseDig(): bool
     {
         $result = $this->executeCommand('dig -v 2>&1');
-        return !empty($result[0]) && stripos($result[0], 'dig') === 0 ;
+        return !empty($result[0]) && stripos($result[0], 'dig') === 0;
     }
 
     public function getPropertiesData(int $typeId): ?array
     {
-        if (empty(self::$properties[$typeId])) {
+        $properties = DnsRecordProperties::getProperties($typeId);
+        if (empty($properties)) {
             return null;
         }
-        return array_merge(self::$defaultProperties, self::$properties[$typeId]);
+        return array_merge(DnsRecordProperties::getDefaultProperties(), $properties);
     }
 
     private function normalizeRawResult(array $rawResult): array
@@ -138,8 +114,7 @@ class Dig extends AbstractDnsHandler
 
         foreach ($array as $key => $value) {
             $propertyName = $configData[$key];
-            $isNumber = in_array($propertyName, self::$numberProperties);
-            $result[$propertyName] = $isNumber
+            $result[$propertyName] = DnsRecordProperties::isNumberProperty($propertyName)
                 ? $value + 0
                 : $value;
         }
