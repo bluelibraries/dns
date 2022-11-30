@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmidaTest\Dns\Unit\Records\Types;
+namespace MamaOmida\Dns\Test\Unit\Records\Types;
 
 use MamaOmida\Dns\Records\Types\AAAA;
-use MamaOmidaTest\Dns\Unit\Records\AbstractRecordTestClass;
+use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property AAAA $subject
