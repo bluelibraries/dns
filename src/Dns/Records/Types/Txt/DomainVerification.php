@@ -4,7 +4,7 @@ namespace MamaOmida\Dns\Records\Types\Txt;
 
 use MamaOmida\Dns\Records\ExtendedRecordTrait;
 use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt;
+use MamaOmida\Dns\Records\Types\TXT;
 
 class DomainVerification extends TXT
 {

@@ -5,7 +5,7 @@ namespace MamaOmida\Dns\Records\Types\Txt;
 use MamaOmida\Dns\Records\DnsUtils;
 use MamaOmida\Dns\Records\ExtendedRecordTrait;
 use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt;
+use MamaOmida\Dns\Records\Types\TXT;
 use MamaOmida\Dns\Regex;
 
 class Dkim extends TXT
