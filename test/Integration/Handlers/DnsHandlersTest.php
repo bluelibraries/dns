@@ -43,7 +43,7 @@ class DnsHandlersTest extends TestCase
             $dnsHandler = $this->handlerFactory->create($handlerType);
             if ($dnsHandler->getType() !== DnsHandlerTypes::DNS_GET_RECORD) {
                 $dnsHandler
-                    ->setNameserver('192.168.1.1')
+                    ->setNameserver('8.8.8.8')
                     ->setTimeout(10)
                     ->setRetries(3);
             }
