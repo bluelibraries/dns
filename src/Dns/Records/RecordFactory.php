@@ -20,7 +20,7 @@ use MamaOmida\Dns\Records\Types\NAPTR;
 use MamaOmida\Dns\Records\Types\NS;
 use MamaOmida\Dns\Records\Types\SOA;
 use MamaOmida\Dns\Records\Types\SRV;
-use MamaOmida\Dns\Records\Types\Txt;
+use MamaOmida\Dns\Records\Types\TXT;
 
 class RecordFactory
 {
