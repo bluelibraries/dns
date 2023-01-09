@@ -38,6 +38,11 @@ class DnsGetRecord extends AbstractDnsHandler
         return DnsHandlerTypes::DNS_GET_RECORD;
     }
 
+    public function canUseIt(): bool
+    {
+        return function_exists('dns_get_record');
+    }
+
     /**
      * @throws DnsHandlerException
      */

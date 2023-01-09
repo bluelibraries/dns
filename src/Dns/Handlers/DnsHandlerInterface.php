@@ -7,6 +7,8 @@ interface DnsHandlerInterface
 
     public function getType(): string;
 
+    public function canUseIt(): bool;
+
     public function getDnsData(string $hostName, int $typeId): array;
 
     public function getRetries(): int;

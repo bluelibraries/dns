@@ -41,6 +41,11 @@ class DnsHandlersTest extends TestCase
 
         foreach (DnsHandlerTypes::getAll() as $handlerType) {
             $dnsHandler = $this->handlerFactory->create($handlerType);
+
+            if (!$dnsHandler->canUseIt()) {
+                continue;
+            }
+
             if ($dnsHandler->getType() !== DnsHandlerTypes::DNS_GET_RECORD) {
                 $dnsHandler
                     ->setNameserver('8.8.8.8')
@@ -261,6 +266,7 @@ class DnsHandlersTest extends TestCase
         }
 
         $this->assertTrue($this->allArraysAreEquals($results, $recordTypesFound));
+
         self::$recordTypesFound[$testKey] = array_values(
             array_unique(
                 array_merge(self::$recordTypesFound[$testKey], $recordTypesFound)
@@ -299,11 +305,13 @@ class DnsHandlersTest extends TestCase
         $recordTypes = $this->getRecordsTypesForTestingLongValues();
 
         foreach ($this->subjects as $handlerType => $subject) {
+
             if (
                 $handlerType === DnsHandlerTypes::UDP
             ) {
                 continue;
             }
+
             try {
                 $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
             } catch (DnsHandlerException $exception) {
@@ -398,6 +406,7 @@ class DnsHandlersTest extends TestCase
         $recordTypes = $this->getRecordsTypesForTestingLongValues();
 
         foreach ($this->subjects as $handlerType => $subject) {
+
             if ($handlerType !== DnsHandlerTypes::TCP) {
                 continue;
             }

@@ -5,6 +5,7 @@ namespace MamaOmida\Dns\Handlers\Types;
 use MamaOmida\Dns\Handlers\AbstractDnsHandler;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerTypes;
+use MamaOmida\Dns\Handlers\Raw\RawDataException;
 use MamaOmida\Dns\Handlers\Raw\RawDataRequest;
 use MamaOmida\Dns\Handlers\Raw\RawDataResponse;
 
@@ -22,6 +23,11 @@ class UDP extends AbstractDnsHandler
     public function getType(): string
     {
         return DnsHandlerTypes::UDP;
+    }
+
+    public function canUseIt(): bool
+    {
+        return function_exists('socket_create');
     }
 
     private function getSocket()
@@ -69,6 +75,7 @@ class UDP extends AbstractDnsHandler
 
     /**
      * @throws DnsHandlerException
+     * @throws RawDataException
      */
     private function query($hostName, $typeId, $retry = 0): ?RawDataResponse
     {

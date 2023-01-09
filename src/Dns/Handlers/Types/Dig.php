@@ -21,6 +21,15 @@ class Dig extends AbstractDnsHandler
     /**
      * @throws DnsHandlerException
      */
+    public function canUseIt(): bool
+    {
+        $result = $this->executeCommand('dig -v 2>&1');
+        return !empty($result[0]) && stripos($result[0], 'dig') === 0;
+    }
+
+    /**
+     * @throws DnsHandlerException
+     */
     public function getDnsData(string $hostName, int $typeId): array
     {
         $this->validateParams($hostName, $typeId);
@@ -93,15 +102,6 @@ class Dig extends AbstractDnsHandler
     public function isValidCommand(string $command): bool
     {
         return preg_match(Regex::DIG_COMMAND, $command) === 1;
-    }
-
-    /**
-     * @throws DnsHandlerException
-     */
-    public function canUseDig(): bool
-    {
-        $result = $this->executeCommand('dig -v 2>&1');
-        return !empty($result[0]) && stripos($result[0], 'dig') === 0;
     }
 
     public function getPropertiesData(int $typeId): ?array

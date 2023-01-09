@@ -24,6 +24,11 @@ class TCP extends AbstractDnsHandler
         return DnsHandlerTypes::TCP;
     }
 
+    function canUseIt(): bool
+    {
+      return function_exists('fsockopen');
+    }
+
     private function getSocket()
     {
         $result = $this->socket
