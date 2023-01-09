@@ -222,10 +222,13 @@ class DigTest extends TestCase
         $this->assertSame([], $this->subject->getDnsRawResult('test.com', 99999999999999));
     }
 
+    /**
+     * @throws DnsHandlerException
+     */
     public function testCanExecuteDig()
     {
         $subject = new Dig();
-        $this->assertIsBool($subject->canUseDig());
+        $this->assertIsBool($subject->canUseIt());
     }
 
     public function validCommandsDataProvider(): array
