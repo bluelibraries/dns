@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class MX extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::MX;
+        return RecordTypes::MX;
     }
 
     public function getTarget(): ?string

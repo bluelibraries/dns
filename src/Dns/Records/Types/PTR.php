@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class PTR extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::PTR;
+        return RecordTypes::PTR;
     }
 
     public function getTarget(): ?string

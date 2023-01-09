@@ -4,7 +4,7 @@ namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
 
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\Types\Dig;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +28,7 @@ class DigTest extends TestCase
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionMessage('Invalid hostname, it must not be empty!');
         $this->expectExceptionCode(DnsHandlerException::HOSTNAME_EMPTY);
-        $this->subject->getDnsData('', DNS_ALL);
+        $this->subject->getDnsData('', RecordTypes::ALL);
     }
 
     public function testGetDnsDataInvalidHostNameLength()
@@ -36,15 +36,15 @@ class DigTest extends TestCase
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionMessage('Invalid hostname "fo" length. It must be 3 or more!');
         $this->expectExceptionCode(DnsHandlerException::HOSTNAME_LENGTH_TOO_SMALL);
-        $this->subject->getDnsData('fo', DNS_ALL);
+        $this->subject->getDnsData('fo', RecordTypes::ALL);
     }
 
     public function testGetDnsDataInvalidHostNameBadCharacters()
     {
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Invalid hostname "ana*are*mere.com" format! (characters "A-Za-z0-9.-" allowed)');
+        $this->expectExceptionMessage('Invalid hostname "ana*are*mere.com" format! (characters "A-Za-z0-9.-", max length 63 chars allowed)');
         $this->expectExceptionCode(DnsHandlerException::HOSTNAME_FORMAT_INVALID);
-        $this->subject->getDnsData('ana*are*mere.com', DNS_ALL);
+        $this->subject->getDnsData('ana*are*mere.com', RecordTypes::ALL);
     }
 
     public function testGetDnsDataHostNameFormatExceededLength()
@@ -53,24 +53,24 @@ class DigTest extends TestCase
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionMessage('Invalid hostname "' . $hostName . '" length! (min 3, max 253 characters allowed)');
         $this->expectExceptionCode(DnsHandlerException::HOSTNAME_LENGTH_INVALID);
-        $this->subject->getDnsData($hostName, DNS_ALL);
+        $this->subject->getDnsData($hostName, RecordTypes::ALL);
     }
 
     public function testGetDnsDataHostTLDExtensionFormatExceededLength()
     {
         $hostName = 'a.' . str_repeat('b', 64);
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Invalid hostname "' . $hostName . '" TLD (extension) length! (min 1, max 63 characters allowed)');
-        $this->expectExceptionCode(DnsHandlerException::HOSTNAME_TLD_LENGTH_INVALID);
-        $this->subject->getDnsData($hostName, DNS_ALL);
+        $this->expectExceptionMessage('Invalid hostname "'.$hostName.'" format! (characters "A-Za-z0-9.-", max length 63 chars allowed)');
+        $this->expectExceptionCode(DnsHandlerException::HOSTNAME_FORMAT_INVALID);
+        $this->subject->getDnsData($hostName, RecordTypes::ALL);
     }
 
     public function testGetDnsDataInvalidTypeId()
     {
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Invalid records typeId: 0 !');
+        $this->expectExceptionMessage('Invalid records typeId: -2 host "test.com" !');
         $this->expectExceptionCode(DnsHandlerException::TYPE_ID_INVALID);
-        $this->subject->getDnsData('test.com', 0);
+        $this->subject->getDnsData('test.com', -2);
     }
 
     /**
@@ -79,7 +79,7 @@ class DigTest extends TestCase
     public function testGetDnsDataEmptyData()
     {
         $this->setValueInExecuteCommand([]);
-        $this->assertSame([], $this->subject->getDnsData('test.com', DNS_ALL));
+        $this->assertSame([], $this->subject->getDnsData('test.com', RecordTypes::ALL));
     }
 
     /**
@@ -98,7 +98,7 @@ class DigTest extends TestCase
                     'ip'    => '20.81.111.85',
                 ]
             ],
-            $this->subject->getDnsData('test.com', DNS_ALL)
+            $this->subject->getDnsData('test.com', RecordTypes::ALL)
         );
     }
 
@@ -120,7 +120,7 @@ class DigTest extends TestCase
 
     public function testGetRetries()
     {
-        $this->assertSame(5, $this->subject->getRetries());
+        $this->assertSame(2, $this->subject->getRetries());
     }
 
     public function testSetRetries()
@@ -166,7 +166,7 @@ class DigTest extends TestCase
         $this->subject->expects(
             $this->once()
         )->method('executeCommand');
-        $this->assertSame([], $this->subject->getDnsData('test.com', DNS_TXT));
+        $this->assertSame([], $this->subject->getDnsData('test.com', RecordTypes::TXT));
     }
 
     public function testGetPropertiesDataNoDefinedProperties()
@@ -177,16 +177,16 @@ class DigTest extends TestCase
     public function getPropertiesDataProvider(): array
     {
         return [
-            [DnsRecordTypes::A, ['ip'],],
-            [DnsRecordTypes::AAAA, ['ipv6'],],
-            [DnsRecordTypes::CAA, ['flags', 'tag', 'value'],],
-            [DnsRecordTypes::CNAME, ['target'],],
-            [DnsRecordTypes::SOA, ['mname', 'rname', 'serial', 'refresh', 'retry', 'expire', 'minimum-ttl'],],
-            [DnsRecordTypes::TXT, ['txt'],],
-            [DnsRecordTypes::NS, ['target'],],
-            [DnsRecordTypes::MX, ['pri', 'target'],],
-            [DnsRecordTypes::PTR, ['target'],],
-            [DnsRecordTypes::SRV, ['pri', 'weight', 'port', 'target'],],
+            [RecordTypes::A, ['ip'],],
+            [RecordTypes::AAAA, ['ipv6'],],
+            [RecordTypes::CAA, ['flags', 'tag', 'value'],],
+            [RecordTypes::CNAME, ['target'],],
+            [RecordTypes::SOA, ['mname', 'rname', 'serial', 'refresh', 'retry', 'expire', 'minimum-ttl'],],
+            [RecordTypes::TXT, ['txt'],],
+            [RecordTypes::NS, ['target'],],
+            [RecordTypes::MX, ['pri', 'target'],],
+            [RecordTypes::PTR, ['target'],],
+            [RecordTypes::SRV, ['pri', 'weight', 'port', 'target'],],
         ];
     }
 
@@ -205,7 +205,7 @@ class DigTest extends TestCase
     public function testExecuteCommandInvalidArgumentsThrowsError()
     {
         $subject = new Dig();
-        $this->assertSame([], $subject->getDnsRawResult('ls', DNS_TXT));
+        $this->assertSame([], $subject->getDnsRawResult('ls', RecordTypes::TXT));
     }
 
     public function testGetDnsRawResultInvalidGetCommandReturnsEmptyArray()
@@ -214,7 +214,7 @@ class DigTest extends TestCase
             ->onlyMethods(['getCommand'])
             ->getMock();
         $subject->method('getCommand')->willReturn('ls');
-        $this->assertSame([], $subject->getDnsRawResult('test.com', DNS_TXT));
+        $this->assertSame([], $subject->getDnsRawResult('test.com', RecordTypes::TXT));
     }
 
     public function testGetCommandNoRecordName()
@@ -237,17 +237,19 @@ class DigTest extends TestCase
             ['dig | ls', false],
             ['wget', false],
             ['wget', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com ABCDEF', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A ', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8 ', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1 ', false],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.1168.0.1', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com ABCDEFGHIJKLM', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A ', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @8.8', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8 ', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1 ', false],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @192.1168.0.1', false],
 
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com ABCDE', true],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A', true],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8', true],
-            ['dig +nocmd +noall +authority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1', true],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com ABCDE', true],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com ABC123-DE', true],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A', true],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @8.8.8.8', true],
+            ['dig +nocmd +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1', true],
+            ['dig +nocmd +bufsize=1024 +noall +noauthority +answer +nomultiline +tries=1 +time=5 test.com A @192.168.0.1', true],
         ];
     }
 

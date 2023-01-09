@@ -5,6 +5,7 @@ namespace MamaOmida\Dns\Test\Unit;
 use MamaOmida\Dns\Dns;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerInterface;
+use MamaOmida\Dns\Records\RecordTypes;
 use MamaOmida\Dns\Records\RecordException;
 use MamaOmida\Dns\Records\RecordFactory;
 use MamaOmida\Dns\Records\RecordInterface;
@@ -39,11 +40,15 @@ class DnsTest extends TestCase
         $this->subject = new Dns($this->handler, $this->factory);
     }
 
+    /**
+     * @throws RecordException
+     * @throws DnsHandlerException
+     */
     public function testGetRecordsEmptyArray()
     {
         $this->handler->method('getDnsData')->willReturn([]);
         $this->factory->expects($this->never())->method('create');
-        $this->assertSame([], $this->subject->getRecords('test.test'));
+        $this->assertSame([], $this->subject->getRecords('test.test', RecordTypes::A));
     }
 
     public function allRecordTypesFormattedClassesDataProvider(): array
@@ -68,7 +73,7 @@ class DnsTest extends TestCase
         $this->factory->method('create')
             ->willReturn($recordTypeA);
 
-        $records = $this->subject->getRecords($data['host']);
+        $records = $this->subject->getRecords($data['host'], RecordTypes::A);
 
         $this->assertSame($recordTypeA, $records[0]);
     }

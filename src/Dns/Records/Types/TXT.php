@@ -3,14 +3,23 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
+use MamaOmida\Dns\Records\ExtendedTxtRecords;
 
 class TXT extends AbstractRecord
 {
 
+    public function __construct(array $data)
+    {
+        if (isset($data['entries'])) {
+            unset($data['entries']);
+        }
+        parent::__construct($data);
+    }
+
     public function getTypeId(): int
     {
-        return DnsRecordTypes::TXT;
+        return RecordTypes::TXT;
     }
 
     public function getTxt(): ?string

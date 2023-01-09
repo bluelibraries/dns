@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class SOA extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::SOA;
+        return RecordTypes::SOA;
     }
 
     public function getMasterNameServer(): ?string

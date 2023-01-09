@@ -2,7 +2,7 @@
 
 namespace MamaOmida\Dns\Test\Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\TXT;
+use MamaOmida\Dns\Records\Types\Txt;
 use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**

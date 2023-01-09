@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class SRV extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::SRV;
+        return RecordTypes::SRV;
     }
 
     public function getPriority(): ?int

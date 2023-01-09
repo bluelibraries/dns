@@ -29,7 +29,7 @@ class RecordFactoryTest extends TestCase
      */
     public function testCreate(array $data, string $class)
     {
-        $record = $this->subject->create($data);
+        $record = $this->subject->create($data, false);
         $this->assertSame(get_class($record), $class);
         $this->assertSame($data, $record->toArray());
     }
@@ -39,7 +39,7 @@ class RecordFactoryTest extends TestCase
         $this->expectException(RecordException::class);
         $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD);
         $this->expectExceptionMessage('Invalid record type for recordData: []');
-        $this->subject->create([]);
+        $this->subject->create([], false);
     }
 
     public function testCreateInvalidRecordTypeThrowsException()
@@ -47,23 +47,23 @@ class RecordFactoryTest extends TestCase
         $this->expectException(RecordException::class);
         $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD);
         $this->expectExceptionMessage('Invalid record type for recordData: {"type":"INVALID"}');
-        $this->subject->create(['type' => 'INVALID']);
+        $this->subject->create(['type' => 'INVALID'], false);
     }
 
     public function testCreateTypeAnyThrowsException()
     {
         $this->expectException(RecordException::class);
-        $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD_TYPE);
-        $this->expectExceptionMessage('Unable to create record type 268435456');
-        $this->subject->create(['type' => 'ANY']);
+        $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD);
+        $this->expectExceptionMessage('Invalid record type for recordData: {"type":"ANY"}');
+        $this->subject->create(['type' => 'ANY'], false);
     }
 
     public function testCreateTypeAllThrowsException()
     {
         $this->expectException(RecordException::class);
         $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD_TYPE);
-        $this->expectExceptionMessage('Unable to create record type 251721779');
-        $this->subject->create(['type' => 'ALL']);
+        $this->expectExceptionMessage('Unable to create record type 255 for record data: {"type":"ALL"}');
+        $this->subject->create(['type' => 'ALL'], false);
     }
 
 

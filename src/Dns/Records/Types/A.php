@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class A extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::A;
+        return RecordTypes::A;
     }
 
     public function getIp(): ?string

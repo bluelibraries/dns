@@ -3,14 +3,14 @@
 namespace MamaOmida\Dns\Records\Types;
 
 use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 
 class CAA extends AbstractRecord
 {
 
     public function getTypeId(): int
     {
-        return DnsRecordTypes::CAA;
+        return RecordTypes::CAA;
     }
 
     public function getFlags(): ?string

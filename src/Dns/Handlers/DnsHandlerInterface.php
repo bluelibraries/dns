@@ -4,7 +4,10 @@ namespace MamaOmida\Dns\Handlers;
 
 interface DnsHandlerInterface
 {
-    public function getDnsData(string $hostName, int $type): array;
+
+    public function getType(): string;
+
+    public function getDnsData(string $hostName, int $typeId): array;
 
     public function getRetries(): int;
 

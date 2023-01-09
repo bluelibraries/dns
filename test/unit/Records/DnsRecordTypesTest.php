@@ -2,7 +2,7 @@
 
 namespace MamaOmida\Dns\Test\Unit\Records;
 
-use MamaOmida\Dns\Records\DnsRecordTypes;
+use MamaOmida\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class DnsRecordTypesTest extends TestCase
@@ -10,27 +10,26 @@ class DnsRecordTypesTest extends TestCase
 
     public static function testGetNameInvalid()
     {
-        static::assertNull(DnsRecordTypes::getName(0));
+        static::assertNull(RecordTypes::getName(0));
     }
 
     public static function validTypesDataProvider(): array
     {
         return [
-            [DnsRecordTypes::A],
-            [DnsRecordTypes::CNAME],
-            [DnsRecordTypes::HINFO],
-            [DnsRecordTypes::CAA],
-            [DnsRecordTypes::MX],
-            [DnsRecordTypes::NS],
-            [DnsRecordTypes::PTR],
-            [DnsRecordTypes::SOA],
-            [DnsRecordTypes::TXT],
-            [DnsRecordTypes::AAAA],
-            [DnsRecordTypes::SRV],
-            [DnsRecordTypes::NAPTR],
-            [DnsRecordTypes::A6],
-            [DnsRecordTypes::ALL],
-            [DnsRecordTypes::ANY]
+            [RecordTypes::A],
+            [RecordTypes::CNAME],
+            [RecordTypes::HINFO],
+            [RecordTypes::CAA],
+            [RecordTypes::MX],
+            [RecordTypes::NS],
+            [RecordTypes::PTR],
+            [RecordTypes::SOA],
+            [RecordTypes::TXT],
+            [RecordTypes::AAAA],
+            [RecordTypes::SRV],
+            [RecordTypes::NAPTR],
+            [RecordTypes::A6],
+            [RecordTypes::ALL],
         ];
     }
 
@@ -38,9 +37,9 @@ class DnsRecordTypesTest extends TestCase
      * @return void
      * @dataProvider validTypesDataProvider
      */
-    public static function testGetNameValid(int $type)
+    public static function testGetNameValid(int $typeId)
     {
-        static::assertIsString(DnsRecordTypes::getName($type));
+        static::assertIsString(RecordTypes::getName($typeId));
     }
 
 }

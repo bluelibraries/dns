@@ -2,19 +2,28 @@
 
 namespace MamaOmida\Dns\Handlers;
 
+use MamaOmida\Dns\Records\RecordTypes;
+use MamaOmida\Dns\Regex;
+
 abstract class AbstractDnsHandler implements DnsHandlerInterface
 {
 
-    protected int $retries = 5;
+    protected int $retries = 2;
 
     /**
      * maximum number of seconds DNS interrogation retries are allowed
+     * seconds timeout per retry
+     * 2 retries = 3 tries (1 initial try + 2 more tries)
+     * if timeout is 10 that means that script duration may go up to 10 x number of tries
+     * eg: timeout = 5,  retries = 1 (+ 1 initial try) => 10 seconds
+     *     timeout = 5,  retries = 2 (+ 1 initial try) => 15 seconds
+     *     timeout = 10, retries = 3 (+ 1 initial try) => 40 seconds (this is huge)
      */
-    protected int $timeout = 5; //seconds
+    protected int $timeout = 5;
 
     protected ?string $nameserver = null;
 
-    public abstract function getDnsData(string $hostName, int $type): array;
+    public abstract function getDnsData(string $hostName, int $typeId): array;
 
     /**
      * @return int
@@ -86,21 +95,21 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
             );
         }
 
-        if (!preg_match('/^(([a-z\d_\-]+\.)+)?([a-z\d\-]+)\.([a-z\d]+)$/i', $hostName)) {
+        if (!preg_match(Regex::DOMAIN_OR_SUBDOMAIN, $hostName)) {
             throw new DnsHandlerException(
-                $hostnameErrorInfo . ' format! (characters "A-Za-z0-9.-" allowed)',
+                $hostnameErrorInfo . ' format! (characters "A-Za-z0-9.-", max length 63 chars allowed)',
                 DnsHandlerException::HOSTNAME_FORMAT_INVALID
             );
         }
 
-        if (!preg_match('/^.{3,253}$/', $hostName)) {
+        if (!preg_match(Regex::HOSTNAME_LENGTH, $hostName)) {
             throw new DnsHandlerException(
                 $hostnameErrorInfo . ' length! (min 3, max 253 characters allowed)',
                 DnsHandlerException::HOSTNAME_LENGTH_INVALID
             );
         }
 
-        if (!preg_match('/^[^.]{1,63}(\.[^.]{1,63})*$/', $hostName)) {
+        if (!preg_match(Regex::DOMAIN_EXTENSION, $hostName)) {
             throw new DnsHandlerException(
                 $hostnameErrorInfo .
                 ' TLD (extension) length! (min 1, max 63 characters allowed)',
@@ -112,11 +121,12 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
     /**
      * @throws DnsHandlerException
      */
-    protected function validateType(int $type)
+    protected function validateTypeIdValue(int $type, ?string $hostName = null)
     {
-        if ($type <= 0) {
+        if (!RecordTypes::isValidTypeId($type)) {
             throw new DnsHandlerException(
-                'Invalid records typeId: ' . json_encode($type) . ' !',
+                'Invalid records typeId: ' . json_encode($type) .
+                ' host ' . json_encode($hostName) . ' !',
                 DnsHandlerException::TYPE_ID_INVALID
             );
         }
@@ -125,10 +135,10 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
     /**
      * @throws DnsHandlerException
      */
-    protected function validateParams(string $hostName, int $type)
+    protected function validateParams(string $hostName, int $typeId)
     {
         $this->validateHostName($hostName);
-        $this->validateType($type);
+        $this->validateTypeIdValue($typeId, $hostName);
     }
 
     public function lineToArray(string $line, ?int $limit = 0): array
@@ -138,7 +148,7 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
         }
         return explode(
             ' ',
-            preg_replace('/\s+/', ' ', $line),
+            preg_replace(Regex::SEPARATED_WORDS, ' ', $line),
             $limit
         );
     }

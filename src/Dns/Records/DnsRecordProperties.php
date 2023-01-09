@@ -7,16 +7,123 @@ class DnsRecordProperties
     protected static array $defaultProperties = ['host', 'ttl', 'class', 'type'];
 
     protected static array $properties = [
-        DnsRecordTypes::A     => ['ip'],
-        DnsRecordTypes::AAAA  => ['ipv6'],
-        DnsRecordTypes::CAA   => ['flags', 'tag', 'value'],
-        DnsRecordTypes::CNAME => ['target'],
-        DnsRecordTypes::SOA   => ['mname', 'rname', 'serial', 'refresh', 'retry', 'expire', 'minimum-ttl'],
-        DnsRecordTypes::TXT   => ['txt'],
-        DnsRecordTypes::NS    => ['target'],
-        DnsRecordTypes::MX    => ['pri', 'target'],
-        DnsRecordTypes::PTR   => ['target'],
-        DnsRecordTypes::SRV   => ['pri', 'weight', 'port', 'target'],
+        RecordTypes::A              => [
+            'ip'
+        ],
+        RecordTypes::AAAA           => [
+            'ipv6'
+        ],
+        RecordTypes::CAA            => [
+            'flags',
+            'tag',
+            'value'
+        ],
+        RecordTypes::CNAME          => [
+            'target'
+        ],
+        RecordTypes::SOA            => [
+            'mname',
+            'rname',
+            'serial',
+            'refresh',
+            'retry',
+            'expire',
+            'minimum-ttl'
+        ],
+        RecordTypes::TXT            => [
+            'txt',
+        ],
+        RecordTypes::DEPRECATED_SPF => [
+            'txt',
+        ],
+        RecordTypes::NS             => [
+            'target'
+        ],
+        RecordTypes::MX             => [
+            'pri',
+            'target'
+        ],
+        RecordTypes::PTR            => [
+            'target'
+        ],
+        RecordTypes::SRV            => [
+            'pri',
+            'weight',
+            'port',
+            'target'
+        ],
+        RecordTypes::HINFO          => [
+            'hardware',
+            'os'
+        ],
+        RecordTypes::RRSIG          => [
+            'type-covered',
+            'algorithm', // int?
+            'labels-number',
+            'original-ttl',
+            'signature-expiration',
+            'signature-creation',
+            'key-tag',
+            'signer-name',
+            'signature',
+        ],
+
+        RecordTypes::DNSKEY => [
+            'flags',
+            'protocol',
+            'algorithm', // int?
+            'public-key',
+        ],
+
+        RecordTypes::NSEC3_PARAM => [
+            'algorithm', // int?
+            'flags',
+            'iterations',
+            'salt'
+        ],
+
+        RecordTypes::CDS => [
+            'key-tag',
+            'algorithm',
+            'algorithm-digest',
+            'digest',
+        ],
+
+
+        RecordTypes::DS => [
+            'key-tag',
+            'algorithm',
+            'algorithm-digest',
+            'digest',
+        ],
+
+        RecordTypes::CDNSKEY => [
+            'flags',
+            'protocol',
+            'algorithm',
+            'public-key'
+        ],
+
+        RecordTypes::NSEC => [
+            'next-authoritative-name',
+            'types',
+        ],
+
+        RecordTypes::HTTPS => [
+            'separator',
+            'original-length',
+            'data',
+        ],
+
+        RecordTypes::NAPTR => [
+            'order',
+            'pref',
+            'flag',
+            'services',
+            'regex',
+            'replacement',
+        ],
+
     ];
 
     protected static array $numberProperties = [
@@ -27,7 +134,31 @@ class DnsRecordProperties
         'refresh',
         'port',
         'pri',
-        'weight'
+        'weight',
+        'original-ttl',
+        'signature-expiration',
+        'signature-creation',
+        'iterations',
+        'flags',
+        'algorithm',
+        'key-tag',
+        'algorithm-digest',
+        'zone-key',
+        'serial',
+        'labels-number',
+        'protocol',
+        'original-length',
+        'order',
+        'pref',
+    ];
+
+    private static array $loweredCaseProperties = [
+        'host',
+    ];
+
+    protected static array $excludedBaseProperties = [
+        'ttl',
+        'entries',
     ];
 
     public static function getProperties(int $typeId): ?array
@@ -43,6 +174,11 @@ class DnsRecordProperties
     public static function isNumberProperty(string $property): bool
     {
         return in_array($property, self::$numberProperties);
+    }
+
+    public static function isLoweredCaseProperty(string $property): bool
+    {
+        return in_array($property, self::$loweredCaseProperties);
     }
 
     public static function getRecordTypeProperties(int $typeId): array
@@ -81,6 +217,14 @@ class DnsRecordProperties
             },
             DnsRecordProperties::getRecordTypeProperties($typeId)
         );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getExcludedBaseProperties(): array
+    {
+        return self::$excludedBaseProperties;
     }
 
 }

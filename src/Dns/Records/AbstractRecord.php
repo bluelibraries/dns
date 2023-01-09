@@ -9,6 +9,11 @@ abstract class AbstractRecord implements RecordInterface
 
     public abstract function getTypeId(): int;
 
+    public function getTypeName(): string
+    {
+        return RecordTypes::getName($this->getTypeId());
+    }
+
     public function __construct(array $data)
     {
         $this->setData($data);
@@ -31,7 +36,7 @@ abstract class AbstractRecord implements RecordInterface
         }
 
         if (!isset($this->data['type'])) {
-            $this->data['type'] = DnsRecordTypes::getName($this->getTypeId());
+            $this->data['type'] = RecordTypes::getName($this->getTypeId());
         }
 
         return $this;
@@ -65,6 +70,37 @@ abstract class AbstractRecord implements RecordInterface
             $separator,
             DnsRecordProperties::getFilteredProperties($this->getTypeId(), $this->data)
         );
+    }
+
+    private function makeString(array $array): string
+    {
+        if (empty($array)) {
+            return '';
+        }
+
+        $result = [];
+        foreach ($array as $key => $value) {
+            $result[$key] = is_array($value) ? $this->makeString($value) : $value;
+        }
+        return implode('', $result);
+    }
+
+    public function getHash(): string
+    {
+        return md5($this->makeString($this->toBaseArray()));
+    }
+
+    public function toBaseArray(): array
+    {
+        $data = $this->toArray();
+        $expiringKeys = DnsRecordProperties::getExcludedBaseProperties();
+        foreach ($expiringKeys as $expiringKey) {
+            if (isset($data[$expiringKey])) {
+                unset($data[$expiringKey]);
+            }
+        }
+
+        return $data;
     }
 
 }
