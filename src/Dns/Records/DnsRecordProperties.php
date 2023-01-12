@@ -152,6 +152,10 @@ class DnsRecordProperties
         'pref',
     ];
 
+    private static array $wrappedProperties = [
+        'txt',
+    ];
+
     private static array $loweredCaseProperties = [
         'host',
     ];
@@ -225,6 +229,11 @@ class DnsRecordProperties
     public static function getExcludedBaseProperties(): array
     {
         return self::$excludedBaseProperties;
+    }
+
+    public static function isWrappedProperty(string $propertyName): bool
+    {
+        return in_array($propertyName, self::$wrappedProperties);
     }
 
 }

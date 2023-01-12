@@ -12,6 +12,16 @@ class Dkim extends TXT
 {
     use ExtendedRecordTrait;
 
+    public const VERSION = 'v';
+    public const KEY_TYPE = 'k';
+    public const PUBLIC_KEY = 'p';
+    public const HASH_TYPE = 'h';
+    public const GROUP = 'g';
+    public const NOTES = 'n';
+    public const QUERY = 'q';
+    public const SERVICE_TYPE = 's';
+    public const TESTING_TYPE = 't';
+
     private array $parsedValues = [];
 
     private function getExtendedTypeName(): ?string
@@ -19,7 +29,7 @@ class Dkim extends TXT
         return ExtendedTxtRecords::DKIM;
     }
 
-    private function parseValues()
+    public function parseValues(): bool
     {
         if (empty($this->getTxt())) {
             return false;
@@ -30,26 +40,23 @@ class Dkim extends TXT
         }
 
         $value = DnsUtils::sanitizeTextLineSeparators($this->getTxt());
-        $result = preg_match_all(Regex::DKIM_VALUES, $value, $matches);
+        preg_match_all(Regex::DKIM_VALUES, $value, $matches);
 
-        if ($result < 2 || empty($matches[0])) {
-            return false;
-        }
         $result = [];
+
         foreach ($matches[0] as $match) {
             $matchData = explode('=', $match);
             if (!isset($matchData[1])) {
                 return false;
             }
-            $result[$matchData[0]] = $matchData[1];
+            $result[strtolower($matchData[0])] = $matchData[1];
         }
 
         $this->parsedValues = $result;
         $this->parsedValues['internalHash'] = $this->getValueHash();
 
-        return $result;
+        return true;
     }
-
 
     /**
      * @return string
@@ -70,7 +77,7 @@ class Dkim extends TXT
         return $hash === $this->getValueHash();
     }
 
-    public function getParsedValue(string $key): ?string
+    private function getParsedValue(string $key): ?string
     {
         $this->parseValues();
         return $this->parsedValues[$key] ?? null;
@@ -78,47 +85,47 @@ class Dkim extends TXT
 
     public function getPublicKey(): ?string
     {
-        return $this->getParsedValue('p');
+        return $this->getParsedValue(self::PUBLIC_KEY);
     }
 
     public function getVersion(): ?string
     {
-        return $this->getParsedValue('v');
+        return $this->getParsedValue(self::VERSION);
     }
 
     public function getKeyType(): ?string
     {
-        return $this->getParsedValue('k');
+        return $this->getParsedValue(self::KEY_TYPE);
     }
 
     public function getHashType(): ?string
     {
-        return $this->getParsedValue('h');
+        return $this->getParsedValue(self::HASH_TYPE);
     }
 
     public function getGroup(): ?string
     {
-        return $this->getParsedValue('g');
+        return $this->getParsedValue(self::GROUP);
     }
 
     public function getNotes(): ?string
     {
-        return $this->getParsedValue('n');
+        return $this->getParsedValue(self::NOTES);
     }
 
     public function getQuery(): ?string
     {
-        return $this->getParsedValue('q');
+        return $this->getParsedValue(self::QUERY);
     }
 
     public function getServiceType(): ?string
     {
-        return $this->getParsedValue('s');
+        return $this->getParsedValue(self::SERVICE_TYPE);
     }
 
     public function getTestingType(): ?string
     {
-        return $this->getParsedValue('t');
+        return $this->getParsedValue(self::TESTING_TYPE);
     }
 
     public function getSelector(): ?string

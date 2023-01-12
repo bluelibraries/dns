@@ -21,4 +21,9 @@ class DomainVerification extends TXT
         return ExtendedTxtRecords::getSiteVerification($this->getTxt());
     }
 
+    public function getValue(): string
+    {
+        return ExtendedTxtRecords::getSiteVerificationValue($this->getTxt());
+    }
+
 }

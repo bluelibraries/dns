@@ -21,7 +21,6 @@ class SPF extends TXT
         if (!empty($data['txt'])) {
             $data['txt'] = DnsUtils::sanitizeTextLineSeparators($data['txt']);
         }
-        $data['type'] = $this->getExtendedTypeName();
         parent::__construct($data);
     }
 
@@ -36,24 +35,9 @@ class SPF extends TXT
             return [];
         }
 
-        $regexResult = preg_match_all(Regex::WORDS_SEPARATED_SPACE, $this->getTxt(), $matches);
-
-        if ($regexResult === false) {
-            return [];
-        }
-
-        $totalMatches = count($matches);
-
-        if ($totalMatches !== 1) {
-            return [];
-        }
+        preg_match_all(Regex::WORDS_SEPARATED_SPACE, $this->getTxt(), $matches);
 
         $words = $matches[0];
-        $wordCount = count($words);
-
-        if ($wordCount === 0) {
-            return [];
-        }
 
         if ($words[0] !== 'v=spf1') {
             return [];

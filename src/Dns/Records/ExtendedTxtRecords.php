@@ -49,7 +49,6 @@ class ExtendedTxtRecords
         'miro-verification=([a-zA-z0-9]+)'                         => 'miro',
     ];
 
-
     public function getExtendedTxtRecord(array $data)
     {
 
@@ -208,6 +207,17 @@ class ExtendedTxtRecords
             }
         }
         return null;
+    }
+
+    public static function getSiteVerificationValue(string $txt): string
+    {
+        foreach (static::$siteVerificationMatches as $match => $provider) {
+            if (preg_match('/^' . $match . '$/i', $txt, $matches) === 1) {
+                return (string)$matches[count($matches) - 1];
+            }
+        }
+
+        return $txt;
     }
 
     private function isDkimRecord(array $data): bool

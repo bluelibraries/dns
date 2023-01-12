@@ -42,7 +42,7 @@ class TXTTest extends AbstractRecordTestClass
                 'txt'  => 'text here'
             ]
         );
-        $this->assertSame('test.com 7200 IN TXT text here', $this->subject->toString());
+        $this->assertSame('test.com 7200 IN TXT "text here"', $this->subject->toString());
     }
 
     public function testToStringCompleteWithChaosClass()
@@ -55,7 +55,7 @@ class TXTTest extends AbstractRecordTestClass
                 'txt'   => 'text here'
             ]
         );
-        $this->assertSame('test.com 7200 CH TXT text here', $this->subject->toString());
+        $this->assertSame('test.com 7200 CH TXT "text here"', $this->subject->toString());
     }
 
 }

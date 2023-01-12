@@ -8,14 +8,6 @@ use MamaOmida\Dns\Regex;
 class DnsUtils
 {
 
-    public static function isValidDomain(string $domain): bool
-    {
-        if (empty($domain) || strlen($domain) < 4) {
-            return false;
-        }
-        return preg_match(Regex::DOMAIN, $domain) === 1;
-    }
-
     public static function isValidDomainOrSubdomain(string $domain): bool
     {
         if (empty($domain) || strlen($domain) < 4) {
@@ -24,13 +16,12 @@ class DnsUtils
         return preg_match(Regex::DOMAIN_OR_SUBDOMAIN, $domain) === 1;
     }
 
-    public static function ipV6Shortener($ipv6): string
+    public static function ipV6Shortener(string $ipv6): string
     {
         if (substr($ipv6, -2) != ':0') {
             return preg_replace("/:0{1,3}/", ":", $ipv6);
-        } else {
-            return $ipv6;
         }
+        return $ipv6;
     }
 
     public static function sanitizeTextLineSeparators(string $text): string
@@ -42,20 +33,9 @@ class DnsUtils
             );
     }
 
-    public static function asciiString(string $string, $glue = ' '): string
+    public static function sanitizeRecordTxt(string $txt): string
     {
-        if (empty($string)) {
-            return '';
-        }
-
-        $result = [];
-        $stringData = str_split($string);
-
-        foreach ($stringData as $key => $value) {
-            $result[] = ord($value);
-        }
-
-        return implode($glue, $result);
+        return str_replace('"', '\"', $txt);
     }
 
     public static function getBitsFromString($string): array

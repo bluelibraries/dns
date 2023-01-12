@@ -223,19 +223,19 @@ class RawDataResponse
                 break;
 
             case RecordTypes::TXT:
-                $strLen = ord($this->readResponse(1));
+                $strLen = ord($this->readResponse());
                 $text = $this->readResponse($strLen);
-                $result['txt'] = $text;
+                $result['txt'] = DnsUtils::sanitizeRecordTxt($text);
                 break;
 
             case RecordTypes::DEPRECATED_SPF:
                 $result['type'] = 'TXT';
-                $strLen = ord($this->readResponse(1));
-                $result['txt'] = $this->readResponse($strLen);
+                $strLen = ord($this->readResponse());
+                $result['txt'] = DnsUtils::sanitizeRecordTxt($this->readResponse($strLen));
                 break;
 
             case RecordTypes::CAA:
-                $values = $this->readResponse(1);
+                $values = $this->readResponse();
                 $values = unpack("Cflags", $values);
                 $strLen = ord($this->readResponse(1));
                 $tags = $this->readResponse($strLen);

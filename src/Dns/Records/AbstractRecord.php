@@ -68,7 +68,10 @@ abstract class AbstractRecord implements RecordInterface
     {
         return implode(
             $separator,
-            DnsRecordProperties::getFilteredProperties($this->getTypeId(), $this->data)
+            DnsRecordProperties::getFilteredProperties(
+                $this->getTypeId(),
+                $this->getParsedData($this->data)
+            )
         );
     }
 
@@ -101,6 +104,24 @@ abstract class AbstractRecord implements RecordInterface
         }
 
         return $data;
+    }
+
+    private function getParsedData(array $data): array
+    {
+        if ((empty($data))) {
+            return [];
+        }
+
+        $result = [];
+
+        foreach ($data as $propertyName => $value) {
+            if (DnsRecordProperties::isWrappedProperty($propertyName)) {
+                $result[$propertyName] = '"' . $value . '"';
+            } else {
+                $result[$propertyName] = $value;
+            }
+        }
+        return $result;
     }
 
 }

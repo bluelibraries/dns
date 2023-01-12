@@ -134,7 +134,7 @@ class RawDataRequest
 
     /**
      * @param bool $isRecursionDesired
-     * @return RawDataRequest
+     * @return self
      */
     public function setIsRecursionDesired(bool $isRecursionDesired): self
     {
@@ -152,7 +152,7 @@ class RawDataRequest
 
     /**
      * @param bool $useAuthoritativeAnswer
-     * @return RawDataRequest
+     * @return self
      */
     public function setUseAuthoritativeAnswer(bool $useAuthoritativeAnswer): self
     {
@@ -170,7 +170,7 @@ class RawDataRequest
 
     /**
      * @param bool $useTruncation
-     * @return RawDataRequest
+     * @return self
      */
     public function setUseTruncation(bool $useTruncation): self
     {
