@@ -12,5 +12,24 @@ class CDS extends AbstractRecord
         return RecordTypes::CDS;
     }
 
+    public function getKeyTag(): ?int
+    {
+        return $this->data['key-tag'] ?? null;
+    }
+
+    public function getAlgorithm(): ?int
+    {
+        return $this->data['algorithm'] ?? null;
+    }
+
+    public function getAlgorithmDigest(): ?int
+    {
+        return $this->data['algorithm-digest'] ?? null;
+    }
+
+    public function getDigest(): ?string
+    {
+        return $this->data['digest'] ?? null;
+    }
 
 }

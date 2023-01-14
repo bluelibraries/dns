@@ -11,4 +11,15 @@ class NSEC extends AbstractRecord
     {
         return RecordTypes::NSEC;
     }
+
+    public function getNextAuthoritativeName(): ?string
+    {
+        return $this->data['next-authoritative-name'] ?? null;
+    }
+
+    public function getTypes(): ?string
+    {
+        return $this->data['types'] ?? null;
+    }
+
 }

@@ -12,19 +12,19 @@ class DS extends AbstractRecord
         return RecordTypes::DS;
     }
 
-    public function getDigestType(): ?string
-    {
-        return $this->data['algorithm-digest'] ?? null;
-    }
-
     public function getKeyTag(): ?int
     {
         return $this->data['key-tag'] ?? null;
     }
 
-    public function getAlgo(): ?int
+    public function getAlgorithm(): ?int
     {
         return $this->data['algorithm'] ?? null;
+    }
+
+    public function getAlgorithmDigest(): ?int
+    {
+        return $this->data['algorithm-digest'] ?? null;
     }
 
     public function getDigest(): ?string
