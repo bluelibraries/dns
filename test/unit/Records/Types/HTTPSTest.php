@@ -16,45 +16,59 @@ class HTTPSTest extends AbstractRecordTestClass
         parent::setUp();
     }
 
-    public function testGetHardware()
+    public function testGetSeparator()
     {
-        $this->assertNull($this->subject->ge());
+        $this->assertNull($this->subject->getSeparator());
     }
 
-    public function testGetHardwareValue()
+    public function testGetSeparatorValue()
     {
-        $value = 'AMD K6 166 MHz';
-        $this->subject->setData(['hardware' => $value]);
-        $this->assertSame($value, $this->subject->getHardware());
+        $value = '\#';
+        $this->subject->setData(['separator' => $value]);
+        $this->assertSame($value, $this->subject->getSeparator());
     }
 
-    public function testGetOperatingSystem()
+    public function testGetOriginalLength()
     {
-        $this->assertNull($this->subject->getOperatingSystem());
+        $this->assertNull($this->subject->getOriginalLength());
     }
 
-    public function testGetOperatingSystemValue()
+    public function testGetOriginalLengthValue()
     {
-        $value = 'Win 3.1';
-        $this->subject->setData(['os' => $value]);
-        $this->assertSame($value, $this->subject->getOperatingSystem());
+        $value = 34;
+        $this->subject->setData(['original-length' => $value]);
+        $this->assertSame($value, $this->subject->getOriginalLength());
+    }
+
+    public function testGetData()
+    {
+        $this->assertNull($this->subject->getData());
+    }
+
+    public function testGetDataValue()
+    {
+        $value = '1000C0268330568332D3239';
+        $this->subject->setData(['data' => $value]);
+        $this->assertSame($value, $this->subject->getData());
     }
 
     public function testToStringDefault()
     {
-        $this->assertSame('0 IN HINFO', $this->subject->toString());
+        $this->assertSame('0 IN TYPE65', $this->subject->toString());
     }
 
     public function testToStringComplete()
     {
         $this->subject->setData(
             [
-                'host'   => 'test.com',
-                'hardware' => 'Pentium 1',
-                'os' => 'Win 95',
+                'host'            => 'test.com',
+                'ttl'             => 3600,
+                'separator'       => '\#',
+                'original-length' => 27,
+                'data'            => '1000C0268330568332D3239AA'
             ]
         );
-        $this->assertSame('test.com 0 IN HINFO "Pentium 1" "Win 95"', $this->subject->toString());
+        $this->assertSame('test.com 3600 IN TYPE65 \# 27 1000C0268330568332D3239AA', $this->subject->toString());
     }
 
 }
