@@ -12,7 +12,7 @@ class RRSig extends AbstractRecord
         return RecordTypes::RRSIG;
     }
 
-    public function getSignatureType(): ?int
+    public function getTypeCovered(): ?string
     {
         return $this->data['type-covered'] ?? null;
     }
@@ -51,7 +51,7 @@ class RRSig extends AbstractRecord
         return $this->data['key-tag'] ?? null;
     }
 
-    public function getTarget(): ?string
+    public function getSignerName(): ?string
     {
         return $this->data['signer-name'] ?? null;
     }

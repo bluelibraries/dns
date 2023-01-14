@@ -204,11 +204,6 @@ class RecordTypes
 
     private static array $types = [];
 
-    public static function getAll(): array
-    {
-        return self::$all;
-    }
-
     public static function getName(int $type): ?string
     {
         return static::$all[$type] ?? null;
@@ -223,12 +218,6 @@ class RecordTypes
     public static function isValidTypeId(int $typeId): bool
     {
         return isset(self::$all[$typeId]);
-    }
-
-    public static function getAllTypes(): array
-    {
-        self::initTypesIfNeeded();
-        return self::$types;
     }
 
     /**

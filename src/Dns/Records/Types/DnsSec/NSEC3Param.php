@@ -11,4 +11,25 @@ class NSEC3Param extends AbstractRecord
     {
         return RecordTypes::NSEC3_PARAM;
     }
+
+    public function getAlgorithm(): ?int
+    {
+        return $this->data['algorithm'] ?? null;
+    }
+
+    public function getFlags(): ?int
+    {
+        return $this->data['flags'] ?? null;
+    }
+
+    public function getIterations(): ?int
+    {
+        return $this->data['iterations'] ?? null;
+    }
+
+    public function getSalt(): ?string
+    {
+        return $this->data['salt'] ?? null;
+    }
+
 }
