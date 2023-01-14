@@ -12,4 +12,24 @@ class CDNSKey extends AbstractRecord
         return RecordTypes::CDNSKEY;
     }
 
+    public function getFlags(): ?int
+    {
+        return $this->data['flags'] ?? null;
+    }
+
+    public function getProtocol(): ?int
+    {
+        return $this->data['protocol'] ?? null;
+    }
+
+    public function getAlgorithm(): ?int
+    {
+        return $this->data['algorithm'] ?? null;
+    }
+
+    public function getPublicKey(): ?string
+    {
+        return $this->data['public-key'] ?? null;
+    }
+
 }

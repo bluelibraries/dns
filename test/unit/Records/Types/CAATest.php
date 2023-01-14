@@ -28,14 +28,14 @@ class CAATest extends AbstractRecordTestClass
         $this->assertSame($value, $this->subject->getValue());
     }
 
-    public function testGetFlags()
+    public function testGetFlag()
     {
         $this->assertNull($this->subject->getFlags());
     }
 
-    public function testGetValueSetFlags()
+    public function testGetValueSetFlag()
     {
-        $value = 'caa value';
+        $value = 1;
         $this->subject->setData(['flags' => $value]);
         $this->assertSame($value, $this->subject->getFlags());
     }
@@ -63,11 +63,11 @@ class CAATest extends AbstractRecordTestClass
             [
                 'host'  => 'test.com',
                 'value' => 'value',
-                'flags' => 'flags',
+                'flags'  => 1,
                 'tag'   => 'tag'
             ]
         );
-        $this->assertSame('test.com 0 IN CAA flags tag value', $this->subject->toString());
+        $this->assertSame('test.com 0 IN CAA 1 tag value', $this->subject->toString());
     }
 
 }

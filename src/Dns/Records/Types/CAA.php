@@ -13,7 +13,7 @@ class CAA extends AbstractRecord
         return RecordTypes::CAA;
     }
 
-    public function getFlags(): ?string
+    public function getFlags(): ?int
     {
         return $this->data['flags'] ?? null;
     }
