@@ -13,6 +13,36 @@ class NAPTR extends AbstractRecord
         return RecordTypes::NAPTR;
     }
 
+    public function getOrder(): ?int
+    {
+        return $this->data['order'] ?? null;
+    }
+
+    public function getPreference(): ?int
+    {
+        return $this->data['pref'] ?? null;
+    }
+
+    public function getFlag(): ?string
+    {
+        return $this->data['flag'] ?? null;
+    }
+
+    public function getServices(): ?string
+    {
+        return $this->data['services'] ?? null;
+    }
+
+    public function getRegex(): ?string
+    {
+        return $this->data['regex'] ?? null;
+    }
+
+    public function getReplacement(): ?string
+    {
+        return $this->data['replacement'] ?? null;
+    }
+
 }
 
 

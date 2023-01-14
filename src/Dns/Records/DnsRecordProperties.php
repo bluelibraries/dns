@@ -156,10 +156,19 @@ class DnsRecordProperties
         'txt',
         'hardware',
         'os',
+        'regex',
+        'replacement',
+        'flag',
+        'services',
     ];
 
     private static array $loweredCaseProperties = [
         'host',
+    ];
+
+    private static array $unwrappedDotValues = [
+        'regex',
+        'replacement',
     ];
 
     protected static array $excludedBaseProperties = [
@@ -203,6 +212,11 @@ class DnsRecordProperties
             self::getMappedProperties($data, $typeId),
             [DnsRecordProperties::class, 'filterExceptNumbers']
         );
+    }
+
+    public static function isUnWrappedDotValue($propertyName, $value): bool
+    {
+        return in_array($propertyName, self::$unwrappedDotValues) && $value === '.';
     }
 
     protected static function filterExceptNumbers($value): bool

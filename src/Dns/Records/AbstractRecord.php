@@ -2,6 +2,8 @@
 
 namespace MamaOmida\Dns\Records;
 
+use MamaOmida\Dns\Dns;
+
 abstract class AbstractRecord implements RecordInterface
 {
 
@@ -115,12 +117,27 @@ abstract class AbstractRecord implements RecordInterface
         $result = [];
 
         foreach ($data as $propertyName => $value) {
-            if (DnsRecordProperties::isWrappedProperty($propertyName)) {
-                $result[$propertyName] = '"' . DnsUtils::sanitizeRecordTxt($value) . '"';
-            } else {
-                $result[$propertyName] = $value;
-            }
+            $result[$propertyName] = $this->getParsedProperty($propertyName, $value);
         }
+        return $result;
+    }
+
+    /**
+     * @param $propertyName
+     * @param $value
+     * @return mixed
+     */
+    private function getParsedProperty($propertyName, $value)
+    {
+
+        $result = DnsRecordProperties::isWrappedProperty($propertyName)
+            ? '"' . DnsUtils::sanitizeRecordTxt($value) . '"'
+            : $value;
+
+        if (DnsRecordProperties::isUnWrappedDotValue($propertyName, $value)) {
+            $result = trim($value, '"');
+        }
+
         return $result;
     }
 

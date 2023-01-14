@@ -5,6 +5,9 @@ namespace MamaOmida\Dns\Records\Types;
 use MamaOmida\Dns\Records\AbstractRecord;
 use MamaOmida\Dns\Records\RecordTypes;
 
+/**
+ * This is known also as TYPE65
+ */
 class HTTPS extends AbstractRecord
 {
     public function getTypeId(): int
