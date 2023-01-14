@@ -12,4 +12,14 @@ class HInfo extends AbstractRecord
         return RecordTypes::HINFO;
     }
 
+    public function getHardware(): ?string
+    {
+        return $this->data['hardware'] ?? null;
+    }
+
+    public function getOperatingSystem(): ?string
+    {
+        return $this->data['os'] ?? null;
+    }
+
 }

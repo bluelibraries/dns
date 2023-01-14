@@ -116,7 +116,7 @@ abstract class AbstractRecord implements RecordInterface
 
         foreach ($data as $propertyName => $value) {
             if (DnsRecordProperties::isWrappedProperty($propertyName)) {
-                $result[$propertyName] = '"' . $value . '"';
+                $result[$propertyName] = '"' . DnsUtils::sanitizeRecordTxt($value) . '"';
             } else {
                 $result[$propertyName] = $value;
             }

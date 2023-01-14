@@ -154,6 +154,8 @@ class DnsRecordProperties
 
     private static array $wrappedProperties = [
         'txt',
+        'hardware',
+        'os',
     ];
 
     private static array $loweredCaseProperties = [

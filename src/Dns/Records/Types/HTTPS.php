@@ -11,4 +11,20 @@ class HTTPS extends AbstractRecord
     {
         return RecordTypes::HTTPS;
     }
+
+    public function getSeparator(): ?string
+    {
+        return $this->data['separator'] ?? null;
+    }
+
+    public function getOriginalLength(): ?int
+    {
+        return $this->data['original-length'] ?? null;
+    }
+
+    public function getData(): ?string
+    {
+        return $this->data['data'] ?? null;
+    }
+
 }
