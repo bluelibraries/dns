@@ -90,6 +90,9 @@ class RecordFactory
             case RecordTypes::NSEC3_PARAM:
                 return new NSEC3Param($recordData);
 
+            case RecordTypes::DS:
+                return new DS($recordData);
+
             case RecordTypes::CDS:
                 return new CDS($recordData);
 
@@ -115,9 +118,6 @@ class RecordFactory
 
             case RecordTypes::HTTPS:
                 return new HTTPS($recordData);
-
-            case RecordTypes::DS:
-                return new DS($recordData);
 
             case RecordTypes::NAPTR:
                 return new NAPTR($recordData);

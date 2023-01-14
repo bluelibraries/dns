@@ -78,7 +78,7 @@ class SRVTest extends AbstractRecordTestClass
                 'pri'    => 1,
                 'port'   => 10,
                 'target' => '192.168.0.1',
-                'weight' => 9
+                'weight' => 9,
             ]
         );
         $this->assertSame('srv.test.com 0 IN SRV 1 9 10 192.168.0.1', $this->subject->toString());

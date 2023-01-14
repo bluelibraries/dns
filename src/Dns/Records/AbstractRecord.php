@@ -2,8 +2,6 @@
 
 namespace MamaOmida\Dns\Records;
 
-use MamaOmida\Dns\Dns;
-
 abstract class AbstractRecord implements RecordInterface
 {
 
@@ -79,14 +77,12 @@ abstract class AbstractRecord implements RecordInterface
 
     private function makeString(array $array): string
     {
-        if (empty($array)) {
-            return '';
-        }
-
         $result = [];
+
         foreach ($array as $key => $value) {
             $result[$key] = is_array($value) ? $this->makeString($value) : $value;
         }
+
         return implode('', $result);
     }
 
@@ -99,6 +95,7 @@ abstract class AbstractRecord implements RecordInterface
     {
         $data = $this->toArray();
         $expiringKeys = DnsRecordProperties::getExcludedBaseProperties();
+
         foreach ($expiringKeys as $expiringKey) {
             if (isset($data[$expiringKey])) {
                 unset($data[$expiringKey]);
@@ -110,15 +107,12 @@ abstract class AbstractRecord implements RecordInterface
 
     private function getParsedData(array $data): array
     {
-        if ((empty($data))) {
-            return [];
-        }
-
         $result = [];
 
         foreach ($data as $propertyName => $value) {
             $result[$propertyName] = $this->getParsedProperty($propertyName, $value);
         }
+
         return $result;
     }
 

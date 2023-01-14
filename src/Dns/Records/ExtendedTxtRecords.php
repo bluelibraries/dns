@@ -2,7 +2,8 @@
 
 namespace MamaOmida\Dns\Records;
 
-use MamaOmida\Dns\Records\Types\Txt\Dkim;
+use MamaOmida\Dns\Records\Types\Txt\DKIM;
+use MamaOmida\Dns\Records\Types\Txt\DMARC;
 use MamaOmida\Dns\Records\Types\Txt\DomainVerification;
 use MamaOmida\Dns\Records\Types\Txt\SPF;
 use MamaOmida\Dns\Regex;
@@ -53,14 +54,14 @@ class ExtendedTxtRecords
     {
 
         if (
-            $this->isTxtRecord($data)
+            !$this->isTxtRecord($data)
         ) {
             return null;
         }
 
         $host = $data['host'] ?? null;
 
-        if (is_null($data['host'])) {
+        if (empty($data['host'])) {
             return null;
         }
 
@@ -75,13 +76,13 @@ class ExtendedTxtRecords
 
         if ($this->isDomainKeyHostName($host)) {
             if ($this->isDkimRecord($data)) {
-                return new Dkim($data);
+                return new DKIM($data);
             }
         }
 
         if ($this->isDmarcHostName($host)) {
             if ($this->isDmarcRecord($data)) {
-                return self::DMARC;
+                return new DMARC($data);
             }
         }
 
@@ -97,39 +98,12 @@ class ExtendedTxtRecords
             }
         }
 
-        if ($this->isSubdomainWithoutExtensionHostName($host)) {
-            if ($this->isDomainVerification($data)) {
-                return self::SUBDOMAIN_VERIFICATION;
-            }
-        }
-
         return null;
     }
 
     public function isEmptyOrParentHostName($host): bool
     {
         return in_array($host, ['', '@'], true);
-    }
-
-    private function isSubdomainWithoutExtensionHostName(string $host): bool
-    {
-        if (empty($host)) {
-            return false;
-        }
-        return preg_match(Regex::SUBDOMAIN_WITHOUT_EXTENSION, $host) === 0;
-    }
-
-    /**
-     * @param string $host
-     * @return bool
-     * eg: test.com.
-     */
-    private function isSubdomainDotHostName(string $host): bool
-    {
-        if (empty($host)) {
-            return false;
-        }
-        return preg_match(Regex::DOMAIN_OR_SUBDOMAIN_DOT, $host) === 1;
     }
 
     /**
@@ -155,7 +129,7 @@ class ExtendedTxtRecords
 
     private function isDmarcHostName(string $host): bool
     {
-        return $host === '_dmarc';
+        return preg_match(Regex::DMARC_HOSTNAME, $host) === 1;
     }
 
     private function isTlsReportingHostName(string $host): bool
@@ -235,7 +209,7 @@ class ExtendedTxtRecords
 
     private function isDmarcRecord(array $data): bool
     {
-        if (!$this->isDmarcHostName($data['txt'])) {
+        if (!$this->isDmarcHostName($data['host'])) {
             return false;
         }
 
@@ -243,7 +217,7 @@ class ExtendedTxtRecords
             return false;
         }
 
-        return preg_match(Regex::DMARC_RECORD, $data['txt']) === 1;
+        return preg_match(Regex::DMARC, $data['txt']) === 1;
     }
 
     private function isTlsRecord(array $data): bool
@@ -282,10 +256,10 @@ class ExtendedTxtRecords
      * @param array $data
      * @return bool
      */
-    private function isTxtRecord(array $data): bool
+    public function isTxtRecord(array $data): bool
     {
-        return empty($data['type'])
-            || $data['type'] !== RecordTypes::getName(RecordTypes::TXT);
+        return !empty($data['type'])
+            && $data['type'] === RecordTypes::getName(RecordTypes::TXT);
     }
 
     private function emptyTxtValue(array $data): bool

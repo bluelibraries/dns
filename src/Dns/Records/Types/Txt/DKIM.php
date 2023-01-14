@@ -2,15 +2,16 @@
 
 namespace MamaOmida\Dns\Records\Types\Txt;
 
-use MamaOmida\Dns\Records\DnsUtils;
 use MamaOmida\Dns\Records\ExtendedRecordTrait;
 use MamaOmida\Dns\Records\ExtendedTxtRecords;
+use MamaOmida\Dns\Records\TXTValuesRecordsTrait;
 use MamaOmida\Dns\Records\Types\TXT;
 use MamaOmida\Dns\Regex;
 
-class Dkim extends TXT
+class DKIM extends TXT
 {
     use ExtendedRecordTrait;
+    use TXTValuesRecordsTrait;
 
     public const VERSION = 'v';
     public const KEY_TYPE = 'k';
@@ -27,60 +28,6 @@ class Dkim extends TXT
     private function getExtendedTypeName(): ?string
     {
         return ExtendedTxtRecords::DKIM;
-    }
-
-    public function parseValues(): bool
-    {
-        if (empty($this->getTxt())) {
-            return false;
-        }
-
-        if ($this->isParsedValue()) {
-            return true;
-        }
-
-        $value = DnsUtils::sanitizeTextLineSeparators($this->getTxt());
-        preg_match_all(Regex::DKIM_VALUES, $value, $matches);
-
-        $result = [];
-
-        foreach ($matches[0] as $match) {
-            $matchData = explode('=', $match);
-            if (!isset($matchData[1])) {
-                return false;
-            }
-            $result[strtolower($matchData[0])] = $matchData[1];
-        }
-
-        $this->parsedValues = $result;
-        $this->parsedValues['internalHash'] = $this->getValueHash();
-
-        return true;
-    }
-
-    /**
-     * @return string
-     */
-    private function getValueHash(): string
-    {
-        return md5($this->getTxt());
-    }
-
-    private function isParsedValue(): bool
-    {
-        $hash = $this->parsedValues['internalHash'] ?? null;
-
-        if (is_null($hash)) {
-            return false;
-        }
-
-        return $hash === $this->getValueHash();
-    }
-
-    private function getParsedValue(string $key): ?string
-    {
-        $this->parseValues();
-        return $this->parsedValues[$key] ?? null;
     }
 
     public function getPublicKey(): ?string

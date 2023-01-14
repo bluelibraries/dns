@@ -65,7 +65,7 @@ class HTTPSTest extends AbstractRecordTestClass
                 'ttl'             => 3600,
                 'separator'       => '\#',
                 'original-length' => 27,
-                'data'            => '1000C0268330568332D3239AA'
+                'data'            => '1000C0268330568332D3239AA',
             ]
         );
         $this->assertSame('test.com 3600 IN TYPE65 \# 27 1000C0268330568332D3239AA', $this->subject->toString());

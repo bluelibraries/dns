@@ -3,17 +3,17 @@
 namespace Unit\Records\Types\Txt;
 
 use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\DKIM;
+use MamaOmida\Dns\Records\Types\Txt\DMARC;
 use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
- * @property DKIM $subject
+ * @property DMARC $subject
  */
-class DKIMTest extends AbstractRecordTestClass
+class DMARCTest extends AbstractRecordTestClass
 {
     public function setUp(): void
     {
-        $this->subject = new DKIM([]);
+        $this->subject = new DMARC([]);
         parent::setUp();
     }
 
@@ -22,7 +22,7 @@ class DKIMTest extends AbstractRecordTestClass
         $this->assertNull($this->subject->getTxt());
     }
 
-    public function testGetTxtValue()
+    public function testGetIpValue()
     {
         $value = 'random text here';
         $this->subject->setData(['txt' => $value]);
@@ -74,7 +74,7 @@ class DKIMTest extends AbstractRecordTestClass
 
     public function testGetExtendedTypeName()
     {
-        $this->assertSame(ExtendedTxtRecords::DKIM, $this->subject->getTypeName());
+        $this->assertSame(ExtendedTxtRecords::DMARC, $this->subject->getTypeName());
     }
 
     public function parseValuesDataProvider(): array
@@ -82,9 +82,9 @@ class DKIMTest extends AbstractRecordTestClass
         return [
             ['', false],
             ['p', false],
-            ['p=publickey', true],
-            ['v=DKIM1; ', true],
-            ['v=DKIM1; p=publickey', true]
+            ['p=none', true],
+            ['v=DMARC1; ', true],
+            ['v=DMARC1; p=reject', true]
         ];
     }
 
@@ -100,7 +100,7 @@ class DKIMTest extends AbstractRecordTestClass
             [
                 'ttl'   => 7200,
                 'class' => 'IN',
-                'host'  => 'zacusca.domainkey.test.com',
+                'host'  => '_dmarc.test.com',
                 'txt'   => $txt
             ]
         );
@@ -112,27 +112,30 @@ class DKIMTest extends AbstractRecordTestClass
     {
         return [
             ['', []],
-            ['p=publick; ', ['p' => 'publick']],
-            ['v=DKIM1; ', ['v' => 'DKIM1']],
-            ['v=DKIM1; p=publickey', ['v' => 'DKIM1', 'p' => 'publickey']],
+            ['p=reject; ', ['p' => 'reject']],
+            ['v=DMARC1; ', ['v' => 'DMARC1']],
+            ['v=DMARC1; p=none', ['v' => 'DMARC1', 'p' => 'none']],
             [
-                'v=DKIM1; p=publickey;h=a; g=oo; n=a;q=t;s=x; t=0',
+                'v=DMARC1; p=quarantine;pct=75; rua=mailto:postmaster@test.com; ruf=mailto:ruf@test.com; sp=reject;fo=d; aspf=s;adkim=r; rf=afrf;ri=86400 ',
                 [
-                    'v' => 'DKIM1',
-                    'p' => 'publickey',
-                    'h' => 'a',
-                    'g' => 'oo',
-                    'n' => 'a',
-                    'q' => 't',
-                    's' => 'x',
-                    't' => '0'
+                    'v'     => 'DMARC1',
+                    'p'     => 'quarantine',
+                    'pct'   => 75,
+                    'rua'   => 'mailto:postmaster@test.com',
+                    'ruf'   => 'mailto:ruf@test.com',
+                    'sp'    => 'reject',
+                    'fo'    => 'd',
+                    'aspf'  => 's',
+                    'adkim' => 'r',
+                    'rf'    => 'afrf',
+                    'ri'    => 86400
                 ]],
         ];
     }
 
     private function getKeyValues(): array
     {
-        return ['v', 'k', 'p', 'h', 'g', 'n', 'q', 's', 't',];
+        return ['v', 'p', 'pct', 'rua', 'ruf', 'sp', 'fo', 'aspf', 'adkim', 'rf', 'ri'];
     }
 
     /**
@@ -148,7 +151,7 @@ class DKIMTest extends AbstractRecordTestClass
             [
                 'ttl'   => 7200,
                 'class' => 'IN',
-                'host'  => 'zacusca.domainkey.test.com',
+                'host'  => '_dmarc.test.com',
                 'txt'   => $txt
             ]
         );
@@ -161,85 +164,52 @@ class DKIMTest extends AbstractRecordTestClass
 
             switch ($key) {
 
-                case DKIM::VERSION:
+                case DMARC::VERSION:
                     $this->assertSame($expectedValue, $this->subject->getVersion());
                     break;
 
-                case DKIM::KEY_TYPE:
-                    $this->assertSame($expectedValue, $this->subject->getKeyType());
+                case DMARC::POLICY:
+                    $this->assertSame($expectedValue, $this->subject->getPolicy());
                     break;
 
-                case DKIM::PUBLIC_KEY:
-                    $this->assertSame($expectedValue, $this->subject->getPublicKey());
+                case DMARC::PERCENTAGE:
+                    $this->assertSame($expectedValue, $this->subject->getPercentage());
                     break;
 
-                case DKIM::HASH_TYPE:
-                    $this->assertSame($expectedValue, $this->subject->getHashType());
+                case DMARC::RUA:
+                    $this->assertSame($expectedValue, $this->subject->getRua());
                     break;
 
-                case DKIM::GROUP:
-                    $this->assertSame($expectedValue, $this->subject->getGroup());
+                case DMARC::RUF:
+                    $this->assertSame($expectedValue, $this->subject->getRuf());
                     break;
 
-                case DKIM::NOTES:
-                    $this->assertSame($expectedValue, $this->subject->getNotes());
+                case DMARC::FO:
+                    $this->assertSame($expectedValue, $this->subject->getFo());
                     break;
 
-                case DKIM::QUERY:
-                    $this->assertSame($expectedValue, $this->subject->getQuery());
+                case DMARC::ASPF:
+                    $this->assertSame($expectedValue, $this->subject->getAspf());
                     break;
 
-                case DKIM::SERVICE_TYPE:
-                    $this->assertSame($expectedValue, $this->subject->getServiceType());
+                case DMARC::ADKIM:
+                    $this->assertSame($expectedValue, $this->subject->getAdkim());
                     break;
 
-                case DKIM::TESTING_TYPE:
-                    $this->assertSame($expectedValue, $this->subject->getTestingType());
+                case DMARC::REPORT_FORMAT:
+                    $this->assertSame($expectedValue, $this->subject->getReportFormat());
+                    break;
+
+                case DMARC::REPORT_INTERVAL:
+                    $this->assertSame($expectedValue, $this->subject->getReportInterval());
+                    break;
+
+                case DMARC::SUBDOMAIN_POLICY:
+                    $this->assertSame($expectedValue, $this->subject->getSubdomainPolicy());
                     break;
 
             }
         }
-    }
-
-    public function testInvalidSelector()
-    {
-        $this->subject->setData(
-            [
-                'ttl'   => 7200,
-                'class' => 'IN',
-                'host'  => 'zacusca.domainkey.test.com',
-                'txt'   => ''
-            ]
-        );
-
-        $this->assertNull($this->subject->getSelector());
-    }
-
-    public function testEmptySelector()
-    {
-        $this->subject->setData(
-            [
-                'ttl'   => 7200,
-                'class' => 'IN',
-                'txt'   => ''
-            ]
-        );
-
-        $this->assertNull($this->subject->getSelector());
-    }
-
-    public function testValidSelector()
-    {
-        $this->subject->setData(
-            [
-                'ttl'   => 7200,
-                'class' => 'IN',
-                'host'  => 'zacusca._domainkey.test.com',
-                'txt'   => ''
-            ]
-        );
-
-        $this->assertSame('zacusca', $this->subject->getSelector());
     }
 
 }

@@ -79,7 +79,7 @@ class NSEC3ParamTest extends AbstractRecordTestClass
                 'algorithm'  => 12,
                 'flags'      => 255,
                 'iterations' => 3,
-                'salt'       => 'salt=='
+                'salt'       => 'salt==',
             ]
         );
         $this->assertSame('test.com 3600 IN NSEC3PARAM 12 255 3 salt==', $this->subject->toString());
