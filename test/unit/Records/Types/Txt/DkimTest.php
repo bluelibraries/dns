@@ -82,8 +82,8 @@ class DKIMTest extends AbstractRecordTestClass
         return [
             ['', false],
             ['p', false],
-            ['p=publickey', true],
-            ['v=DKIM1; ', true],
+            ['p=publickey', false],
+            ['v=DKIM1; ', false],
             ['v=DKIM1; p=publickey', true]
         ];
     }

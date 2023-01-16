@@ -3,17 +3,17 @@
 namespace Unit\Records\Types\Txt;
 
 use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\DMARC;
+use MamaOmida\Dns\Records\Types\Txt\MtaSts;
 use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
- * @property DMARC $subject
+ * @property MtaSts $subject
  */
-class DMARCTest extends AbstractRecordTestClass
+class MtaStsTest extends AbstractRecordTestClass
 {
     public function setUp(): void
     {
-        $this->subject = new DMARC([]);
+        $this->subject = new MtaSts([]);
         parent::setUp();
     }
 
@@ -74,7 +74,7 @@ class DMARCTest extends AbstractRecordTestClass
 
     public function testGetExtendedTypeName()
     {
-        $this->assertSame(ExtendedTxtRecords::DMARC, $this->subject->getTypeName());
+        $this->assertSame(ExtendedTxtRecords::MTA_STS_REPORTING, $this->subject->getTypeName());
     }
 
     public function parseValuesDataProvider(): array
@@ -82,9 +82,12 @@ class DMARCTest extends AbstractRecordTestClass
         return [
             ['', false],
             ['p', false],
-            ['p=none', false],
             ['v=DMARC1; ', false],
-            ['v=DMARC1; p=reject', true]
+            ['id=test1234', false],
+            ['v=STSv1; ', false],
+            ['v=STSv1; rua=', false],
+            ['v=STSv;id=test1234', false],
+            ['v=STSv1; id=test1234', true]
         ];
     }
 
@@ -100,7 +103,7 @@ class DMARCTest extends AbstractRecordTestClass
             [
                 'ttl'   => 7200,
                 'class' => 'IN',
-                'host'  => '_dmarc.test.com',
+                'host'  => '_mta-sts.test.com',
                 'txt'   => $txt
             ]
         );
@@ -113,29 +116,20 @@ class DMARCTest extends AbstractRecordTestClass
         return [
             ['', []],
             ['p=reject; ', ['p' => 'reject']],
-            ['v=DMARC1; ', ['v' => 'DMARC1']],
-            ['v=DMARC1; p=none', ['v' => 'DMARC1', 'p' => 'none']],
+            ['v=STSv1; ', ['v' => 'STSv1']],
+            ['v=STSv1; id=none', ['v' => 'STSv1', 'id' => 'none']],
             [
-                'v=DMARC1; p=quarantine;pct=75; rua=mailto:postmaster@test.com; ruf=mailto:ruf@test.com; sp=reject;fo=d; aspf=s;adkim=r; rf=afrf;ri=86400 ',
+                'v=STSv1; id=test4321',
                 [
-                    'v'     => 'DMARC1',
-                    'p'     => 'quarantine',
-                    'pct'   => 75,
-                    'rua'   => 'mailto:postmaster@test.com',
-                    'ruf'   => 'mailto:ruf@test.com',
-                    'sp'    => 'reject',
-                    'fo'    => 'd',
-                    'aspf'  => 's',
-                    'adkim' => 'r',
-                    'rf'    => 'afrf',
-                    'ri'    => 86400
+                    'v'   => 'STSv1',
+                    'id' => 'test4321',
                 ]],
         ];
     }
 
     private function getKeyValues(): array
     {
-        return ['v', 'p', 'pct', 'rua', 'ruf', 'sp', 'fo', 'aspf', 'adkim', 'rf', 'ri'];
+        return ['v', 'id'];
     }
 
     /**
@@ -151,7 +145,7 @@ class DMARCTest extends AbstractRecordTestClass
             [
                 'ttl'   => 7200,
                 'class' => 'IN',
-                'host'  => '_dmarc.test.com',
+                'host'  => '_mta-sts.test.com',
                 'txt'   => $txt
             ]
         );
@@ -161,51 +155,14 @@ class DMARCTest extends AbstractRecordTestClass
         foreach ($keyValues as $key) {
             $expectedValue = $expected[$key] ?? null;
 
-
             switch ($key) {
 
-                case DMARC::VERSION:
+                case MtaSts::VERSION:
                     $this->assertSame($expectedValue, $this->subject->getVersion());
                     break;
 
-                case DMARC::POLICY:
-                    $this->assertSame($expectedValue, $this->subject->getPolicy());
-                    break;
-
-                case DMARC::PERCENTAGE:
-                    $this->assertSame($expectedValue, $this->subject->getPercentage());
-                    break;
-
-                case DMARC::RUA:
-                    $this->assertSame($expectedValue, $this->subject->getRua());
-                    break;
-
-                case DMARC::RUF:
-                    $this->assertSame($expectedValue, $this->subject->getRuf());
-                    break;
-
-                case DMARC::FO:
-                    $this->assertSame($expectedValue, $this->subject->getFo());
-                    break;
-
-                case DMARC::ASPF:
-                    $this->assertSame($expectedValue, $this->subject->getAspf());
-                    break;
-
-                case DMARC::ADKIM:
-                    $this->assertSame($expectedValue, $this->subject->getAdkim());
-                    break;
-
-                case DMARC::REPORT_FORMAT:
-                    $this->assertSame($expectedValue, $this->subject->getReportFormat());
-                    break;
-
-                case DMARC::REPORT_INTERVAL:
-                    $this->assertSame($expectedValue, $this->subject->getReportInterval());
-                    break;
-
-                case DMARC::SUBDOMAIN_POLICY:
-                    $this->assertSame($expectedValue, $this->subject->getSubdomainPolicy());
+                case MtaSts::ID:
+                    $this->assertSame($expectedValue, $this->subject->getId());
                     break;
 
             }

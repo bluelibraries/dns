@@ -9,10 +9,11 @@ trait TXTValuesRecordsTrait
 
     private array $parsedValues = [];
 
-
     public function parseValues(): bool
     {
-        if (empty($this->getTxt())) {
+        $txt = trim($this->getTxt());
+
+        if (empty($txt)) {
             return false;
         }
 
@@ -20,7 +21,7 @@ trait TXTValuesRecordsTrait
             return true;
         }
 
-        $value = DnsUtils::sanitizeTextLineSeparators($this->getTxt());
+        $value = DnsUtils::sanitizeTextLineSeparators($txt);
         preg_match_all(Regex::TXT_VALUES, $value, $matches);
 
         $result = [];
@@ -30,11 +31,15 @@ trait TXTValuesRecordsTrait
             if (!isset($matchData[1])) {
                 return false;
             }
-            $result[strtolower($matchData[0])] = $matchData[1];
+            $result[strtolower($matchData[0])] = trim($matchData[1]);
         }
 
         $this->parsedValues = $result;
         $this->parsedValues['internalHash'] = $this->getValueHash();
+
+        if (!preg_match($this->txtRegex, $txt)) {
+            return false;
+        }
 
         return true;
     }

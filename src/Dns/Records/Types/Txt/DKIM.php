@@ -23,7 +23,7 @@ class DKIM extends TXT
     public const SERVICE_TYPE = 's';
     public const TESTING_TYPE = 't';
 
-    private array $parsedValues = [];
+    private string $txtRegex = Regex::DKIM;
 
     private function getExtendedTypeName(): ?string
     {

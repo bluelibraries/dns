@@ -25,6 +25,8 @@ class DMARC extends TXT
     public const REPORT_INTERVAL = 'ri';
     public const SUBDOMAIN_POLICY = 'sp';
 
+    private string $txtRegex = Regex::DMARC;
+
     private function getExtendedTypeName(): ?string
     {
         return ExtendedTxtRecords::DMARC;

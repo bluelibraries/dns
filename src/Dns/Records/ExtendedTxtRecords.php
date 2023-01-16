@@ -5,7 +5,9 @@ namespace MamaOmida\Dns\Records;
 use MamaOmida\Dns\Records\Types\Txt\DKIM;
 use MamaOmida\Dns\Records\Types\Txt\DMARC;
 use MamaOmida\Dns\Records\Types\Txt\DomainVerification;
+use MamaOmida\Dns\Records\Types\Txt\MtaSts;
 use MamaOmida\Dns\Records\Types\Txt\SPF;
+use MamaOmida\Dns\Records\Types\Txt\TLSReporting;
 use MamaOmida\Dns\Regex;
 
 class ExtendedTxtRecords
@@ -59,11 +61,12 @@ class ExtendedTxtRecords
             return null;
         }
 
-        $host = $data['host'] ?? null;
-
         if (empty($data['host'])) {
             return null;
         }
+
+
+        $host = trim($data['host']) ?? null;
 
         if ($this->isSubdomainHostName($host)) {
             if ($this->isDomainVerification($data)) {
@@ -88,13 +91,13 @@ class ExtendedTxtRecords
 
         if ($this->isTlsReportingHostName($host)) {
             if ($this->isTlsRecord($data)) {
-                return self::TLS_REPORTING;
+                return new TLSReporting($data);
             }
         }
 
         if ($this->isMtaStsReportingHostName($host)) {
             if ($this->isMtaStsRecord($data)) {
-                return self::MTA_STS_REPORTING;
+                return new MtaSts($data);
             }
         }
 
@@ -134,14 +137,13 @@ class ExtendedTxtRecords
 
     private function isTlsReportingHostName(string $host): bool
     {
-        return $host === '_smtp._tls';
+        return preg_match(Regex::TLS_REPORTING_HOSTNAME, $host) === 1;
     }
 
     private function isMtaStsReportingHostName(string $host): bool
     {
-        return $host === '_mta-sts';
+        return preg_match(Regex::MTA_STS_HOSTNAME, $host) === 1;
     }
-
 
     private function isSpfRecord(array $data): bool
     {
@@ -231,9 +233,9 @@ class ExtendedTxtRecords
         }
 
         return preg_match(
-                Regex::TLS_REPORTING_RECORD,
+                Regex::TLS_REPORTING,
                 $data['txt']
-            ) === 0;
+            ) === 1;
     }
 
     private function isMtaStsRecord(array $data): bool
@@ -249,7 +251,7 @@ class ExtendedTxtRecords
         return preg_match(
                 Regex::MTA_STS_RECORD,
                 $data['txt']
-            ) === 0;
+            ) === 1;
     }
 
     /**
