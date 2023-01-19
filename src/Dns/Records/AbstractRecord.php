@@ -2,7 +2,9 @@
 
 namespace MamaOmida\Dns\Records;
 
-abstract class AbstractRecord implements RecordInterface
+use JsonSerializable;
+
+abstract class AbstractRecord implements RecordInterface, JsonSerializable
 {
 
     protected array $data = [];
@@ -121,9 +123,9 @@ abstract class AbstractRecord implements RecordInterface
     /**
      * @param $propertyName
      * @param $value
-     * @return mixed
+     * @return string
      */
-    private function getParsedProperty($propertyName, $value)
+    private function getParsedProperty($propertyName, $value): string
     {
 
         $result = DnsRecordProperties::isWrappedProperty($propertyName)
@@ -135,6 +137,11 @@ abstract class AbstractRecord implements RecordInterface
         }
 
         return $result;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 
 }

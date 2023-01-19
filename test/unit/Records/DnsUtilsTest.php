@@ -160,4 +160,29 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getSplitSignature($signature, $bufferLen, $separator), $expected);
     }
 
+
+    public function asciiStringDataProvider(): array
+    {
+        return [
+            ['', '', ''],
+            ['', ' ', ''],
+            ['A', '', '65'],
+            ['A', ' ', '65'],
+            ['AA', '', '6565'],
+            ['AA', ' ', '65 65'],
+        ];
+    }
+
+    /**
+     * @param string $value
+     * @param string $glue
+     * @param string $expected
+     * @return void
+     * @dataProvider asciiStringDataProvider
+     */
+    public function testAsciiString(string $value, string $glue, string $expected)
+    {
+        self::assertSame($expected, DnsUtils::asciiString($value, $glue));
+    }
+
 }

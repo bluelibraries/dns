@@ -78,5 +78,4 @@ class RecordFactoryTest extends TestCase
         $this->subject->create(['type' => 'ALL'], false);
     }
 
-
 }

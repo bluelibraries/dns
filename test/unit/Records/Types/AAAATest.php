@@ -44,4 +44,9 @@ class AAAATest extends AbstractRecordTestClass
         $this->assertSame('test.com 0 IN AAAA ::ffff:1451:6f55', $this->subject->toString());
     }
 
+    public function testJson()
+    {
+        $this->assertSame(json_encode($this->subject->toArray()), json_encode($this->subject));
+    }
+
 }

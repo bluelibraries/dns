@@ -19,8 +19,6 @@ interface DnsHandlerInterface
 
     public function setTimeout(int $timeout): self;
 
-    public function lineToArray(string $line, ?int $limit = 0): array;
-
     /**
      * @throws DnsHandlerException
      */

@@ -38,10 +38,15 @@ class ATest extends AbstractRecordTestClass
         $this->subject->setData(
             [
                 'host' => 'test.com',
-                'ip' => '192.168.0.1'
+                'ip'   => '192.168.0.1'
             ]
         );
         $this->assertSame('test.com 0 IN A 192.168.0.1', $this->subject->toString());
+    }
+
+    public function testJson()
+    {
+        $this->assertSame(json_encode($this->subject->toArray()), json_encode($this->subject));
     }
 
 }

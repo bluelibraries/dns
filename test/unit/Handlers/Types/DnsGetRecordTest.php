@@ -141,26 +141,6 @@ class DnsGetRecordTest extends TestCase
         $this->assertSame($this->subject, $this->subject->setRetries(3));
     }
 
-    public function testLineToArrayEmptyLine()
-    {
-        $this->assertSame([], $this->subject->lineToArray('', 1));
-    }
-
-    public function testLineToArraySingleLine()
-    {
-        $this->assertSame(['Ana are mere'], $this->subject->lineToArray("Ana are \n mere", 1));
-    }
-
-    public function testLineToArrayMultilineLastLineKeepOtherData()
-    {
-        $this->assertSame(['Ana', 'are mere'], $this->subject->lineToArray("Ana are \n mere", 2));
-    }
-
-    public function testLineToArrayMultiline()
-    {
-        $this->assertSame(['Ana', 'are', 'mere'], $this->subject->lineToArray("Ana are \n mere", 10));
-    }
-
     protected function setValueInGetDnsRecord($value)
     {
         $this->subject->method('getDnsRecord')

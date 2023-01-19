@@ -134,16 +134,4 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
         $this->validateTypeIdValue($typeId, $hostName);
     }
 
-    public function lineToArray(string $line, ?int $limit = 0): array
-    {
-        if (empty($line)) {
-            return [];
-        }
-        return explode(
-            ' ',
-            preg_replace(Regex::SEPARATED_WORDS, ' ', $line),
-            $limit
-        );
-    }
-
 }
