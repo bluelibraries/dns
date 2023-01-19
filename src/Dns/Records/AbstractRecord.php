@@ -25,6 +25,8 @@ abstract class AbstractRecord implements RecordInterface
 
         if (!isset($this->data['host'])) {
             $this->data['host'] = '';
+        } else {
+            $this->data['host'] = strtolower(trim($this->data['host']));
         }
 
         if (!isset($this->data['ttl'])) {

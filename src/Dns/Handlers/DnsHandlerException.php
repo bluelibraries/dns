@@ -10,7 +10,6 @@ class DnsHandlerException extends Exception
     const HOSTNAME_LENGTH_TOO_SMALL = 2;
     const HOSTNAME_FORMAT_INVALID = 3;
     const HOSTNAME_LENGTH_INVALID = 4;
-    const HOSTNAME_TLD_LENGTH_INVALID = 5;
     const TYPE_ID_INVALID = 6;
     const ERR_UNABLE_TO_GET_RECORD = 7;
     const INVALID_NAMESERVER = 8;
@@ -21,9 +20,7 @@ class DnsHandlerException extends Exception
     const ERR_UNABLE_TO_WRITE_QUESTION_LENGTH_TO_TCP_SOCKET = 13;
     const ERR_UNABLE_TO_WRITE_QUESTION_TO_TCP_SOCKET = 14;
     const ERR_UNABLE_TO_READ_SIZE_FROM_TCP_SOCKET = 15;
-    const ERR_DNS_GET_RECORD_DATA_EXCEPTION = 16;
     const TYPE_ID_NOT_SUPPORTED = 17;
     const ERR_INVALID_RECORD_HEADER_LENGTH = 18;
     const TYPE_ID_NOT_IMPLEMENTED = 19;
-    const ERR_CONFIG_DATA_NOT_FOUND = 20;
 }

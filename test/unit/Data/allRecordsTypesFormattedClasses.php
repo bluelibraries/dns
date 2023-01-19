@@ -18,8 +18,49 @@ use MamaOmida\Dns\Records\Types\NS;
 use MamaOmida\Dns\Records\Types\SOA;
 use MamaOmida\Dns\Records\Types\SRV;
 use MamaOmida\Dns\Records\Types\TXT;
+use MamaOmida\Dns\Records\Types\Txt\DKIM;
+use MamaOmida\Dns\Records\Types\Txt\DMARC;
+use MamaOmida\Dns\Records\Types\Txt\MtaSts;
+use MamaOmida\Dns\Records\Types\Txt\SPF;
+use MamaOmida\Dns\Records\Types\Txt\TLSReporting;
 
 return [
+
+    [
+        [
+            'host'  => '',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => '',
+        ],
+        TXT::class,
+        TXT::class,
+    ],
+    [
+        [
+            'host'  => '@',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=spf1 include:_spf.test.com',
+        ],
+        TXT::class,
+        TXT::class,
+    ],
+
+    [
+        [
+            'host'  => '$%#$%4',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=spf1 include:_spf.test.com',
+        ],
+        TXT::class,
+        TXT::class,
+    ],
+
     [
         [
             'host'  => 'test.com',
@@ -28,6 +69,7 @@ return [
             'type'  => 'A',
             'ip'    => '20.81.111.85',
         ],
+        A::class,
         A::class,
     ],
     [
@@ -39,6 +81,7 @@ return [
             'target' => 'ns4-39.azure-dns.info',
         ],
         NS::class,
+        NS::class,
     ],
     [
         [
@@ -48,6 +91,7 @@ return [
             'type'   => 'CNAME',
             'target' => 'microsoft.com',
         ],
+        CNAME::class,
         CNAME::class,
     ],
     [
@@ -59,6 +103,7 @@ return [
             'pri'    => 10,
             'target' => 'microsoft-com.mail.protection.outlook.com',
         ],
+        MX::class,
         MX::class,
     ],
     [
@@ -76,6 +121,7 @@ return [
             'minimum-ttl' => '300',
         ],
         SOA::class,
+        SOA::class,
     ],
     [
         [
@@ -85,6 +131,7 @@ return [
             'type'  => 'TXT',
             'txt'   => 'google-site-verification=M--CVfn_YwsV-2FGbCp_HFaEj23BmT0cTF4l8hXgpvMt7sebee51jrj7vm932k531hipa8RPDXjBzBS9tu7Pbysu7qCACrwXPoDV8ZtLfthTnC4y9VJFLd84it5sQlEITgSLJ4KOIA8pBZxmyvPujuUvhOg==fg2t0gov9424p2tdcuo94goe9jd365mktkey=3uc1cf82cpv750lzk70v9bvf2hubspot-developer-verification=OTQ5NGIwYWEtODNmZi00YWE1LTkyNmQtNDhjMDMxY2JjNDAxd365mktkey=QDa792dLCZhvaAOOCe2Hz6WTzmTssOp1snABhxWibhMxgoogle-site-verification=pjPOauSPcrfXOZS9jnPPa5axowcHGCDAl1_86dCqFpkdocusign=d5a3737c-c23c-4bd0-9095-d2ff621f2840d365mktkey=SxDf1EZxLvMwx6eEZUxzjFFgHoapF8DvtWEUjwq7ZTwxd365mktkey=6358r1b7e13hox60tl1uagv14facebook-domain-verification=fwzwhbbzwmg5fzgotc2go51olc3566google-site-verification=GfDnTUdATPsK1230J0mXbfsYw-3A9BVMVaKSd4DcKgIgoogle-site-verification=uFg3wr5PWsK8lV029RoXXBBUW0_E6qf1WEWVHhetkOYv=spf1 include:_spf-a.microsoft.com include:_spf-b.microsoft.com include:_spf-c.microsoft.com include:_spf-ssg-a.msft.net include:spf-a.hotmail.com include:_spf1-meo.microsoft.com -alld365mktkey=j2qHWq9BHdaa3ZXZH8x64daJZxEWsFa0dxDeilxDoYYx',
         ],
+        TXT::class,
         TXT::class,
     ],
     [
@@ -96,6 +143,7 @@ return [
             'ipv6'  => '::ffff:1451:6f55',
         ],
         AAAA::class,
+        AAAA::class,
     ],
     [
         [
@@ -106,6 +154,7 @@ return [
             'hardware' => 'HC-85',
             'os'       => 'Win 95'
         ],
+        HInfo::class,
         HInfo::class,
     ],
     [
@@ -125,6 +174,7 @@ return [
             'signature'            => '==signature==',
         ],
         RRSig::class,
+        RRSig::class,
     ],
     [
         [
@@ -138,6 +188,7 @@ return [
             'algorithm'  => 12,
             'public-key' => 'public-key=='
         ],
+        DNSKey::class,
         DNSKey::class,
     ],
     [
@@ -153,6 +204,7 @@ return [
             'public-key' => 'sec-public-key=='
         ],
         CDNSKey::class,
+        CDNSKey::class,
     ],
     [
         [
@@ -165,6 +217,7 @@ return [
             'algorithm-digest' => 3,
             'digest'           => '1F987CC6583E92DF0890718C42'
         ],
+        DS::class,
         DS::class,
     ],
     [
@@ -179,6 +232,7 @@ return [
             'digest'           => '1F987CC6583E92DF0890718C42'
         ],
         CDS::class,
+        CDS::class,
     ],
     [
         [
@@ -189,6 +243,7 @@ return [
             'next-authoritative-name' => 'auth.test.com',
             'types'                   => 'A AAAA NS SOA TXT',
         ],
+        NSEC::class,
         NSEC::class,
     ],
     [
@@ -204,6 +259,7 @@ return [
             'salt'       => 'salt==',
         ],
         NSEC3Param::class,
+        NSEC3Param::class,
     ],
     [
         [
@@ -217,6 +273,7 @@ return [
             'weight' => 9,
         ],
         SRV::class,
+        SRV::class,
     ],
     [
         [
@@ -228,6 +285,7 @@ return [
             'original-length' => 27,
             'data'            => '1000C0268330568332D3239AA',
         ],
+        HTTPS::class,
         HTTPS::class,
     ],
     [
@@ -244,5 +302,67 @@ return [
             'replacement' => '.',
         ],
         NAPTR::class,
+        NAPTR::class,
     ],
+
+    [
+        [
+            'host'  => 'microsoft.com',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=spf1 include:_spf.test.com;',
+        ],
+        TXT::class,
+        SPF::class,
+    ],
+
+    [
+        [
+            'host'  => 'test._domainkey.microsoft.com',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=DKIM1; p=publickey;h=a; g=oo;;',
+        ],
+        TXT::class,
+        DKIM::class,
+    ],
+
+    [
+        [
+            'host'  => '_dmarc.microsoft.com',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=DMARC1; p=quarantine;pct=75; rua=mailto:postmaster@test.com',
+        ],
+        TXT::class,
+        DMARC::class,
+    ],
+
+    [
+        [
+            'host'  => '_smtp._tls.microsoft.com',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=TLSRPTv1; rua=mailto:tlsrpt@example.com',
+        ],
+        TXT::class,
+        TLSReporting::class,
+    ],
+
+    [
+        [
+            'host'  => '_mta-sts.microsoft.com',
+            'class' => 'IN',
+            'ttl'   => 0,
+            'type'  => 'TXT',
+            'txt'   => 'v=STSv1; id=test4321',
+        ],
+        TXT::class,
+        MtaSts::class,
+    ],
+
 ];

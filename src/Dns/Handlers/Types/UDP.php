@@ -121,7 +121,11 @@ class UDP extends AbstractDnsHandler
     }
 
     /**
+     * @param string $hostName
+     * @param int $typeId
+     * @return array
      * @throws DnsHandlerException
+     * @throws RawDataException
      */
     public function getDnsData(string $hostName, int $typeId): array
     {
@@ -133,14 +137,6 @@ class UDP extends AbstractDnsHandler
         }
 
         return $result->getData();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeader(): string
-    {
-        return $this->header;
     }
 
 }

@@ -103,11 +103,6 @@ class Dns
      */
     private function sortRecords(array $results): array
     {
-
-        if (empty($results)) {
-            return [];
-        }
-
         $result = [];
 
         foreach ($results as $record) {
@@ -115,7 +110,6 @@ class Dns
         }
 
         ksort($result);
-
         return array_values($result);
     }
 
@@ -158,8 +152,8 @@ class Dns
         if (empty($array)) {
             return [];
         }
-        $result = [];
 
+        $result = [];
         $foundHashes = [];
 
         foreach ($array as $record) {

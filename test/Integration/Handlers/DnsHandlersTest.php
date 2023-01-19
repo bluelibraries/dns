@@ -23,10 +23,12 @@ class DnsHandlersTest extends TestCase
     private array $subjects = [];
 
     public static array $recordTypesFound = [
-        'short-text' => [],
-        'long-text'  => [],
-        'tcp'        => [],
-        'udp'        => [],
+        'short-text'    => [],
+        'long-text'     => [],
+        'tcp'           => [],
+        'udp'           => [],
+        'duplicates'    => [],
+        'empty-results' => [],
     ];
 
     /**
@@ -85,6 +87,7 @@ class DnsHandlersTest extends TestCase
         reset($results);
         $lastType = null;
         $finalResult = true;
+        $recordTypesFound = [];
 
         /**
          * @var RecordInterface[] $lastRecords
@@ -412,6 +415,84 @@ class DnsHandlersTest extends TestCase
             }
 
             $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true, false, false);
+        }
+
+        $this->assertTrue($this->allArraysAreEquals($results, $recordTypesFound));
+
+        self::$recordTypesFound[$testKey] = array_values(
+            array_unique(
+                array_merge(self::$recordTypesFound[$testKey], $recordTypesFound)
+            )
+        );
+    }
+
+    public function recordsTypesDuplicatesProvider(): array
+    {
+        return [
+            ['test.com'],
+        ];
+    }
+
+    /**
+     * @param string $domain
+     * @return void
+     * @throws DnsHandlerException
+     * @throws RecordException
+     * @dataProvider recordsTypesDuplicatesProvider
+     */
+    public function testRecordsTypesDuplicatesData(string $domain)
+    {
+        $testKey = 'duplicates';
+        $results = [];
+        $recordTypes = [RecordTypes::A, RecordTypes::A];
+
+        foreach ($this->subjects as $handlerType => $subject) {
+            try {
+                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+            } catch (DnsHandlerException $exception) {
+                if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
+                    throw $exception;
+                }
+            }
+        }
+
+        $this->assertTrue($this->allArraysAreEquals($results, $recordTypesFound));
+
+        self::$recordTypesFound[$testKey] = array_values(
+            array_unique(
+                array_merge(self::$recordTypesFound[$testKey], $recordTypesFound)
+            )
+        );
+    }
+
+    public function recordsTypesEmptyResultsProvider(): array
+    {
+        return [
+            ['test.com'],
+        ];
+    }
+
+    /**
+     * @param string $domain
+     * @return void
+     * @throws DnsHandlerException
+     * @throws RecordException
+     * @dataProvider recordsTypesEmptyResultsProvider
+     */
+    public function testRecordsTypesEmptyResultsData(string $domain)
+    {
+        $testKey = 'empty-results';
+        $recordTypes = [RecordTypes::NAPTR, RecordTypes::NAPTR];
+        $results = [];
+
+        foreach ($this->subjects as $handlerType => $subject) {
+            try {
+                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+            } catch (DnsHandlerException $exception) {
+                if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
+                    throw $exception;
+                }
+            }
         }
 
         $this->assertTrue($this->allArraysAreEquals($results, $recordTypesFound));

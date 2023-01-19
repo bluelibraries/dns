@@ -127,7 +127,7 @@ class DnsGetRecordTest extends TestCase
 
     public function testGetRetries()
     {
-        $this->assertSame(2 , $this->subject->getRetries());
+        $this->assertSame(2, $this->subject->getRetries());
     }
 
     public function testSetRetries()
@@ -227,6 +227,21 @@ class DnsGetRecordTest extends TestCase
         $this->expectExceptionMessage('Unable to set nameserver, as `dns_get_record` cannot use custom nameservers!');
         $this->expectExceptionCode(DnsHandlerException::UNABLE_TO_USE_CUSTOM_NAMESERVER);
         $this->subject->setNameserver('8.8.8.8');
+    }
+
+    public function testGetUpdatedRecordsData()
+    {
+        $this->assertSame(
+            [
+                ['host' => 'test.com', 'class' => 'IN', 'type' => 'TXT', 'txt' => 'text test'],
+                ['host' => 'test.com', 'class' => 'IN', 'type' => 'NAPTR', 'order' => 2, 'flag' => 3],
+            ],
+            $this->subject->getUpdatedRecordsData(
+                [
+                    ['host' => 'test.com', 'class' => 'IN', 'type' => 'TXT', 'txt' => 'text test'],
+                    ['host' => 'test.com', 'class' => 'IN', 'type' => 'NAPTR', 'order' => 2, 'flags' => 3],
+                ]
+            ));
     }
 
 }

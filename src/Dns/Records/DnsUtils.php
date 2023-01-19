@@ -88,4 +88,20 @@ class DnsUtils
         return trim(chunk_split($signature, $bufferLength, $separator));
     }
 
+    public static function asciiString(string $string, $glue = ''): string
+    {
+        if (empty($string)) {
+            return '';
+        }
+
+        $result = [];
+        $stringData = str_split($string);
+
+        foreach ($stringData as $key => $value) {
+            $result[] = ord($value);
+        }
+
+        return implode($glue, $result);
+    }
+
 }

@@ -5,13 +5,13 @@ namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\Types\Dig;
 use MamaOmida\Dns\Records\RecordTypes;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertSame;
 
 class DigTest extends TestCase
 {
     /**
-     * @var Dig|MockObject
+     * @var Dig
      */
     protected $subject;
 
@@ -60,7 +60,7 @@ class DigTest extends TestCase
     {
         $hostName = 'a.' . str_repeat('b', 64);
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Invalid hostname "'.$hostName.'" format! (characters "A-Za-z0-9.-", max length 63 chars allowed)');
+        $this->expectExceptionMessage('Invalid hostname "' . $hostName . '" format! (characters "A-Za-z0-9.-", max length 63 chars allowed)');
         $this->expectExceptionCode(DnsHandlerException::HOSTNAME_FORMAT_INVALID);
         $this->subject->getDnsData($hostName, RecordTypes::ALL);
     }
@@ -279,6 +279,120 @@ class DigTest extends TestCase
     public function testSetNameserverValidReturnsSelf()
     {
         $this->assertSame($this->subject, $this->subject->setNameserver('8.8.8.8'));
+    }
+
+    public function normalizeRawResultDataProvider(): array
+    {
+        return [
+            [
+                [],
+                []
+            ],
+            [
+                [
+                    ';;test',
+                    'test.com 3600 IN TXT "v=spf1 include:_spf.test.com"',
+                ],
+                []
+            ],
+            [
+                [
+                    'test.com 3600 IN TST A',
+                ],
+                []
+            ],
+            [
+                [
+                    'test.com 3600 IN SPF v=spf1 include:_legacy.test.com',
+                ],
+                [
+                    [
+                        'host'  => 'test.com',
+                        'ttl'   => 3600,
+                        'class' => 'IN',
+                        'type'  => 'TXT',
+                        'txt'   => 'v=spf1 include:_legacy.test.com',
+                    ]
+                ]
+            ],
+            [
+                [
+                    'test.com 3600 IN NAPTR 1 1 "" "123" "regular" .',
+                ],
+                [
+                    [
+                        'host'        => 'test.com',
+                        'ttl'         => 3600,
+                        'class'       => 'IN',
+                        'type'        => 'NAPTR',
+                        'order'       => 1,
+                        'pref'        => 1,
+                        'flag'        => '',
+                        'services'    => '123',
+                        'regex'       => 'regular',
+                        'replacement' => '',
+                    ],
+                ]
+            ],
+            [
+                [
+                    'test.com 3600 IN TXT "v=spf1 include:_spf.test.com"',
+                    'test.com 3600 IN TXT v=spf1 include:_spf.test.com',
+                ], [
+                    [
+                        'host'  => 'test.com',
+                        'ttl'   => 3600,
+                        'class' => 'IN',
+                        'type'  => 'TXT',
+                        'txt'   => 'v=spf1 include:_spf.test.com',
+                    ],
+                    [
+                        'host'  => 'test.com',
+                        'ttl'   => 3600,
+                        'class' => 'IN',
+                        'type'  => 'TXT',
+                        'txt'   => 'v=spf1 include:_spf.test.com',
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @param array $result
+     * @param array $expectedData
+     * @return void
+     * @dataProvider normalizeRawResultDataProvider
+     * @throws DnsHandlerException
+     */
+    public function testNormalizeRawResult(array $result, array $expectedData)
+    {
+        $this->assertSame(
+            $expectedData,
+            $this->subject->normalizeRawResult(
+                $result
+            )
+        );
+    }
+
+    public function testInvalidOutput()
+    {
+
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_GET_RECORD);
+
+        $subject = $this->getMockBuilder(Dig::class)
+            ->onlyMethods(['isValidOutput','getCommand','isValidCommand'])
+            ->getMock();
+
+        $subject->method('isValidOutput')
+            ->willReturn(false);
+        $subject->method('getCommand')
+            ->willReturn('test');
+        $subject->method('isValidCommand')
+            ->willReturn(true);
+
+        $subject->getDnsRawResult('test.com', RecordTypes::A);
     }
 
 }

@@ -109,16 +109,17 @@ class DomainVerificationTest extends AbstractRecordTestClass
             ['pinterest-site-verification=Mama-Omida10=', 'pinterest'],
             ['stripe-verification=Mama-Omida10=', 'stripe'],
             ['miro-verification=MamaOmida10', 'miro'],
+            ['grive1ol-verification', null],
         ];
     }
 
     /**
      * @param string $txt
-     * @param string $expectedProvider
+     * @param ?string $expectedProvider
      * @dataProvider domainVerificationValidDataProvider
      * @return void
      */
-    public function testGetProviderValidProviders(string $txt, string $expectedProvider)
+    public function testGetProviderValidProviders(string $txt, ?string $expectedProvider)
     {
 
         $this->subject->setData(
@@ -164,16 +165,17 @@ class DomainVerificationTest extends AbstractRecordTestClass
             ['pinterest-site-verification=Mama-Omida10=', 'Mama-Omida10='],
             ['stripe-verification=Mama-Omida10=', 'Mama-Omida10='],
             ['miro-verification=MamaOmida10', 'MamaOmida10'],
+            ['grive1ol-verification', 'grive1ol-verification'],
         ];
     }
 
     /**
      * @param string $txt
-     * @param string $expectedValue
+     * @param ?string $expectedValue
      * @dataProvider domainVerificationValidDataValuesProvider
      * @return void
      */
-    public function testGetProviderValidProvidersValues(string $txt, string $expectedValue)
+    public function testGetProviderValidProvidersValues(string $txt, ?string $expectedValue)
     {
 
         $this->subject->setData(

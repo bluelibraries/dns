@@ -4,21 +4,22 @@ namespace MamaOmida\Dns\Handlers\Raw;
 
 class RawClassTypes
 {
+
+    public const IN = 1;
+    public const CS = 2;
+    public const CH = 3;
+    public const HS = 4;
+
     private static array $rawClassTypes = [
-        'IN' => 1, // Internet
-        'CS' => 2, // CSNet -> obsolete
-        'CH' => 3, // Chaos
-        'HS' => 4, // Hesiod
+        'IN' => self::IN, // Internet
+        'CS' => self::CS, // CSNet -> obsolete
+        'CH' => self::CH, // Chaos
+        'HS' => self::HS, // Hesiod
     ];
 
     public static function getRawTypes(): array
     {
         return self::$rawClassTypes;
-    }
-
-    public static function getClassTypeId($className): int
-    {
-        return self::$rawClassTypes[$className] ?? 1;
     }
 
     public static function getClassNameByRawType($rawClassId): ?string

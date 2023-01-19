@@ -27,10 +27,22 @@ class RecordFactoryTest extends TestCase
      * @dataProvider allRecordTypesFormattedClassesDataProvider
      * @throws RecordException
      */
-    public function testCreate(array $data, string $class)
+    public function testCreateDefaultRecords(array $data, string $class, string $classExtended)
     {
         $record = $this->subject->create($data, false);
         $this->assertSame(get_class($record), $class);
+        $this->assertSame($data, $record->toArray());
+    }
+
+    /**
+     * @return void
+     * @dataProvider allRecordTypesFormattedClassesDataProvider
+     * @throws RecordException
+     */
+    public function testCreateExtendedRecords(array $data, string $class, string $classExtended)
+    {
+        $record = $this->subject->create($data, true);
+        $this->assertSame(get_class($record), $classExtended);
         $this->assertSame($data, $record->toArray());
     }
 

@@ -109,13 +109,6 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
             );
         }
 
-        if (!preg_match(Regex::DOMAIN_EXTENSION, $hostName)) {
-            throw new DnsHandlerException(
-                $hostnameErrorInfo .
-                ' TLD (extension) length! (min 1, max 63 characters allowed)',
-                DnsHandlerException::HOSTNAME_TLD_LENGTH_INVALID
-            );
-        }
     }
 
     /**

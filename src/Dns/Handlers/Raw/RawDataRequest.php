@@ -145,7 +145,7 @@ class RawDataRequest
     /**
      * @return bool
      */
-    public function isUseAuthoritativeAnswer(): bool
+    public function useAuthoritativeAnswer(): bool
     {
         return $this->useAuthoritativeAnswer;
     }
@@ -163,7 +163,7 @@ class RawDataRequest
     /**
      * @return bool
      */
-    public function isUseTruncation(): bool
+    public function useTruncation(): bool
     {
         return $this->useTruncation;
     }
@@ -181,7 +181,7 @@ class RawDataRequest
     /**
      * @return bool
      */
-    public function isUseRecursionIfAvailable(): bool
+    public function useRecursionIfAvailable(): bool
     {
         return $this->useRecursionIfAvailable;
     }

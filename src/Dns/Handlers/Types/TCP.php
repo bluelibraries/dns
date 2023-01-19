@@ -5,6 +5,7 @@ namespace MamaOmida\Dns\Handlers\Types;
 use MamaOmida\Dns\Handlers\AbstractDnsHandler;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerTypes;
+use MamaOmida\Dns\Handlers\Raw\RawDataException;
 use MamaOmida\Dns\Handlers\Raw\RawDataRequest;
 use MamaOmida\Dns\Handlers\Raw\RawDataResponse;
 
@@ -17,7 +18,6 @@ class TCP extends AbstractDnsHandler
      * @var mixed
      */
     private $socket = null;
-    private string $header = '';
 
     public function getType(): string
     {
@@ -26,7 +26,7 @@ class TCP extends AbstractDnsHandler
 
     function canUseIt(): bool
     {
-      return function_exists('fsockopen');
+        return function_exists('fsockopen');
     }
 
     private function getSocket()
@@ -45,14 +45,6 @@ class TCP extends AbstractDnsHandler
         }
 
         return $this->socket = $result;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPort(): int
-    {
-        return $this->port;
     }
 
     /**
@@ -76,6 +68,7 @@ class TCP extends AbstractDnsHandler
 
     /**
      * @throws DnsHandlerException
+     * @throws RawDataException
      */
     private function query(string $hostName, int $typeId, int $retry = 0): ?RawDataResponse
     {
@@ -88,7 +81,6 @@ class TCP extends AbstractDnsHandler
         $request = new RawDataRequest($hostName, $typeId, $this->timeout);
 
         $header = $request->generateHeader();
-        $this->header = $header;
         $headerLen = strlen($header);
         $headerBinLen = $request->getBinaryHeaderLength($headerLen);
 
@@ -143,6 +135,7 @@ class TCP extends AbstractDnsHandler
 
     /**
      * @throws DnsHandlerException
+     * @throws RawDataException
      */
     public function getDnsData(string $hostName, int $typeId): array
     {
@@ -155,14 +148,6 @@ class TCP extends AbstractDnsHandler
         }
 
         return $result->getData();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeader(): string
-    {
-        return $this->header;
     }
 
 }

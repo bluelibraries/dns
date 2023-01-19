@@ -53,21 +53,7 @@ class DnsGetRecord extends AbstractDnsHandler
 
         $internalTypeId = static::getInternalTypeId($typeId);
 
-        if ($typeId < 0) {
-            return [];
-        }
-
-        try {
-            return $this->getDnsRawResult($hostName, $internalTypeId);
-        } catch (Exception $e) {
-            throw new DnsHandlerException(
-                'Unable to get data, `dns_get_record` error: ' . $e->getMessage() .
-                ' hostName: ' . json_encode($hostName) . ' , typeName: ' .
-                json_encode(RecordTypes::getName($typeId)) .
-                ' , internal typeId:' . json_encode($internalTypeId),
-                DnsHandlerException::ERR_DNS_GET_RECORD_DATA_EXCEPTION
-            );
-        }
+        return $this->getDnsRawResult($hostName, $internalTypeId);
     }
 
     public function getDnsRawResult(string $hostName, int $type): array
@@ -94,7 +80,7 @@ class DnsGetRecord extends AbstractDnsHandler
         return empty($hostName) ? false : $this->getUpdatedRecordsData(dns_get_record($hostName, $type));
     }
 
-    private function getUpdatedRecordsData($records): array
+    public function getUpdatedRecordsData($records): array
     {
         if (!is_array($records) || empty($records)) {
             return $records;

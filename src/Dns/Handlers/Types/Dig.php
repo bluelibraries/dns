@@ -60,7 +60,7 @@ class Dig extends AbstractDnsHandler
         return array_filter($output);
     }
 
-    protected function getCommand(string $hostName, int $typeId): ?string
+    public function getCommand(string $hostName, int $typeId): ?string
     {
         try {
             $this->validateParams($hostName, $typeId);
@@ -69,11 +69,6 @@ class Dig extends AbstractDnsHandler
         }
 
         $recordName = RecordTypes::getName($typeId);
-
-
-        if (is_null($recordName)) {
-            return null;
-        }
 
         $result = 'dig +nocmd +bufsize=1024 +noall +noauthority +answer +nomultiline +tries=' . ($this->retries + 1) . ' +time=' . $this->timeout;
         $result .= ' ' . $hostName . ' ' . $recordName;
@@ -86,7 +81,7 @@ class Dig extends AbstractDnsHandler
      */
     protected function executeCommand(string $command): array
     {
-        $result = exec($command, $output);
+        $result = $this->executeRawCommand($command, $output);
 
         if (!$this->isValidOutput($output)) {
             throw new DnsHandlerException(
@@ -116,7 +111,7 @@ class Dig extends AbstractDnsHandler
     /**
      * @throws DnsHandlerException
      */
-    private function normalizeRawResult(array $rawResult): array
+    public function normalizeRawResult(array $rawResult): array
     {
         if (empty($rawResult)) {
             return [];
@@ -142,11 +137,6 @@ class Dig extends AbstractDnsHandler
 
             if (!empty($configData)) {
                 $result[] = $this->getRawData($configData, $rawLine);
-            } else {
-                throw new DnsHandlerException(
-                    'Config data not found for line: ' . json_encode($rawLine),
-                    DnsHandlerException::ERR_CONFIG_DATA_NOT_FOUND
-                );
             }
         }
 
@@ -176,7 +166,7 @@ class Dig extends AbstractDnsHandler
         return $result;
     }
 
-    private function isValidOutput(array $output): bool
+    public function isValidOutput(array $output): bool
     {
         return empty($output)
             || strpos($output[0], ';;') !== 0;
@@ -210,12 +200,22 @@ class Dig extends AbstractDnsHandler
         }
 
         $value = DnsRecordProperties::isNumberProperty($propertyName)
-            ? $value + 0
+            ? (is_numeric($value) ? $value + 0 : null)
             : $value;
 
         return DnsRecordProperties::isLoweredCaseProperty($propertyName)
             ? strtolower($value)
             : $value;
+    }
+
+    /**
+     * @param string $command
+     * @param $output
+     * @return false|string
+     */
+    protected function executeRawCommand(string $command, &$output)
+    {
+        return exec($command, $output);
     }
 
 }
