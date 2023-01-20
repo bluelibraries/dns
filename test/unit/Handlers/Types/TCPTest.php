@@ -1,8 +1,8 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
+namespace BlueLibraries\Dns\Test\Unit\Handlers\Types;
 
-use MamaOmida\Dns\Handlers\Types\TCP;
+use BlueLibraries\Dns\Handlers\Types\TCP;
 use PHPUnit\Framework\TestCase;
 
 class TCPTest extends TestCase

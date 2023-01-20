@@ -2,8 +2,8 @@
 
 namespace Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\HInfo;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\HInfo;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property HInfo $subject

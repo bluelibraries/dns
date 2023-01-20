@@ -1,10 +1,10 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit;
+namespace BlueLibraries\Dns\Test\Unit;
 
-use MamaOmida\Dns\DnsRecords;
-use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
-use MamaOmida\Dns\Records\RecordFactory;
+use BlueLibraries\Dns\DnsRecords;
+use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Records\RecordFactory;
 use PHPUnit\Framework\TestCase;
 
 class DnsInitTest extends TestCase

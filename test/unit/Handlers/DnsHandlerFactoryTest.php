@@ -2,13 +2,13 @@
 
 namespace Unit\Handlers;
 
-use MamaOmida\Dns\Handlers\DnsHandlerFactory;
-use MamaOmida\Dns\Handlers\DnsHandlerFactoryException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Handlers\Types\Dig;
-use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
-use MamaOmida\Dns\Handlers\Types\TCP;
-use MamaOmida\Dns\Handlers\Types\UDP;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactory;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Handlers\Types\Dig;
+use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Handlers\Types\TCP;
+use BlueLibraries\Dns\Handlers\Types\UDP;
 use PHPUnit\Framework\TestCase;
 
 class DnsHandlerFactoryTest extends TestCase

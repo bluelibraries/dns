@@ -2,11 +2,11 @@
 
 namespace Unit\Records;
 
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\DKIM;
-use MamaOmida\Dns\Records\Types\Txt\DMARC;
-use MamaOmida\Dns\Records\Types\Txt\DomainVerification;
-use MamaOmida\Dns\Records\Types\Txt\SPF;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\Types\Txt\DKIM;
+use BlueLibraries\Dns\Records\Types\Txt\DMARC;
+use BlueLibraries\Dns\Records\Types\Txt\DomainVerification;
+use BlueLibraries\Dns\Records\Types\Txt\SPF;
 use PHPUnit\Framework\TestCase;
 
 class ExtendedTxtRecordsTest extends TestCase

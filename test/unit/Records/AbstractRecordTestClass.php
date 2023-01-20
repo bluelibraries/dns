@@ -1,8 +1,8 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records;
+namespace BlueLibraries\Dns\Test\Unit\Records;
 
-use MamaOmida\Dns\Records\RecordInterface;
+use BlueLibraries\Dns\Records\RecordInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractRecordTestClass extends TestCase

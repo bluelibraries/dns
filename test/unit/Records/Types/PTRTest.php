@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records\Types;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\PTR;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\PTR;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property PTR $subject

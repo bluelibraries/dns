@@ -1,13 +1,13 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Facade;
+namespace BlueLibraries\Dns\Test\Unit\Facade;
 
-use MamaOmida\Dns\Facade\Record;
-use MamaOmida\Dns\Records\RecordException;
-use MamaOmida\Dns\Records\RecordInterface;
-use MamaOmida\Dns\Records\Types\DnsSec\RRSig;
-use MamaOmida\Dns\Records\Types\TXT;
-use MamaOmida\Dns\Records\Types\Txt\SPF;
+use BlueLibraries\Dns\Facade\Record;
+use BlueLibraries\Dns\Records\RecordException;
+use BlueLibraries\Dns\Records\RecordInterface;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
+use BlueLibraries\Dns\Records\Types\TXT;
+use BlueLibraries\Dns\Records\Types\Txt\SPF;
 use PHPUnit\Framework\TestCase;
 
 class RecordTest extends TestCase

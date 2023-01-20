@@ -1,10 +1,10 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records\Types\Txt;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types\Txt;
 
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\SPF;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\Types\Txt\SPF;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property SPF $subject

@@ -1,8 +1,8 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records;
+namespace BlueLibraries\Dns\Test\Unit\Records;
 
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class DnsRecordTypesTest extends TestCase

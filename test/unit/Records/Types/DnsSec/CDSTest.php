@@ -2,8 +2,8 @@
 
 namespace Unit\Records\Types\DnsSec;
 
-use MamaOmida\Dns\Records\Types\DnsSec\CDS;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\DnsSec\CDS;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property CDS $subject

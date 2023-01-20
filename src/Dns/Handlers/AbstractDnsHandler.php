@@ -21,7 +21,7 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
      */
     protected int $timeout = 5;
 
-    protected ?string $nameserver = '127.0.0.1';
+    protected ?string $nameserver = '8.8.8.8';
 
     public abstract function getDnsData(string $host, int $typeId): array;
 

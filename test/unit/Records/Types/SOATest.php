@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records\Types;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\SOA;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\SOA;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property SOA $subject

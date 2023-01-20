@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records;
+namespace BlueLibraries\Dns\Test\Unit\Records;
 
-use MamaOmida\Dns\Records\RecordException;
-use MamaOmida\Dns\Records\RecordFactory;
+use BlueLibraries\Dns\Records\RecordException;
+use BlueLibraries\Dns\Records\RecordFactory;
 use PHPUnit\Framework\TestCase;
 
 class RecordFactoryTest extends TestCase

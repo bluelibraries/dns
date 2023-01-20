@@ -2,11 +2,11 @@
 
 namespace Unit\Handlers\Raw;
 
-use MamaOmida\Dns\Handlers\Raw\RawClassTypes;
-use MamaOmida\Dns\Handlers\Raw\RawDataException;
-use MamaOmida\Dns\Handlers\Raw\RawDataRequest;
-use MamaOmida\Dns\Records\DnsUtils;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Handlers\Raw\RawClassTypes;
+use BlueLibraries\Dns\Handlers\Raw\RawDataException;
+use BlueLibraries\Dns\Handlers\Raw\RawDataRequest;
+use BlueLibraries\Dns\Records\DnsUtils;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class RawDataRequestTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\NAPTR;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\NAPTR;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property NAPTR $subject

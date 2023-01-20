@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records\Types\DnsSec;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types\DnsSec;
 
-use MamaOmida\Dns\Records\Types\DnsSec\CDNSKey;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\DnsSec\CDNSKey;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property CDNSKey $subject

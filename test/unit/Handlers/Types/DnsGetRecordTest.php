@@ -1,10 +1,10 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Handlers\Types;
+namespace BlueLibraries\Dns\Test\Unit\Handlers\Types;
 
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

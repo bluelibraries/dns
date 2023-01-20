@@ -2,8 +2,8 @@
 
 namespace Unit\Records\Types;
 
-use MamaOmida\Dns\Records\Types\HTTPS;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\HTTPS;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property HTTPS $subject

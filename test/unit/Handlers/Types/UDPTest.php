@@ -2,7 +2,7 @@
 
 namespace Unit\Handlers\Types;
 
-use MamaOmida\Dns\Handlers\Types\UDP;
+use BlueLibraries\Dns\Handlers\Types\UDP;
 use PHPUnit\Framework\TestCase;
 
 class UDPTest extends TestCase

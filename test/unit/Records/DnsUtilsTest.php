@@ -2,7 +2,7 @@
 
 namespace Unit\Records;
 
-use MamaOmida\Dns\Records\DnsUtils;
+use BlueLibraries\Dns\Records\DnsUtils;
 use PHPUnit\Framework\TestCase;
 
 class DnsUtilsTest extends TestCase

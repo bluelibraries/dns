@@ -2,8 +2,8 @@
 
 namespace Unit\Records\Types\DnsSec;
 
-use MamaOmida\Dns\Records\Types\DnsSec\NSEC3Param;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3Param;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property NSEC3Param $subject

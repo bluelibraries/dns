@@ -2,7 +2,7 @@
 
 namespace Unit\Handlers\Raw;
 
-use MamaOmida\Dns\Handlers\Raw\RawClassTypes;
+use BlueLibraries\Dns\Handlers\Raw\RawClassTypes;
 use PHPUnit\Framework\TestCase;
 
 class RawClassTypesTest extends TestCase

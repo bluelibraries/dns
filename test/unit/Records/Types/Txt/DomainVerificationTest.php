@@ -2,9 +2,9 @@
 
 namespace Unit\Records\Types\Txt;
 
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\DomainVerification;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\Types\Txt\DomainVerification;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property DomainVerification $subject
@@ -81,21 +81,21 @@ class DomainVerificationTest extends AbstractRecordTestClass
     {
         return [
             ['google-site-verification=Mama-._Omida10', 'google'],
-            ['facebook-domain-verification=MamaOmida10', 'facebook'],
-            ['cisco-ci-domain-verification=MamaOmida10', 'cisco'],
-            ['apple-domain-verification=MamaOmida10', 'apple'],
-            ['onetrust-domain-verification=MamaOmida10', 'onetrust'],
-            ['atlassian-domain-verification=MamaOmida+/10', 'atlassian'],
-            ['webexdomainverification.MamaOmida=MamaOmida10-', 'webex'],
+            ['facebook-domain-verification=BlueLibraries10', 'facebook'],
+            ['cisco-ci-domain-verification=BlueLibraries10', 'cisco'],
+            ['apple-domain-verification=BlueLibraries10', 'apple'],
+            ['onetrust-domain-verification=BlueLibraries10', 'onetrust'],
+            ['atlassian-domain-verification=BlueLibraries+/10', 'atlassian'],
+            ['webexdomainverification.BlueLibraries=BlueLibraries10-', 'webex'],
             ['docusign=Mama-Omida', 'docusign'],
-            ['MS=MamaOmida1', 'office365'],
-            ['globalsign-domain-verification=MamaOmida-10_', 'globalsign'],
-            ['e2ma-verification=MamaOmida10', 'emma'],
-            ['status-page-domain-verification=MamaOmida10', 'atlassian'],
+            ['MS=BlueLibraries1', 'office365'],
+            ['globalsign-domain-verification=BlueLibraries-10_', 'globalsign'],
+            ['e2ma-verification=BlueLibraries10', 'emma'],
+            ['status-page-domain-verification=BlueLibraries10', 'atlassian'],
             ['mandrill_verify.', 'mailchimp'],
-            ['ca3-MamaOmida10', 'cloudflare'],
+            ['ca3-BlueLibraries10', 'cloudflare'],
             ['docker-verification=Mama-Omida10', 'docker'],
-            ['Dynatrace-site-verification=MamaOmida-_10', 'dynatrace'],
+            ['Dynatrace-site-verification=BlueLibraries-_10', 'dynatrace'],
             ['yandex-verification: Mama-_Omida10', 'yandex'],
             ['adobe-idp-site-verification=Mama-Omida10', 'adobe'],
             ['adobe-sign-verification=Mama-Omida10', 'adobe'],
@@ -103,12 +103,12 @@ class DomainVerificationTest extends AbstractRecordTestClass
             ['google-gws-recovery-domain-verification=2405', 'google'],
             ['smartsheet-site-validation=Mama-Omida10', 'smartsheet'],
             ['_github-challenge-Ana-Are_Mere-10=AreSi10Pere', 'github'],
-            ['mongodb-site-verification=MamaOmida10', 'mongodb'],
-            ['amazonses:MamaOmida=-/10', 'amazon-ses'],
-            ['MamaOmida10-=./.cloudfront.net', 'amazon-cloudfront'],
+            ['mongodb-site-verification=BlueLibraries10', 'mongodb'],
+            ['amazonses:BlueLibraries=-/10', 'amazon-ses'],
+            ['BlueLibraries10-=./.cloudfront.net', 'amazon-cloudfront'],
             ['pinterest-site-verification=Mama-Omida10=', 'pinterest'],
             ['stripe-verification=Mama-Omida10=', 'stripe'],
-            ['miro-verification=MamaOmida10', 'miro'],
+            ['miro-verification=BlueLibraries10', 'miro'],
             ['grive1ol-verification', null],
         ];
     }
@@ -137,21 +137,21 @@ class DomainVerificationTest extends AbstractRecordTestClass
     {
         return [
             ['google-site-verification=Mama-._Omida10', 'Mama-._Omida10'],
-            ['facebook-domain-verification=MamaOmida10', 'MamaOmida10'],
-            ['cisco-ci-domain-verification=MamaOmida10', 'MamaOmida10'],
-            ['apple-domain-verification=MamaOmida10', 'MamaOmida10'],
-            ['onetrust-domain-verification=MamaOmida10', 'MamaOmida10'],
-            ['atlassian-domain-verification=MamaOmida+/10', 'MamaOmida+/10'],
-            ['webexdomainverification.MamaOmida=MamaOmida10-', 'MamaOmida10-'],
+            ['facebook-domain-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['cisco-ci-domain-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['apple-domain-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['onetrust-domain-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['atlassian-domain-verification=BlueLibraries+/10', 'BlueLibraries+/10'],
+            ['webexdomainverification.BlueLibraries=BlueLibraries10-', 'BlueLibraries10-'],
             ['docusign=Mama-Omida', 'Mama-Omida'],
-            ['MS=MamaOmida1', 'MamaOmida1'],
-            ['globalsign-domain-verification=MamaOmida-10_', 'MamaOmida-10_'],
-            ['e2ma-verification=MamaOmida10', 'MamaOmida10'],
-            ['status-page-domain-verification=MamaOmida10', 'MamaOmida10'],
+            ['MS=BlueLibraries1', 'BlueLibraries1'],
+            ['globalsign-domain-verification=BlueLibraries-10_', 'BlueLibraries-10_'],
+            ['e2ma-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['status-page-domain-verification=BlueLibraries10', 'BlueLibraries10'],
             ['mandrill_verify.', 'mandrill_verify.'],
-            ['ca3-MamaOmida10', 'MamaOmida10'],
+            ['ca3-BlueLibraries10', 'BlueLibraries10'],
             ['docker-verification=Mama-Omida10', 'Mama-Omida10'],
-            ['Dynatrace-site-verification=MamaOmida-_10', 'MamaOmida-_10'],
+            ['Dynatrace-site-verification=BlueLibraries-_10', 'BlueLibraries-_10'],
             ['yandex-verification: Mama-_Omida10', 'Mama-_Omida10'],
             ['adobe-idp-site-verification=Mama-Omida10', 'Mama-Omida10'],
             ['adobe-sign-verification=Mama-Omida10', 'Mama-Omida10'],
@@ -159,12 +159,12 @@ class DomainVerificationTest extends AbstractRecordTestClass
             ['google-gws-recovery-domain-verification=2405', '2405'],
             ['smartsheet-site-validation=Mama-Omida10', 'Mama-Omida10'],
             ['_github-challenge-Ana-Are_Mere-10=AreSi10Pere', 'AreSi10Pere'],
-            ['mongodb-site-verification=MamaOmida10', 'MamaOmida10'],
-            ['amazonses:MamaOmida=-/10', 'MamaOmida=-/10'],
-            ['MamaOmida10-=./.cloudfront.net', 'MamaOmida10-=./'],
+            ['mongodb-site-verification=BlueLibraries10', 'BlueLibraries10'],
+            ['amazonses:BlueLibraries=-/10', 'BlueLibraries=-/10'],
+            ['BlueLibraries10-=./.cloudfront.net', 'BlueLibraries10-=./'],
             ['pinterest-site-verification=Mama-Omida10=', 'Mama-Omida10='],
             ['stripe-verification=Mama-Omida10=', 'Mama-Omida10='],
-            ['miro-verification=MamaOmida10', 'MamaOmida10'],
+            ['miro-verification=BlueLibraries10', 'BlueLibraries10'],
             ['grive1ol-verification', 'grive1ol-verification'],
         ];
     }

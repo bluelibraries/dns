@@ -2,9 +2,9 @@
 
 namespace Unit\Records\Types\Txt;
 
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\Txt\TLSReporting;
-use MamaOmida\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\Types\Txt\TLSReporting;
+use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
  * @property TLSReporting $subject

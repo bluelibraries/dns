@@ -1,28 +1,28 @@
 <?php
 
-use MamaOmida\Dns\Records\Types\A;
-use MamaOmida\Dns\Records\Types\AAAA;
-use MamaOmida\Dns\Records\Types\CNAME;
-use MamaOmida\Dns\Records\Types\DnsSec\CDNSKey;
-use MamaOmida\Dns\Records\Types\DnsSec\CDS;
-use MamaOmida\Dns\Records\Types\DnsSec\DNSKey;
-use MamaOmida\Dns\Records\Types\DnsSec\DS;
-use MamaOmida\Dns\Records\Types\DnsSec\NSEC;
-use MamaOmida\Dns\Records\Types\DnsSec\NSEC3Param;
-use MamaOmida\Dns\Records\Types\DnsSec\RRSig;
-use MamaOmida\Dns\Records\Types\HInfo;
-use MamaOmida\Dns\Records\Types\HTTPS;
-use MamaOmida\Dns\Records\Types\MX;
-use MamaOmida\Dns\Records\Types\NAPTR;
-use MamaOmida\Dns\Records\Types\NS;
-use MamaOmida\Dns\Records\Types\SOA;
-use MamaOmida\Dns\Records\Types\SRV;
-use MamaOmida\Dns\Records\Types\TXT;
-use MamaOmida\Dns\Records\Types\Txt\DKIM;
-use MamaOmida\Dns\Records\Types\Txt\DMARC;
-use MamaOmida\Dns\Records\Types\Txt\MtaSts;
-use MamaOmida\Dns\Records\Types\Txt\SPF;
-use MamaOmida\Dns\Records\Types\Txt\TLSReporting;
+use BlueLibraries\Dns\Records\Types\A;
+use BlueLibraries\Dns\Records\Types\AAAA;
+use BlueLibraries\Dns\Records\Types\CNAME;
+use BlueLibraries\Dns\Records\Types\DnsSec\CDNSKey;
+use BlueLibraries\Dns\Records\Types\DnsSec\CDS;
+use BlueLibraries\Dns\Records\Types\DnsSec\DNSKey;
+use BlueLibraries\Dns\Records\Types\DnsSec\DS;
+use BlueLibraries\Dns\Records\Types\DnsSec\NSEC;
+use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3Param;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
+use BlueLibraries\Dns\Records\Types\HInfo;
+use BlueLibraries\Dns\Records\Types\HTTPS;
+use BlueLibraries\Dns\Records\Types\MX;
+use BlueLibraries\Dns\Records\Types\NAPTR;
+use BlueLibraries\Dns\Records\Types\NS;
+use BlueLibraries\Dns\Records\Types\SOA;
+use BlueLibraries\Dns\Records\Types\SRV;
+use BlueLibraries\Dns\Records\Types\TXT;
+use BlueLibraries\Dns\Records\Types\Txt\DKIM;
+use BlueLibraries\Dns\Records\Types\Txt\DMARC;
+use BlueLibraries\Dns\Records\Types\Txt\MtaSts;
+use BlueLibraries\Dns\Records\Types\Txt\SPF;
+use BlueLibraries\Dns\Records\Types\Txt\TLSReporting;
 
 return [
 

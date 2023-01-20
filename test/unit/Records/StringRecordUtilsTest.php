@@ -1,10 +1,10 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Unit\Records;
+namespace BlueLibraries\Dns\Test\Unit\Records;
 
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Records\RecordTypes;
-use MamaOmida\Dns\Records\StringRecordUtils;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Records\StringRecordUtils;
 use PHPUnit\Framework\TestCase;
 
 class StringRecordUtilsTest extends TestCase
