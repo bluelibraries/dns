@@ -2,12 +2,12 @@
 
 namespace Integration\Facade;
 
-use MamaOmida\Dns\Facade\DNS;
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerFactoryException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Records\RecordException;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Facade\DNS;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Records\RecordException;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class DNSTest extends TestCase

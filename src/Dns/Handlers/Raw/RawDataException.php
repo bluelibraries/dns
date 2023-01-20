@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers\Raw;
+namespace BlueLibraries\Dns\Handlers\Raw;
 
 use Exception;
 

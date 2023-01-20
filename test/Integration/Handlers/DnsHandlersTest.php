@@ -1,15 +1,15 @@
 <?php
 
-namespace MamaOmida\Dns\Test\Integration\Handlers;
+namespace BlueLibraries\Dns\Test\Integration\Handlers;
 
-use MamaOmida\Dns\DnsRecords;
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerFactory;
-use MamaOmida\Dns\Handlers\DnsHandlerFactoryException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Records\RecordException;
-use MamaOmida\Dns\Records\RecordInterface;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\DnsRecords;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactory;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Records\RecordException;
+use BlueLibraries\Dns\Records\RecordInterface;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class DnsHandlersTest extends TestCase

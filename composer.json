@@ -1,5 +1,5 @@
 {
-  "name": "mama-omida/dns",
+  "name": "bluelibraries/dns",
   "description": "PHP DNS utility",
   "type": "library",
   "license": "GPL-2.0-or-later",
@@ -10,7 +10,7 @@
       "role": "Developer"
     }
   ],
-  "homepage": "https://github.com/mamaOmida/dns",
+  "homepage": "https://github.com/bluelibraries/dns",
   "require": {
     "php": ">=7.4",
     "ext-json": "*",
@@ -22,18 +22,18 @@
   "autoload": {
     "classmap": ["src", "test"],
     "psr-0": {
-      "MamaOmida\\Dns\\Test\\": "test"
+      "BlueLibraries\\Dns\\Test\\": "test"
     },
     "psr-4": {
-      "MamaOmida\\Dns\\": "src/Dns"
+      "BlueLibraries\\Dns\\": "src/Dns"
     }
   },
   "autoload-dev": {
     "psr-0": {
-      "MamaOmida\\Dns\\Test\\": "test"
+      "BlueLibraries\\Dns\\Test\\": "test"
     },
     "psr-4": {
-      "MamaOmida\\Dns\\Test\\": "test"
+      "BlueLibraries\\Dns\\Test\\": "test"
     }
   },
   "scripts": {

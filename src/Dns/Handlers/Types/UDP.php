@@ -1,13 +1,13 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers\Types;
+namespace BlueLibraries\Dns\Handlers\Types;
 
-use MamaOmida\Dns\Handlers\AbstractDnsHandler;
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Handlers\Raw\RawDataException;
-use MamaOmida\Dns\Handlers\Raw\RawDataRequest;
-use MamaOmida\Dns\Handlers\Raw\RawDataResponse;
+use BlueLibraries\Dns\Handlers\AbstractDnsHandler;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Handlers\Raw\RawDataException;
+use BlueLibraries\Dns\Handlers\Raw\RawDataRequest;
+use BlueLibraries\Dns\Handlers\Raw\RawDataResponse;
 
 class UDP extends AbstractDnsHandler
 {

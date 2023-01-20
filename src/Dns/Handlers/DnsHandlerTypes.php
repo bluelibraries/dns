@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers;
+namespace BlueLibraries\Dns\Handlers;
 
 class DnsHandlerTypes
 {

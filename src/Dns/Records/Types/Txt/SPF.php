@@ -1,12 +1,12 @@
 <?php
 
-namespace MamaOmida\Dns\Records\Types\Txt;
+namespace BlueLibraries\Dns\Records\Types\Txt;
 
-use MamaOmida\Dns\Records\DnsUtils;
-use MamaOmida\Dns\Records\ExtendedRecordTrait;
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
-use MamaOmida\Dns\Records\Types\TXT;
-use MamaOmida\Dns\Regex;
+use BlueLibraries\Dns\Records\DnsUtils;
+use BlueLibraries\Dns\Records\ExtendedRecordTrait;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\Types\TXT;
+use BlueLibraries\Dns\Regex;
 
 /**
  * Sender Policy Framework

@@ -1,14 +1,14 @@
 <?php
 
-namespace MamaOmida\Dns\Records;
+namespace BlueLibraries\Dns\Records;
 
-use MamaOmida\Dns\Records\Types\Txt\DKIM;
-use MamaOmida\Dns\Records\Types\Txt\DMARC;
-use MamaOmida\Dns\Records\Types\Txt\DomainVerification;
-use MamaOmida\Dns\Records\Types\Txt\MtaSts;
-use MamaOmida\Dns\Records\Types\Txt\SPF;
-use MamaOmida\Dns\Records\Types\Txt\TLSReporting;
-use MamaOmida\Dns\Regex;
+use BlueLibraries\Dns\Records\Types\Txt\DKIM;
+use BlueLibraries\Dns\Records\Types\Txt\DMARC;
+use BlueLibraries\Dns\Records\Types\Txt\DomainVerification;
+use BlueLibraries\Dns\Records\Types\Txt\MtaSts;
+use BlueLibraries\Dns\Records\Types\Txt\SPF;
+use BlueLibraries\Dns\Records\Types\Txt\TLSReporting;
+use BlueLibraries\Dns\Regex;
 
 class ExtendedTxtRecords
 {

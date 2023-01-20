@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns\Records;
+namespace BlueLibraries\Dns\Records;
 
 class DnsRecordProperties
 {

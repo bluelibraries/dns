@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Records;
+namespace BlueLibraries\Dns\Records;
 
 use DateTime;
-use MamaOmida\Dns\Regex;
+use BlueLibraries\Dns\Regex;
 
 class DnsUtils
 {

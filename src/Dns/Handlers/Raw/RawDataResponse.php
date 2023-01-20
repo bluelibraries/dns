@@ -1,11 +1,11 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers\Raw;
+namespace BlueLibraries\Dns\Handlers\Raw;
 
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Records\RecordTypes;
-use MamaOmida\Dns\Records\DnsUtils;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Records\DnsUtils;
 
 class RawDataResponse
 {

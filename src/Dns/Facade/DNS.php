@@ -1,13 +1,13 @@
 <?php
 
-namespace MamaOmida\Dns\Facade;
+namespace BlueLibraries\Dns\Facade;
 
-use MamaOmida\Dns\DnsRecords;
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerFactory;
-use MamaOmida\Dns\Handlers\DnsHandlerFactoryException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Records\RecordException;
+use BlueLibraries\Dns\DnsRecords;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactory;
+use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Records\RecordException;
 
 class DNS
 {

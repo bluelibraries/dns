@@ -1,6 +1,6 @@
 <?php
 
-namespace MamaOmida\Dns;
+namespace BlueLibraries\Dns;
 
 class Regex
 {

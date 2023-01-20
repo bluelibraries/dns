@@ -1,10 +1,10 @@
 <?php
 
-namespace MamaOmida\Dns\Records\Types;
+namespace BlueLibraries\Dns\Records\Types;
 
-use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\RecordTypes;
-use MamaOmida\Dns\Records\ExtendedTxtRecords;
+use BlueLibraries\Dns\Records\AbstractRecord;
+use BlueLibraries\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 
 class TXT extends AbstractRecord
 {

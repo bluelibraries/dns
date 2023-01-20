@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Records\Types\DnsSec;
+namespace BlueLibraries\Dns\Records\Types\DnsSec;
 
-use MamaOmida\Dns\Records\AbstractRecord;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Records\AbstractRecord;
+use BlueLibraries\Dns\Records\RecordTypes;
 
 class NSEC3Param extends AbstractRecord
 {

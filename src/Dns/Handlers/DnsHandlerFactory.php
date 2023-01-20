@@ -1,11 +1,11 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers;
+namespace BlueLibraries\Dns\Handlers;
 
-use MamaOmida\Dns\Handlers\Types\Dig;
-use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
-use MamaOmida\Dns\Handlers\Types\TCP;
-use MamaOmida\Dns\Handlers\Types\UDP;
+use BlueLibraries\Dns\Handlers\Types\Dig;
+use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Handlers\Types\TCP;
+use BlueLibraries\Dns\Handlers\Types\UDP;
 
 class DnsHandlerFactory
 {

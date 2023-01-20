@@ -1,11 +1,11 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers\Types;
+namespace BlueLibraries\Dns\Handlers\Types;
 
-use MamaOmida\Dns\Handlers\AbstractDnsHandler;
-use MamaOmida\Dns\Handlers\DnsHandlerException;
-use MamaOmida\Dns\Handlers\DnsHandlerTypes;
-use MamaOmida\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Handlers\AbstractDnsHandler;
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
+use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Records\RecordTypes;
 
 class DnsGetRecord extends AbstractDnsHandler
 {

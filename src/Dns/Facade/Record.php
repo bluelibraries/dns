@@ -1,11 +1,11 @@
 <?php
 
-namespace MamaOmida\Dns\Facade;
+namespace BlueLibraries\Dns\Facade;
 
-use MamaOmida\Dns\Records\RecordException;
-use MamaOmida\Dns\Records\RecordFactory;
-use MamaOmida\Dns\Records\RecordInterface;
-use MamaOmida\Dns\Records\StringRecordUtils;
+use BlueLibraries\Dns\Records\RecordException;
+use BlueLibraries\Dns\Records\RecordFactory;
+use BlueLibraries\Dns\Records\RecordInterface;
+use BlueLibraries\Dns\Records\StringRecordUtils;
 
 class Record
 {

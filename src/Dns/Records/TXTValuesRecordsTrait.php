@@ -1,8 +1,8 @@
 <?php
 
-namespace MamaOmida\Dns\Records;
+namespace BlueLibraries\Dns\Records;
 
-use MamaOmida\Dns\Regex;
+use BlueLibraries\Dns\Regex;
 
 trait TXTValuesRecordsTrait
 {

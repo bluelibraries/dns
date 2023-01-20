@@ -1,9 +1,9 @@
 <?php
 
-namespace MamaOmida\Dns\Handlers;
+namespace BlueLibraries\Dns\Handlers;
 
-use MamaOmida\Dns\Records\RecordTypes;
-use MamaOmida\Dns\Regex;
+use BlueLibraries\Dns\Records\RecordTypes;
+use BlueLibraries\Dns\Regex;
 
 abstract class AbstractDnsHandler implements DnsHandlerInterface
 {
