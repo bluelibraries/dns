@@ -84,6 +84,9 @@ class DnsGetRecord extends AbstractDnsHandler
         if (!is_array($records) || empty($records)) {
             return $records;
         }
+
+        $records = $this->splitTXTEntries($records);
+
         foreach ($records as $key => $record) {
             if ($record['type'] === 'NAPTR') {
                 $records[$key] = $this->fixNAPTRFlags($record);
@@ -131,6 +134,35 @@ class DnsGetRecord extends AbstractDnsHandler
                 DnsHandlerException::TYPE_ID_NOT_SUPPORTED
             );
         }
+    }
+
+    private function splitTXTEntries(array $records): array
+    {
+        if (empty($records)) {
+            return $records;
+        }
+
+        $result = [];
+
+        foreach ($records as $record) {
+
+            if ($record['type'] !== 'TXT') {
+                $result[] = $record;
+                continue;
+            }
+            $entries = $record['entries'] ?? [];
+            if (!empty($entries)) {
+                foreach ($entries as $entry) {
+                    $subEntry = $record;
+                    unset($subEntry['entries']);
+                    $subEntry['txt'] = $entry;
+                    $result[] = $subEntry;
+                }
+            } else {
+                $result[] = $record;
+            }
+        }
+        return $result;
     }
 
 }

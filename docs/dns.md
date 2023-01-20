@@ -75,7 +75,7 @@ Array
 
 ### Retrieve records using `TCP`
 ```php
-// TCP is the default DNS handler and if you are using it then you can skip it
+// TCP is the default DNS handler, so if you are using it then you can skip it
 $records = DNS::getRecords('test.com', RecordTypes::TXT);
 print_r($records);
 ```
