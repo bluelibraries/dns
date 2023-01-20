@@ -15,13 +15,14 @@
 
 ## Dns handlers comparison
 
-| Feature                                            | DNS_GET_RECORD                                                                          | DIG                          | UDP                          | TCP                          |
-|----------------------------------------------------|-----------------------------------------------------------------------------------------|------------------------------|------------------------------|------------------------------|
-| Force timeout                                      | <font style="color:green;display: block; text-align:center; font-weight:bold">NO</font> | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Record types <br/>which are<br/>not defined in PHP | <font class="no">NO</font>                                                              | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Use custom nameserver                              | <font class="no">NO</font>                                                              | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Handle large responses                             | <font class="yes">YES</font>                                                            | <font class="yes">YES</font> | <font class="no">NO</font>   | <font class="yes">YES</font> |
-| No need extra packages by default                  | <font class="yes">YES</font>                                                            | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> |
+| Feature                                            | DNS_GET_RECORD | DIG     | UDP     | TCP     |
+|----------------------------------------------------|----------------|---------|---------|---------|
+| Force timeout                                      | NO             | **YES** | **YES** | **YES** |
+| Record types <br/>which are<br/>not defined in PHP | NO             | **YES** | **YES** | **YES** |
+| Use custom nameserver                              | NO             | **YES** | **YES** | **YES** |
+| Handle large responses                             | **YES**        | **YES** | NO      | **YES** |
+| No need extra packages by default                  | **YES**        | NO      | **YES** | **YES** |
+
 
 ## Retrieve records
 
