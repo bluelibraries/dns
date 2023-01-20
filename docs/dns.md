@@ -1,7 +1,102 @@
 # DNS
 
-## Retrieve DNS records
+## Use certain DNS handler for DNS interrogation
+### This package contains **4** types which can be used for DNS interrogations
+1. DnsGetRecord based on `dns_get_record` PHP function
+2. Dig based on `dig` shell command (better than `dns_get_record` and still secured)
+3. UDP based on `raw` DNS calls using `UDP/socket` - useful for short answered queries as UDP answers might be limited to `512` bytes 
+4. TCP based on `raw` DNS calls using `TCP/socket` - <font style="color:#3399FF; font-size:16px;font-weight:bold">this the best</font> and is set as `default` handler
 
+### Retrieve records using `dns_get_record`
+```php
+$records = DNS::getRecords('test.com', RecordTypes::TXT, DnsHandlerTypes::DNS_GET_RECORD);
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\Txt\DomainVerification Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [class] => IN
+                    [ttl] => 0
+                    [type] => TXT
+                    [txt] => google-site-verification=test-636b-4a56-b349-test
+                )
+        )
+)
+```
+
+### Retrieve records using `dig`
+```php
+$records = DNS::getRecords('test.com', RecordTypes::TXT, DnsHandlerTypes::DIG);
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\Txt\DomainVerification Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [class] => IN
+                    [ttl] => 0
+                    [type] => TXT
+                    [txt] => google-site-verification=test-636b-4a56-b349-test
+                )
+        )
+)
+```
+
+### Retrieve records using `UDP`
+```php
+$records = DNS::getRecords('test.com', RecordTypes::TXT, DnsHandlerTypes::UDP);
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\Txt\DomainVerification Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [class] => IN
+                    [ttl] => 0
+                    [type] => TXT
+                    [txt] => google-site-verification=test-636b-4a56-b349-test
+                )
+        )
+)
+```
+
+### Retrieve records using `TCP`
+```php
+// TCP is the default DNS handler and if you are using it then you can skip it
+$records = DNS::getRecords('test.com', RecordTypes::TXT);
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\Txt\DomainVerification Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [class] => IN
+                    [ttl] => 0
+                    [type] => TXT
+                    [txt] => google-site-verification=test-636b-4a56-b349-test
+                )
+        )
+)
+```
+
+## Retrieve DNS records
 ### Retrieve TXT records
 ```php
 $records = DNS::getRecords('test.com', RecordTypes::TXT);
