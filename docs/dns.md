@@ -1,20 +1,5 @@
 # DNS
 
-<style type="text/css" rel="stylesheet">
-.yes {
-color:green;
-font-weight: bold;
-text-align: center;
-display: block;
-}
-.no {
-color:red;
-font-weight: bold;
-text-align: center;
-display: block;
-}
-</style>
-
 ## Use certain DNS handler for DNS interrogation
 
 ### This package contains **4** types which can be used for DNS interrogations
@@ -30,13 +15,13 @@ display: block;
 
 ## Dns handlers comparison
 
-| Feature                                            | DNS_GET_RECORD               | DIG                          | UDP                          | TCP                          |
-|----------------------------------------------------|------------------------------|------------------------------|------------------------------|------------------------------|
-| Force timeout                                      | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Record types <br/>which are<br/>not defined in PHP | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Use custom nameserver                              | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
-| Handle large responses                             | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="no">NO</font>   | <font class="yes">YES</font> |
-| No need extra packages by default                  | <font class="yes">YES</font> | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> |
+| Feature                                            | DNS_GET_RECORD                                                                          | DIG                          | UDP                          | TCP                          |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------|------------------------------|------------------------------|------------------------------|
+| Force timeout                                      | <font style="color:green;display: block; text-align:center; font-weight:bold">NO</font> | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
+| Record types <br/>which are<br/>not defined in PHP | <font class="no">NO</font>                                                              | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
+| Use custom nameserver                              | <font class="no">NO</font>                                                              | <font class="yes">YES</font> | <font class="yes">YES</font> | <font class="yes">YES</font> |
+| Handle large responses                             | <font class="yes">YES</font>                                                            | <font class="yes">YES</font> | <font class="no">NO</font>   | <font class="yes">YES</font> |
+| No need extra packages by default                  | <font class="yes">YES</font>                                                            | <font class="no">NO</font>   | <font class="yes">YES</font> | <font class="yes">YES</font> |
 
 ## Retrieve records
 
