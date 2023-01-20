@@ -2,10 +2,10 @@
 
 ## Use certain DNS handler for DNS interrogation
 ### This package contains **4** types which can be used for DNS interrogations
-1. DnsGetRecord based on `dns_get_record` PHP function
-2. Dig based on `dig` shell command (better than `dns_get_record` and still secured)
-3. UDP based on `raw` DNS calls using `UDP/socket` - useful for short answered queries as UDP answers might be limited to `512` bytes 
-4. TCP based on `raw` DNS calls using `TCP/socket` - <font style="color:#3399FF; font-size:16px;font-weight:bold">this the best</font> and is set as `default` handler
+1. <font style="font-size:18px; color:#2255DD">DnsGetRecord</font> based on `dns_get_record` PHP function
+2. <font style="font-size:18px; color:#2255DD">Dig</font> based on `dig` shell command (better than `dns_get_record` and still secured)
+3. <font style="font-size:18px; color:#2255DD">UDP</font> based on `raw` DNS calls using `UDP/socket` - useful for short answered queries as UDP answers might be limited to `512` bytes 
+4. <font style="font-size:18px; color:#2255FF">TCP</font> based on `raw` DNS calls using `TCP/socket` - <font style="color:#3399FF; font-size:16px;font-weight:bold">this the best</font> and is set as `default` handler
 
 ### Retrieve records using `dns_get_record`
 ```php
