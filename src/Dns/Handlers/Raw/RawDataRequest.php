@@ -6,7 +6,6 @@ use MamaOmida\Dns\Records\DnsUtils;
 
 class RawDataRequest
 {
-
     /**
      * @var int
      * See RawClassTypes.php

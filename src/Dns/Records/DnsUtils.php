@@ -104,4 +104,45 @@ class DnsUtils
         return implode($glue, $result);
     }
 
+    /**
+     * @param RecordInterface[] $array
+     * @return void
+     */
+    public static function removeDuplicates(array $array): array
+    {
+        if (empty($array)) {
+            return [];
+        }
+
+        $result = [];
+        $foundHashes = [];
+
+        foreach ($array as $record) {
+            $recordHash = $record->getHash();
+            if (!in_array($recordHash, $foundHashes)) {
+                $result[] = $record;
+                $foundHashes[] = $recordHash;
+            }
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * @param RecordInterface[] $results
+     * @return RecordInterface[]
+     */
+    public static function sortRecords(array $results): array
+    {
+        $result = [];
+
+        foreach ($results as $record) {
+            $result[$record->getHash()] = $record;
+        }
+
+        ksort($result);
+        return array_values($result);
+    }
+
 }

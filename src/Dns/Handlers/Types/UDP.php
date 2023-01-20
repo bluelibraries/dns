@@ -121,16 +121,16 @@ class UDP extends AbstractDnsHandler
     }
 
     /**
-     * @param string $hostName
+     * @param string $host
      * @param int $typeId
      * @return array
      * @throws DnsHandlerException
      * @throws RawDataException
      */
-    public function getDnsData(string $hostName, int $typeId): array
+    public function getDnsData(string $host, int $typeId): array
     {
-        $this->validateParams($hostName, $typeId);
-        $result = $this->query($hostName, $typeId);
+        $this->validateParams($host, $typeId);
+        $result = $this->query($host, $typeId);
 
         if (is_null($result)) {
             return [];

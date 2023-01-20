@@ -5,11 +5,12 @@ namespace MamaOmida\Dns;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerInterface;
 use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
+use MamaOmida\Dns\Records\DnsUtils;
 use MamaOmida\Dns\Records\RecordException;
 use MamaOmida\Dns\Records\RecordFactory;
 use MamaOmida\Dns\Records\RecordInterface;
 
-class Dns
+class DnsRecords
 {
     private DnsHandlerInterface $handler;
     private RecordFactory $factory;
@@ -42,9 +43,9 @@ class Dns
 
     /**
      * @param DnsHandlerInterface $handler
-     * @return Dns
+     * @return DnsRecords
      */
-    public function setHandler(DnsHandlerInterface $handler): Dns
+    public function setHandler(DnsHandlerInterface $handler): DnsRecords
     {
         $this->handler = $handler;
         return $this;
@@ -60,71 +61,55 @@ class Dns
 
     /**
      * @param RecordFactory $factory
-     * @return Dns
+     * @return DnsRecords
      */
-    public function setFactory(RecordFactory $factory): Dns
+    public function setFactory(RecordFactory $factory): DnsRecords
     {
         $this->factory = $factory;
         return $this;
     }
 
     /**
-     * @param string $hostName
+     * @param string $host
      * @param int|array $type
-     * @param bool $extendedRecords
+     * @param bool $useExtendedRecords
      * @param bool $keepOrder
      * @param bool $removeDuplicates
      * @return array
      * @throws DnsHandlerException
      * @throws RecordException
      */
-    public function getRecords(string $hostName, $type, bool $extendedRecords = false, bool $keepOrder = true, bool $removeDuplicates = true): array
+    public function get(string $host, $type, bool $useExtendedRecords = false, bool $keepOrder = true, bool $removeDuplicates = true): array
     {
         if (is_int($type)) {
-            return $this->getRecordDataForType($hostName, $type, $extendedRecords, $keepOrder);
+            return $this->getRecordDataForType($host, $type, $useExtendedRecords, $keepOrder);
         }
 
         $result = [];
 
         foreach ($type as $typeId) {
-            $result = array_merge($result, $this->getRecordDataForType($hostName, $typeId, $extendedRecords, $keepOrder));
+            $result = array_merge($result, $this->getRecordDataForType($host, $typeId, $useExtendedRecords, $keepOrder));
         }
 
         if ($removeDuplicates) {
-            $result = $this->removeDuplicates($result);
+            $result = DnsUtils::removeDuplicates($result);
         }
 
         return $result;
     }
 
     /**
-     * @param RecordInterface[] $results
-     * @return RecordInterface[]
-     */
-    private function sortRecords(array $results): array
-    {
-        $result = [];
-
-        foreach ($results as $record) {
-            $result[$record->getHash()] = $record;
-        }
-
-        ksort($result);
-        return array_values($result);
-    }
-
-    /**
-     * @param string $hostName
+     * @param string $host
      * @param $typeId
-     * @param bool $extendedRecords
+     * @param bool $useExtendedRecords
      * @param bool $keepOrder
      * @return array|RecordInterface[]
      * @throws DnsHandlerException
      * @throws RecordException
      */
-    private function getRecordDataForType(string $hostName, $typeId, bool $extendedRecords, bool $keepOrder): array
+    private function getRecordDataForType(string $host, $typeId, bool $useExtendedRecords, bool $keepOrder): array
     {
-        $recordsData = $this->handler->getDnsData($hostName, $typeId);
+        $recordsData = $this->handler->getDnsData($host, $typeId);
 
         if (empty($recordsData)) {
             return [];
@@ -133,35 +118,11 @@ class Dns
         $result = [];
 
         foreach ($recordsData as $recordData) {
-            $result[] = $this->factory->create($recordData, $extendedRecords);
+            $result[] = $this->factory->create($recordData, $useExtendedRecords);
         }
 
         if ($keepOrder) {
-            $result = $this->sortRecords($result);
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param RecordInterface[] $array
-     * @return void
-     */
-    private function removeDuplicates(array $array): array
-    {
-        if (empty($array)) {
-            return [];
-        }
-
-        $result = [];
-        $foundHashes = [];
-
-        foreach ($array as $record) {
-            $recordHash = $record->getHash();
-            if (!in_array($recordHash, $foundHashes)) {
-                $result[] = $record;
-                $foundHashes[] = $recordHash;
-            }
+            $result = DnsUtils::sortRecords($result);
         }
 
         return $result;

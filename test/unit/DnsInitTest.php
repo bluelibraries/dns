@@ -2,7 +2,7 @@
 
 namespace MamaOmida\Dns\Test\Unit;
 
-use MamaOmida\Dns\Dns;
+use MamaOmida\Dns\DnsRecords;
 use MamaOmida\Dns\Handlers\Types\DnsGetRecord;
 use MamaOmida\Dns\Records\RecordFactory;
 use PHPUnit\Framework\TestCase;
@@ -12,19 +12,19 @@ class DnsInitTest extends TestCase
 
     public function testInjectNullHandler()
     {
-        $subject = new Dns(null, new RecordFactory());
+        $subject = new DnsRecords(null, new RecordFactory());
         $this->assertEquals($subject->getHandler(), new DnsGetRecord());
     }
 
     public function testInjectNullFactory()
     {
-        $subject = new Dns(new DnsGetRecord(), null);
+        $subject = new DnsRecords(new DnsGetRecord(), null);
         $this->assertEquals($subject->getFactory(), new RecordFactory());
     }
 
     public function testInjectNullDependencies()
     {
-        $subject = new Dns(null, null);
+        $subject = new DnsRecords(null, null);
         $this->assertEquals($subject->getHandler(), new DnsGetRecord());
         $this->assertEquals($subject->getFactory(), new RecordFactory());
     }
@@ -32,21 +32,21 @@ class DnsInitTest extends TestCase
     public function testReturnSameHandler()
     {
         $handler = new DnsGetRecord();
-        $subject = new Dns($handler, null);
+        $subject = new DnsRecords($handler, null);
         $this->assertSame($handler, $subject->getHandler());
     }
 
     public function testReturnSameFactory()
     {
         $factory = new RecordFactory();
-        $subject = new Dns(null, $factory);
+        $subject = new DnsRecords(null, $factory);
         $this->assertSame($factory, $subject->getFactory());
     }
 
     public function testSetHandler()
     {
         $handler = new DnsGetRecord();
-        $subject = new Dns(null, null);
+        $subject = new DnsRecords(null, null);
         $subject->setHandler($handler);
         $this->assertSame($handler, $subject->getHandler());
     }
@@ -54,7 +54,7 @@ class DnsInitTest extends TestCase
     public function testSetFactory()
     {
         $factory = new RecordFactory();
-        $subject = new Dns(null, null);
+        $subject = new DnsRecords(null, null);
         $subject->setFactory($factory);
         $this->assertSame($factory, $subject->getFactory());
     }

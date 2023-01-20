@@ -2,7 +2,7 @@
 
 namespace MamaOmida\Dns\Test\Unit;
 
-use MamaOmida\Dns\Dns;
+use MamaOmida\Dns\DnsRecords;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerInterface;
 use MamaOmida\Dns\Records\RecordTypes;
@@ -12,9 +12,9 @@ use MamaOmida\Dns\Records\RecordInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DnsTest extends TestCase
+class DnsRecordsTest extends TestCase
 {
-    private DNS $subject;
+    private DnsRecords $subject;
 
     /**
      * @var DnsHandlerInterface|MockObject
@@ -37,7 +37,7 @@ class DnsTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->subject = new Dns($this->handler, $this->factory);
+        $this->subject = new DnsRecords($this->handler, $this->factory);
     }
 
     /**
@@ -48,7 +48,7 @@ class DnsTest extends TestCase
     {
         $this->handler->method('getDnsData')->willReturn([]);
         $this->factory->expects($this->never())->method('create');
-        $this->assertSame([], $this->subject->getRecords('test.test', RecordTypes::A));
+        $this->assertSame([], $this->subject->get('test.test', RecordTypes::A));
     }
 
     public function allRecordTypesFormattedClassesDataProvider(): array
@@ -73,7 +73,7 @@ class DnsTest extends TestCase
         $this->factory->method('create')
             ->willReturn($recordTypeA);
 
-        $records = $this->subject->getRecords($data['host'], RecordTypes::A);
+        $records = $this->subject->get($data['host'], RecordTypes::A);
 
         $this->assertSame($recordTypeA, $records[0]);
     }

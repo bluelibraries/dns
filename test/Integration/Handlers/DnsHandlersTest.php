@@ -2,7 +2,7 @@
 
 namespace MamaOmida\Dns\Test\Integration\Handlers;
 
-use MamaOmida\Dns\Dns;
+use MamaOmida\Dns\DnsRecords;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerFactory;
 use MamaOmida\Dns\Handlers\DnsHandlerFactoryException;
@@ -18,7 +18,7 @@ class DnsHandlersTest extends TestCase
     private DnsHandlerFactory $handlerFactory;
 
     /**
-     * @var Dns[]
+     * @var DnsRecords[]
      */
     private array $subjects = [];
 
@@ -54,7 +54,7 @@ class DnsHandlersTest extends TestCase
                     ->setTimeout(10)
                     ->setRetries(3);
             }
-            $this->subjects[$handlerType] = new Dns(
+            $this->subjects[$handlerType] = new DnsRecords(
                 $dnsHandler
             );
         }
@@ -260,7 +260,7 @@ class DnsHandlersTest extends TestCase
 
         foreach ($this->subjects as $handlerType => $subject) {
             try {
-                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+                $results[$handlerType] = $subject->get($domain, $recordTypes, true);
             } catch (DnsHandlerException $exception) {
                 if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
                     throw $exception;
@@ -316,7 +316,7 @@ class DnsHandlersTest extends TestCase
             }
 
             try {
-                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+                $results[$handlerType] = $subject->get($domain, $recordTypes, true);
             } catch (DnsHandlerException $exception) {
                 if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
                     throw $exception;
@@ -371,7 +371,7 @@ class DnsHandlersTest extends TestCase
                 continue;
             }
             try {
-                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true, true, false);
+                $results[$handlerType] = $subject->get($domain, $recordTypes, true, true, false);
             } catch (DnsHandlerException $exception) {
                 if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
                     throw $exception;
@@ -414,7 +414,7 @@ class DnsHandlersTest extends TestCase
                 continue;
             }
 
-            $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true, false, false);
+            $results[$handlerType] = $subject->get($domain, $recordTypes, true, false, false);
         }
 
         $this->assertTrue($this->allArraysAreEquals($results, $recordTypesFound));
@@ -448,7 +448,7 @@ class DnsHandlersTest extends TestCase
 
         foreach ($this->subjects as $handlerType => $subject) {
             try {
-                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+                $results[$handlerType] = $subject->get($domain, $recordTypes, true);
             } catch (DnsHandlerException $exception) {
                 if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
                     throw $exception;
@@ -487,7 +487,7 @@ class DnsHandlersTest extends TestCase
 
         foreach ($this->subjects as $handlerType => $subject) {
             try {
-                $results[$handlerType] = $subject->getRecords($domain, $recordTypes, true);
+                $results[$handlerType] = $subject->get($domain, $recordTypes, true);
             } catch (DnsHandlerException $exception) {
                 if ($exception->getCode() !== DnsHandlerException::TYPE_ID_NOT_SUPPORTED) {
                     throw $exception;

@@ -2,7 +2,6 @@
 
 namespace MamaOmida\Dns\Handlers\Types;
 
-use Exception;
 use MamaOmida\Dns\Handlers\AbstractDnsHandler;
 use MamaOmida\Dns\Handlers\DnsHandlerException;
 use MamaOmida\Dns\Handlers\DnsHandlerTypes;
@@ -46,22 +45,22 @@ class DnsGetRecord extends AbstractDnsHandler
     /**
      * @throws DnsHandlerException
      */
-    public function getDnsData(string $hostName, int $typeId): array
+    public function getDnsData(string $host, int $typeId): array
     {
-        $this->validateParams($hostName, $typeId);
+        $this->validateParams($host, $typeId);
         $this->validatePHPInternalTypeId($typeId);
 
         $internalTypeId = static::getInternalTypeId($typeId);
 
-        return $this->getDnsRawResult($hostName, $internalTypeId);
+        return $this->getDnsRawResult($host, $internalTypeId);
     }
 
-    public function getDnsRawResult(string $hostName, int $type): array
+    public function getDnsRawResult(string $host, int $type): array
     {
         $startProcess = time();
         for ($i = 0; $i <= $this->retries; $i++) {
             if (
-                ($result = $this->getDnsRecord($hostName, $type)) !== []
+                ($result = $this->getDnsRecord($host, $type)) !== []
                 || ((time() - $startProcess) >= $this->timeout)
             ) {
                 return is_array($result) ? $result : [];
@@ -71,13 +70,13 @@ class DnsGetRecord extends AbstractDnsHandler
     }
 
     /**
-     * @param string $hostName
+     * @param string $host
      * @param int $type
      * @return array|bool
      */
-    protected function getDnsRecord(string $hostName, int $type)
+    protected function getDnsRecord(string $host, int $type)
     {
-        return empty($hostName) ? false : $this->getUpdatedRecordsData(dns_get_record($hostName, $type));
+        return empty($host) ? false : $this->getUpdatedRecordsData(dns_get_record($host, $type));
     }
 
     public function getUpdatedRecordsData($records): array

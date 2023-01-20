@@ -9,7 +9,7 @@ interface DnsHandlerInterface
 
     public function canUseIt(): bool;
 
-    public function getDnsData(string $hostName, int $typeId): array;
+    public function getDnsData(string $host, int $typeId): array;
 
     public function getRetries(): int;
 

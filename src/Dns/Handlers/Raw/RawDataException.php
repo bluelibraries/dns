@@ -6,6 +6,6 @@ use Exception;
 
 class RawDataException extends Exception
 {
-    const ERR_INVALID_CLASS_ID = 1;
-    const ERR_INVALID_ADDRESS = 2;
+    public const ERR_INVALID_CLASS_ID = 1;
+    public const ERR_INVALID_ADDRESS = 2;
 }

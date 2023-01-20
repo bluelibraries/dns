@@ -37,11 +37,11 @@ class RecordFactory
 
     /**
      * @param array $recordData
-     * @param bool $extendedRecords
+     * @param bool $useExtendedRecords
      * @return RecordInterface
      * @throws RecordException
      */
-    public function create(array $recordData, bool $extendedRecords)
+    public function create(array $recordData, bool $useExtendedRecords)
     {
 
         if (
@@ -106,7 +106,7 @@ class RecordFactory
 
                 $record = new TXT($recordData);
 
-                if ($extendedRecords) {
+                if ($useExtendedRecords) {
                     $extendedRecord = $this->extendedTxtRecords->getExtendedTxtRecord($recordData);
                     return is_null($extendedRecord) ? $record : $extendedRecord;
                 } else {

@@ -29,12 +29,12 @@ class Dig extends AbstractDnsHandler
     /**
      * @throws DnsHandlerException
      */
-    public function getDnsData(string $hostName, int $typeId): array
+    public function getDnsData(string $host, int $typeId): array
     {
-        $this->validateParams($hostName, $typeId);
+        $this->validateParams($host, $typeId);
 
         return StringRecordUtils::normalizeRawResult(
-            $this->getDnsRawResult($hostName, $typeId)
+            $this->getDnsRawResult($host, $typeId)
         );
     }
 
