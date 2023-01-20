@@ -13,17 +13,84 @@
    using `TCP/socket` - <font style="color:#3399FF; font-size:16px;font-weight:bold">this the best</font> and is set
    as `default` handler
 
-## Dns handlers comparison
+### Dns handlers comparison
 
-| Feature                                            | DNS_GET_RECORD | DIG     | UDP     | TCP     |
-|----------------------------------------------------|----------------|---------|---------|---------|
-| Force timeout                                      | NO             | **YES** | **YES** | **YES** |
-| Record types <br/>which are<br/>not defined in PHP | NO             | **YES** | **YES** | **YES** |
-| Use custom nameserver                              | NO             | **YES** | **YES** | **YES** |
-| Handle large responses                             | **YES**        | **YES** | NO      | **YES** |
-| No need extra packages by default                  | **YES**        | NO      | **YES** | **YES** |
+| Feature                                                   | DNS_GET_RECORD | DIG     | UDP     | TCP     |
+|-----------------------------------------------------------|----------------|---------|---------|---------|
+| Force timeout                                             | NO             | **YES** | **YES** | **YES** |
+| Detect record types <br/>which are<br/>not defined in PHP | NO             | **YES** | **YES** | **YES** |
+| Use custom nameserver                                     | NO             | **YES** | **YES** | **YES** |
+| Handle large responses                                    | **YES**        | **YES** | NO      | **YES** |
+| No need extra packages by default                         | **YES**        | NO      | **YES** | **YES** |
 
+### Dns handlers custom settings
+```php
+// Let's customize the DNS request handler - TCP
+$dnsHandler = (new TCP())
+    ->setPort(53)
+    ->setNameserver('8.8.8.8')
+    ->setTimeout(3) // limit execution to 3 seconds
+    ->setRetries(5); // allows 5 retries if response fails
 
+// Let's initialize the DNS records service
+$dnsRecordsService = new DnsRecords($dnsHandler);
+
+// let's get some TXT records from `test.com`
+$records = $dnsRecordsService->get('test.com', RecordTypes::TXT);
+
+// let's display them
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\TXT Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => TXT
+                    [txt] => google-site-verification=kWtestq0tP8Ae_WJhRwUcZoqpdEkvuXJk
+                )
+        )
+    [1] => BlueLibraries\Dns\Records\Types\TXT Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => TXT
+                    [txt] => 55d34914-636b-4x-b349-fdb9f2c1eaca
+                )
+        )
+)
+```
+### Similar for DIG, UDP 
+```php
+$dnsHandler = (new UDP())
+    ->setPort(53)
+    ->setNameserver('8.8.8.8')
+    ->setTimeout(3) // limit execution to 3 seconds
+    ->setRetries(5); // allows 5 retries if response fails
+
+$dnsHandler = (new DIG())
+    ->setPort(53)
+    ->setNameserver('8.8.8.8')
+    ->setTimeout(3) // limit execution to 3 seconds
+    ->setRetries(5); // allows 5 retries if response fails
+```
+
+### DnsGetRecord - this handler has a limited number of settings
+```php
+// DnsGetRecord allows only Timeout and Retries, but there is no control over timeout
+// so the timeout may be much longer than the limit we set!
+$dnsHandler = (new DnsGetRecord())
+    ->setTimeout(3) // limit execution to 3 seconds
+    ->setRetries(5); // allows 5 retries if response fails
+```
 ## Retrieve records
 
 ### Retrieve records using `dns_get_record`
