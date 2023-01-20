@@ -1,6 +1,6 @@
 # DNS
 
-<style>
+<style type="text/css" rel="stylesheet">
 .yes {
 color:green;
 font-weight: bold;
