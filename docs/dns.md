@@ -378,13 +378,11 @@ Array
 )
 ```
 
-# Retrieve CAA (Certification Authority Authorization)
-
+### Retrieve CAA (Certification Authority Authorization)
 ```php
 $records = DNS::getRecords('test.com', RecordTypes::CAA);
 print_r($records);
 ```
-
 ```php
 Array
 (
@@ -404,3 +402,96 @@ Array
 )
 ```
 
+### Retrieve ALL records
+```php
+$records = DNS::getRecords('test.com', RecordTypes::ALL, DnsHandlerTypes::DIG);
+print_r($records);
+```
+```php
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\NS Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => NS
+                    [target] => ns2.teesttest.com
+                )
+        )
+    [1] => BlueLibraries\Dns\Records\Types\SOA Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => SOA
+                    [mname] => ns1.safesecureweb.com
+                    [rname] => abuse.ntirety.com
+                    [serial] => 212
+                    [refresh] => 10800
+                    [retry] => 3600
+                    [expire] => 604800
+                    [minimum-ttl] => 3600
+                )
+        )
+    [2] => BlueLibraries\Dns\Records\Types\Txt\DomainVerification Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => TXT
+                    [txt] => google-site-verification=errre
+                )
+        )
+    [3] => BlueLibraries\Dns\Records\Types\NS Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => NS
+                    [target] => tst3.test.com
+                )
+        )
+    [4] => BlueLibraries\Dns\Records\Types\TXT Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => TXT
+                    [txt] => 55d34914-636b-4tes-b349-fdb9f2c1eaca
+                )
+        )
+    [5] => BlueLibraries\Dns\Records\Types\A Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => A
+                    [ip] => 67.225.146.248
+                )
+        )
+    [6] => BlueLibraries\Dns\Records\Types\NS Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => test.com
+                    [ttl] => 3600
+                    [class] => IN
+                    [type] => NS
+                    [target] => ns1.testsefetest.com
+                )
+        )
+)
+```

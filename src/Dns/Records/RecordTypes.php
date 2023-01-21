@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Records;
 class RecordTypes
 {
 
-    public const ALL = 255;// or 0?
+    public const ALL = 255;
     public const A = 1;
     public const NS = 2;
 
@@ -109,17 +109,12 @@ class RecordTypes
     public const DEPRECATED_SPF = 99;
 
     /**
-     * @deprecated see: https://www.ietf.org/rfc/rfc8482.txt
-     */
-    public const ANY = DNS_ANY;
-
-    /**
      * @deprecated, not a standard, yet
      */
     public const TYPE_65 = -1;
 
     public static array $all = [
-        self::ALL         => 'ALL',
+        self::ALL         => 'ANY',
         self::A           => 'A',
         self::NS          => 'NS',
         self::MD          => 'MD',
