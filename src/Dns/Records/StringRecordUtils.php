@@ -68,7 +68,7 @@ class StringRecordUtils
         }
 
         if (isset($result['txt'])) {
-            $result['txt'] = ltrim(rtrim(DnsUtils::sanitizeTextLineSeparators($result['txt']), '"'), '"');
+            $result['txt'] = DnsUtils::trim(DnsUtils::sanitizeTextLineSeparators($result['txt']), '"',1);
         }
 
         return $result;

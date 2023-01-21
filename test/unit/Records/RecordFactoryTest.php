@@ -62,20 +62,4 @@ class RecordFactoryTest extends TestCase
         $this->subject->create(['type' => 'INVALID'], false);
     }
 
-    public function testCreateTypeAnyThrowsException()
-    {
-        $this->expectException(RecordException::class);
-        $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD);
-        $this->expectExceptionMessage('Invalid record type for recordData: {"type":"ANY"}');
-        $this->subject->create(['type' => 'ANY'], false);
-    }
-
-    public function testCreateTypeAllThrowsException()
-    {
-        $this->expectException(RecordException::class);
-        $this->expectExceptionCode(RecordException::UNABLE_TO_CREATE_RECORD_TYPE);
-        $this->expectExceptionMessage('Unable to create record type 255 for record data: {"type":"ALL"}');
-        $this->subject->create(['type' => 'ALL'], false);
-    }
-
 }

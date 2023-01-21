@@ -4,12 +4,11 @@ namespace BlueLibraries\Dns\Records\Types;
 
 use BlueLibraries\Dns\Records\AbstractRecord;
 use BlueLibraries\Dns\Records\RecordTypes;
-use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 
 class TXT extends AbstractRecord
 {
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         if (isset($data['entries'])) {
             unset($data['entries']);

@@ -145,4 +145,20 @@ class DnsUtils
         return array_values($result);
     }
 
+    public static function trim(string $haystack, $needle, int $length = 1)
+    {
+        if (empty($haystack)) {
+            return '';
+        }
+
+        if (empty($needle) || empty($length)) {
+            return $haystack;
+        }
+
+        $result = preg_replace(sprintf(Regex::TRIM_LENGTH_START, $needle, $length), '', $haystack);
+        $result = preg_replace(sprintf(Regex::TRIM_LENGTH_END, $needle, $length), '', $result);
+
+        return $result;
+    }
+
 }

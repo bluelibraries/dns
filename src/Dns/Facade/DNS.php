@@ -26,6 +26,7 @@ class DNS
      * @param int|int[] $type
      * @param string|null $handlerType
      * @param bool|null $useExtendedRecords
+     * @param string|null $nameserver
      * @return array
      * @throws DnsHandlerException
      * @throws DnsHandlerFactoryException
