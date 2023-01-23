@@ -1,5 +1,33 @@
-# dns
-PHP DNS tools
+# DNS
 
 [![Build](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/bluelibraries/dns/branch/main/graph/badge.svg?token=CQBMZ4EDED)](https://codecov.io/gh/bluelibraries/dns)
+
+## Extract verious record types
+- [A](./docs/Records/a.md)
+- [NS](./docs/Records/ns.md)
+- [CNAME](./docs/Records/cname.md)
+- [SOA](./docs/Records/soa.md)
+- [PTR](./docs/Records/ptr.md)
+- [HINFO](./docs/Records/hinfo.md)
+- [MX](./docs/Records/mx.md)
+- [TXT](./docs/Records/txt.md)
+    - [SPF](./docs/Records/Txt/spf.md)
+    - [DKIM](./docs/Records/Txt/dkim.md)
+    - [DMARC](./docs/Records/Txt/dmarc.md)
+    - [MtaSts](./docs/Records/Txt/mta-sts.md)
+    - [TlsReporting](./docs/Records/Txt/tls-reporting.md)
+    - [DomainVerification](./docs/Records/Txt/domain-verification.md)
+- [AAAA](./docs/Records/aaaa.md)
+- [SRV](./docs/Records/srv.md)
+- [NAPTR](./docs/Records/naptr.md)
+- [DS](./docs/Records/DnsSec/ds.md)
+- [RRSIG](./docs/Records/DnsSec/rrsig.md)
+- [NSEC](./docs/Records/DnsSec/nsec.md)
+- [DNSKEY](./docs/Records/DnsSec/dnskey.md)
+- [NSEC3PARAM](./docs/Records/DnsSec/nsec3param.md)
+- [CDS](./docs/Records/DnsSec/cds.md)
+- [CDNSKEY](./docs/Records/DnsSec/cdnskey.md)
+- [HTTPS](./docs/Records/https.md)
+- [CAA](./docs/Records/caa.md)
+

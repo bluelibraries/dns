@@ -110,7 +110,7 @@ print_r($records);
 ```text
 Array
 (
-    [0] => BlueLibraries\Dns\Records\Types\HInfo Object
+    [0] => BlueLibraries\Dns\Records\Types\HINFO Object
         (
             [data:protected] => Array
                 (
@@ -137,7 +137,7 @@ print_r($records);
 ```text
 Array
 (
-    [0] => BlueLibraries\Dns\Records\Types\HInfo Object
+    [0] => BlueLibraries\Dns\Records\Types\HINFO Object
         (
             [data:protected] => Array
                 (
@@ -170,7 +170,7 @@ print_r($records);
 ```text
 Array
 (
-    [0] => BlueLibraries\Dns\Records\Types\HInfo Object
+    [0] => BlueLibraries\Dns\Records\Types\HINFO Object
         (
             [data:protected] => Array
                 (

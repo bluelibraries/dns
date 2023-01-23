@@ -305,7 +305,7 @@ class RawDataResponse
                 $result['types'] = $recordTypes;
                 break;
 
-            case RecordTypes::NSEC3_PARAM:
+            case RecordTypes::NSEC3PARAM:
                 $response = $this->readResponse($headerData['length']);
                 $values = unpack("Calgo/nflags/citerations/clength/H*salt",
                     $response

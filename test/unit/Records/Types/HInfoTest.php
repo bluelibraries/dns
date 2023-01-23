@@ -2,17 +2,17 @@
 
 namespace Unit\Records\Types;
 
-use BlueLibraries\Dns\Records\Types\HInfo;
+use BlueLibraries\Dns\Records\Types\HINFO;
 use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
- * @property HInfo $subject
+ * @property HINFO $subject
  */
 class HInfoTest extends AbstractRecordTestClass
 {
     public function setUp(): void
     {
-        $this->subject = new HInfo([]);
+        $this->subject = new HINFO([]);
         parent::setUp();
     }
 

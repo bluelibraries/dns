@@ -13,7 +13,6 @@ use BlueLibraries\Dns\Regex;
 class ExtendedTxtRecords
 {
     public const DOMAIN_VERIFICATION = 'DOMAIN-VERIFICATION';
-    public const SUBDOMAIN_VERIFICATION = 'SUBDOMAIN-VERIFICATION';
     public const SPF = 'SPF';
     public const DKIM = 'DKIM';
     public const DMARC = 'DMARK';

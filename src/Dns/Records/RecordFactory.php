@@ -11,9 +11,9 @@ use BlueLibraries\Dns\Records\Types\DnsSec\CDS;
 use BlueLibraries\Dns\Records\Types\DnsSec\DNSKey;
 use BlueLibraries\Dns\Records\Types\DnsSec\DS;
 use BlueLibraries\Dns\Records\Types\DnsSec\NSEC;
-use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3Param;
-use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
-use BlueLibraries\Dns\Records\Types\HInfo;
+use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3PARAM;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSIG;
+use BlueLibraries\Dns\Records\Types\HINFO;
 use BlueLibraries\Dns\Records\Types\HTTPS;
 use BlueLibraries\Dns\Records\Types\MX;
 use BlueLibraries\Dns\Records\Types\NAPTR;
@@ -77,10 +77,10 @@ class RecordFactory
                 return new CAA($recordData);
 
             case RecordTypes::HINFO:
-                return new HInfo($recordData);
+                return new HINFO($recordData);
 
             case RecordTypes::RRSIG:
-                return new RRSig($recordData);
+                return new RRSIG($recordData);
 
             case RecordTypes::DNSKEY:
                 return new DNSKey($recordData);
@@ -88,8 +88,8 @@ class RecordFactory
             case RecordTypes::CDNSKEY:
                 return new CDNSKey($recordData);
 
-            case RecordTypes::NSEC3_PARAM:
-                return new NSEC3Param($recordData);
+            case RecordTypes::NSEC3PARAM:
+                return new NSEC3PARAM($recordData);
 
             case RecordTypes::DS:
                 return new DS($recordData);

@@ -144,7 +144,7 @@ class DnsHandlersTest extends TestCase
             RecordTypes::DNSKEY,
             RecordTypes::DHCID,
             RecordTypes::NSEC3,
-            RecordTypes::NSEC3_PARAM,
+            RecordTypes::NSEC3PARAM,
 
             RecordTypes::CDNSKEY,
             RecordTypes::OPENPGPKEY,
@@ -207,7 +207,7 @@ class DnsHandlersTest extends TestCase
             RecordTypes::DNSKEY,
             RecordTypes::DHCID,
             RecordTypes::NSEC3,
-            RecordTypes::NSEC3_PARAM,
+            RecordTypes::NSEC3PARAM,
             RecordTypes::TLSA,
             RecordTypes::SMIMEA,
             RecordTypes::HIP,

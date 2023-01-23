@@ -8,9 +8,9 @@ use BlueLibraries\Dns\Records\Types\DnsSec\CDS;
 use BlueLibraries\Dns\Records\Types\DnsSec\DNSKey;
 use BlueLibraries\Dns\Records\Types\DnsSec\DS;
 use BlueLibraries\Dns\Records\Types\DnsSec\NSEC;
-use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3Param;
-use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
-use BlueLibraries\Dns\Records\Types\HInfo;
+use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3PARAM;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSIG;
+use BlueLibraries\Dns\Records\Types\HINFO;
 use BlueLibraries\Dns\Records\Types\HTTPS;
 use BlueLibraries\Dns\Records\Types\MX;
 use BlueLibraries\Dns\Records\Types\NAPTR;
@@ -154,8 +154,8 @@ return [
             'hardware' => 'HC-85',
             'os'       => 'Win 95'
         ],
-        HInfo::class,
-        HInfo::class,
+        HINFO::class,
+        HINFO::class,
     ],
     [
         [
@@ -173,8 +173,8 @@ return [
             'signer-name'          => 'test.com',
             'signature'            => '==signature==',
         ],
-        RRSig::class,
-        RRSig::class,
+        RRSIG::class,
+        RRSIG::class,
     ],
     [
         [
@@ -258,8 +258,8 @@ return [
             'iterations' => 3,
             'salt'       => 'salt==',
         ],
-        NSEC3Param::class,
-        NSEC3Param::class,
+        NSEC3PARAM::class,
+        NSEC3PARAM::class,
     ],
     [
         [

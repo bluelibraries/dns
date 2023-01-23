@@ -2,17 +2,17 @@
 
 namespace Unit\Records\Types\DnsSec;
 
-use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSIG;
 use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
 
 /**
- * @property RRSig $subject
+ * @property RRSIG $subject
  */
 class RRSIGTest extends AbstractRecordTestClass
 {
     public function setUp(): void
     {
-        $this->subject = new RRSig([]);
+        $this->subject = new RRSIG([]);
         parent::setUp();
     }
 
@@ -144,7 +144,6 @@ class RRSIGTest extends AbstractRecordTestClass
                 'key-tag'              => 49890,
                 'signer-name'          => 'test.com',
                 'signature'            => '==signature==',
-
             ]
         );
         $this->assertSame('test.com 3600 IN RRSIG A 1 2 3600 169254 169253 49890 test.com ==signature==', $this->subject->toString());

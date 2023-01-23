@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Records\Types\DnsSec;
 use BlueLibraries\Dns\Records\AbstractRecord;
 use BlueLibraries\Dns\Records\RecordTypes;
 
-class RRSig extends AbstractRecord
+class RRSIG extends AbstractRecord
 {
     public function getTypeId(): int
     {

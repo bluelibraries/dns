@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Records\Types;
 use BlueLibraries\Dns\Records\AbstractRecord;
 use BlueLibraries\Dns\Records\RecordTypes;
 
-class HInfo extends AbstractRecord
+class HINFO extends AbstractRecord
 {
     public function getTypeId(): int
     {

@@ -75,7 +75,7 @@ class DnsRecordProperties
             'public-key',
         ],
 
-        RecordTypes::NSEC3_PARAM => [
+        RecordTypes::NSEC3PARAM => [
             'algorithm', // int?
             'flags',
             'iterations',

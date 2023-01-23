@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Test\Unit\Facade;
 use BlueLibraries\Dns\Facade\Record;
 use BlueLibraries\Dns\Records\RecordException;
 use BlueLibraries\Dns\Records\RecordInterface;
-use BlueLibraries\Dns\Records\Types\DnsSec\RRSig;
+use BlueLibraries\Dns\Records\Types\DnsSec\RRSIG;
 use BlueLibraries\Dns\Records\Types\TXT;
 use BlueLibraries\Dns\Records\Types\Txt\SPF;
 use PHPUnit\Framework\TestCase;
