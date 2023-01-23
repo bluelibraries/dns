@@ -10,7 +10,7 @@ class TCPTest extends TestCase
     /**
      * @var TCP
      */
-    protected $subject;
+    protected TCP $subject;
 
     public function setUp(): void
     {

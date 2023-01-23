@@ -7,24 +7,24 @@
 
 ### This package contains **4** types which can be used for DNS interrogations
 
-1. <font style="font-size:18px; color:#2255DD">DnsGetRecord</font> based on `dns_get_record` PHP function
-2. <font style="font-size:18px; color:#2255DD">Dig</font> based on `dig` shell command (better than `dns_get_record` and
+1. **DnsGetRecord** based on `dns_get_record` PHP function
+2. **Dig** based on `dig` shell command (better than `dns_get_record` and
    still secured)
-3. <font style="font-size:18px; color:#2255DD">UDP</font> based on `raw` DNS calls using `UDP/socket` - useful for short
+3. **UDP** based on `raw` DNS calls using `UDP/socket` - useful for short
    answered queries as UDP answers might be limited to `512` bytes
-4. <font style="font-size:18px; color:#2255FF">TCP</font> based on `raw` DNS calls
+4. **TCP** based on `raw` DNS calls
    using `TCP/socket` - <font style="color:#3399FF; font-size:16px;font-weight:bold">this the best</font> and is set
    as `default` handler
 
 ### Dns handlers comparison
 
-| Feature                                                        | DNS_GET_RECORD | DIG     | UDP     | TCP     |
-|----------------------------------------------------------------|----------------|---------|---------|---------|
-| **Force timeout** limit                                        | NO             | **YES** | **YES** | **YES** |
-| Detect **more record types** <br/>that are<br/> defined in PHP | NO             | **YES** | **YES** | **YES** |
-| Use **custom nameserver**                                      | NO             | **YES** | **YES** | **YES** |
-| Handle **large responses**                                     | **YES**        | **YES** | NO      | **YES** |
-| No need **extra modules/packages** by default                  | **YES**        | NO      | **YES** | **YES** |
+| Feature                                                       | DNS_GET_RECORD | DIG     | UDP     | TCP     |
+|---------------------------------------------------------------|----------------|---------|---------|---------|
+| **Force timeout** limit                                       | NO             | **YES** | **YES** | **YES** |
+| Detect **more record types** <br/>that are defined in **PHP** | NO             | **YES** | **YES** | **YES** |
+| Use **custom nameserver**                                     | NO             | **YES** | **YES** | **YES** |
+| Handle **large responses**                                    | **YES**        | **YES** | NO      | **YES** |
+| No need for **extra modules/packages** for running            | **YES**        | NO      | **YES** | **YES** |
 
 ### Dns handlers custom settings
 ```php

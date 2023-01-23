@@ -160,7 +160,6 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getSplitSignature($signature, $bufferLen, $separator), $expected);
     }
 
-
     public function asciiStringDataProvider(): array
     {
         return [

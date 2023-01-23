@@ -128,5 +128,4 @@ class RawDataRequestTest extends TestCase
         $this->subject->generateHeader();
     }
 
-
 }

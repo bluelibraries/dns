@@ -2,7 +2,6 @@
 
 namespace BlueLibraries\Dns\Test\Unit\Records;
 
-use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Records\RecordTypes;
 use BlueLibraries\Dns\Records\StringRecordUtils;
 use PHPUnit\Framework\TestCase;

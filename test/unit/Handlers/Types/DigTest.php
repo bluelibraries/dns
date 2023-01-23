@@ -6,7 +6,6 @@ use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\Types\Dig;
 use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\Framework\assertSame;
 
 class DigTest extends TestCase
 {
@@ -230,7 +229,6 @@ class DigTest extends TestCase
 
     public function testInvalidOutput()
     {
-
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_GET_RECORD);
 

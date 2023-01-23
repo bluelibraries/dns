@@ -173,16 +173,15 @@ class DnsGetRecordTest extends TestCase
 
     public function testGetDnsRawResult()
     {
-        $value =
+        $value = [
             [
-                [
-                    'host'  => 'test.com',
-                    'class' => 'IN',
-                    'ttl'   => 0,
-                    'type'  => 'A',
-                    'ip'    => '20.81.111.85',
-                ]
-            ];
+                'host'  => 'test.com',
+                'class' => 'IN',
+                'ttl'   => 0,
+                'type'  => 'A',
+                'ip'    => '20.81.111.85',
+            ]
+        ];
         $this->setValueInGetDnsRecord($value);
         $this->assertSame($value, $this->subject->getDnsRawResult('test.com', RecordTypes::TXT));
     }
