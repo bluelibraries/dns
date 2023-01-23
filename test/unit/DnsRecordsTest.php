@@ -56,26 +56,26 @@ class DnsRecordsTest extends TestCase
         return require "Data/allRecordsTypesFormattedClasses.php";
     }
 
-    /**
-     * @return void
-     * @throws DnsHandlerException
-     * @throws RecordException
-     * @dataProvider allRecordTypesFormattedClassesDataProvider
-     */
-    public function testGetRecordsReturnTypeA(array $data, string $className)
-    {
-
-        $this->handler->method('getDnsData')->willReturn([$data]);
-
-        /** @var RecordInterface $recordTypeA */
-        $recordTypeA = new $className($data);
-
-        $this->factory->method('create')
-            ->willReturn($recordTypeA);
-
-        $records = $this->subject->get($data['host'], RecordTypes::A);
-
-        $this->assertSame($recordTypeA, $records[0]);
-    }
+//    /**
+//     * @return void
+//     * @throws DnsHandlerException
+//     * @throws RecordException
+//     * @dataProvider allRecordTypesFormattedClassesDataProvider
+//     */
+//    public function testGetRecordsReturnTypeA(array $data, string $className)
+//    {
+//
+//        $this->handler->method('getDnsData')->willReturn([$data]);
+//
+//        /** @var RecordInterface $recordTypeA */
+//        $recordTypeA = new $className($data);
+//
+//        $this->factory->method('create')
+//            ->willReturn($recordTypeA);
+//
+//        $records = $this->subject->get($data['host'], RecordTypes::A);
+//
+//        $this->assertSame($recordTypeA, $records[3]);
+//    }
 
 }

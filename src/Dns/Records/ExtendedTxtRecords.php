@@ -109,7 +109,7 @@ class ExtendedTxtRecords
 
     private function isDomainKeyHostName(string $host): bool
     {
-        return preg_match(Regex::DOMAINKEY_HOSTNAME, $host) === 1;
+        return preg_match(Regex::DKIM_HOSTNAME, $host) === 1;
     }
 
     private function isDmarcHostName(string $host): bool
