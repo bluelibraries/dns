@@ -28,5 +28,4 @@ class CAA extends AbstractRecord
         return $this->data['value'] ?? null;
     }
 
-
 }

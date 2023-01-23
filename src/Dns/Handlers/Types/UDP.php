@@ -18,7 +18,6 @@ class UDP extends AbstractDnsHandler
      * @var mixed
      */
     private $socket = null;
-    private string $header = '';
 
     public function getType(): string
     {
@@ -88,7 +87,6 @@ class UDP extends AbstractDnsHandler
         $request = new RawDataRequest($hostName, $typeId, $this->timeout);
 
         $header = $request->generateHeader();
-        $this->header = $header;
         $headerLen = strlen($header);
 
         socket_setopt($socket, SOL_SOCKET, SO_RCVBUF, 4096);

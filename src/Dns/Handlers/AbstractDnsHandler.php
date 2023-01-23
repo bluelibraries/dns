@@ -108,7 +108,6 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
                 DnsHandlerException::HOSTNAME_LENGTH_INVALID
             );
         }
-
     }
 
     /**

@@ -81,7 +81,7 @@ abstract class AbstractRecord implements RecordInterface, JsonSerializable
     }
 
     public function __toString() {
-        return $this->toString(' ');
+        return $this->toString();
     }
 
     private function makeString(array $array): string

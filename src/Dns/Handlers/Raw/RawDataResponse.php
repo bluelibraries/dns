@@ -96,6 +96,7 @@ class RawDataResponse
         $labels = [];
         $offsetStart = $offset;
         $return = false;
+
         while (!$return) {
             $labelLength = ord($this->readResponse(1, $offset++));
             if ($labelLength <= 0) {

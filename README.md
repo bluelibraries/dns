@@ -18,13 +18,13 @@
 
 ### Dns handlers comparison
 
-| Feature                                                   | DNS_GET_RECORD | DIG     | UDP     | TCP     |
-|-----------------------------------------------------------|----------------|---------|---------|---------|
-| Force timeout                                             | NO             | **YES** | **YES** | **YES** |
-| Detect record types <br/>which are<br/>not defined in PHP | NO             | **YES** | **YES** | **YES** |
-| Use custom nameserver                                     | NO             | **YES** | **YES** | **YES** |
-| Handle large responses                                    | **YES**        | **YES** | NO      | **YES** |
-| No need extra packages by default                         | **YES**        | NO      | **YES** | **YES** |
+| Feature                                                        | DNS_GET_RECORD | DIG     | UDP     | TCP     |
+|----------------------------------------------------------------|----------------|---------|---------|---------|
+| **Force timeout** limit                                        | NO             | **YES** | **YES** | **YES** |
+| Detect **more record types** <br/>that are<br/> defined in PHP | NO             | **YES** | **YES** | **YES** |
+| Use **custom nameserver**                                      | NO             | **YES** | **YES** | **YES** |
+| Handle **large responses**                                     | **YES**        | **YES** | NO      | **YES** |
+| No need **extra modules/packages** by default                  | **YES**        | NO      | **YES** | **YES** |
 
 ### Dns handlers custom settings
 ```php

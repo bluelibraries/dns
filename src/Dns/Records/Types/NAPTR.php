@@ -45,4 +45,3 @@ class NAPTR extends AbstractRecord
 
 }
 
-

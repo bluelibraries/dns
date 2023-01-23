@@ -23,5 +23,4 @@ class MX extends AbstractRecord
         return $this->data['pri'] ?? null;
     }
 
-
 }

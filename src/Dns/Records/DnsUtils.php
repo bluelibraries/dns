@@ -156,9 +156,7 @@ class DnsUtils
         }
 
         $result = preg_replace(sprintf(Regex::TRIM_LENGTH_START, $needle, $length), '', $haystack);
-        $result = preg_replace(sprintf(Regex::TRIM_LENGTH_END, $needle, $length), '', $result);
-
-        return $result;
+        return preg_replace(sprintf(Regex::TRIM_LENGTH_END, $needle, $length), '', $result);
     }
 
 }
