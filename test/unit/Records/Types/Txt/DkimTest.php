@@ -116,9 +116,10 @@ class DKIMTest extends AbstractRecordTestClass
             ['v=DKIM1; ', ['v' => 'DKIM1']],
             ['v=DKIM1; p=publickey', ['v' => 'DKIM1', 'p' => 'publickey']],
             [
-                'v=DKIM1; p=publickey;h=a; g=oo; n=a;q=t;s=x; t=0',
+                'v=DKIM1; k=rsa; p=publickey;h=a; g=oo; n=a;q=t;s=x; t=0',
                 [
                     'v' => 'DKIM1',
+                    'k' => 'rsa',
                     'p' => 'publickey',
                     'h' => 'a',
                     'g' => 'oo',

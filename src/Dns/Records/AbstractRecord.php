@@ -18,9 +18,7 @@ abstract class AbstractRecord implements RecordInterface, JsonSerializable
 
     public function __construct(?array $data = [])
     {
-        if (empty($data)) {
-            return;
-        }
+
         $this->setData($data);
     }
 

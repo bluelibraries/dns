@@ -185,4 +185,31 @@ class DnsUtilsTest extends TestCase
         self::assertSame($expected, DnsUtils::asciiString($value, $glue));
     }
 
+    public function trimDataProvider(): array
+    {
+        return [
+            ['', '' , 0, ''],
+            ['test', 't', 1, 'es'],
+            ['test', 't', 2, 'es'],
+            ['test', 't', 0, 'test'],
+            ['ttestt', 't', 0, 'ttestt'],
+            ['ttestt', 't', 1, 'test'],
+            ['ttestt', 't', 2, 'es'],
+            ['ttestt', 't', 3, 'es'],
+        ];
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @param int $length
+     * @param string $expected
+     * @dataProvider trimDataProvider
+     * @return void
+     */
+    public function testTrim(string $haystack, string $needle, int $length, string $expected)
+    {
+        self::assertSame($expected, DnsUtils::trim($haystack, $needle, $length));
+    }
+
 }

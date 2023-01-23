@@ -4,6 +4,7 @@ namespace BlueLibraries\Dns\Test\Unit\Records;
 
 use BlueLibraries\Dns\Records\RecordException;
 use BlueLibraries\Dns\Records\RecordFactory;
+use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
 class RecordFactoryTest extends TestCase
@@ -61,5 +62,31 @@ class RecordFactoryTest extends TestCase
         $this->expectExceptionMessage('Invalid record type for recordData: {"type":"INVALID"}');
         $this->subject->create(['type' => 'INVALID'], false);
     }
+
+    public function allRecordTypesDataProvider(): array
+    {
+        return array_map(function ($value) {
+            return [$value];
+        }, RecordTypes::getTypesNamesList());
+    }
+
+//    /**
+//     * @param $typeName
+//     * @return void
+//     * @dataProvider allRecordTypesDataProvider
+//     * @throws RecordException
+//     */
+//    public function testAllRecordTypesCreation($typeName)
+//    {
+//        $this->markTestSkipped('skipped for the moment');
+//        $this->assertInstanceOf(RecordInterface::class, $this->subject->create(
+//            [
+//                'host' => 'test.com',
+//                'ttl'  => 3600,
+//                'type' => $typeName,
+//            ],
+//            true
+//        ));
+//    }
 
 }
