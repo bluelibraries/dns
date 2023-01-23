@@ -113,7 +113,7 @@ class RecordTypes
      */
     public const TYPE_65 = -1;
 
-    public static array $all = [
+    private static array $all = [
         self::ALL         => 'ANY',
         self::A           => 'A',
         self::NS          => 'NS',
@@ -223,6 +223,16 @@ class RecordTypes
         if (empty(static::$types)) {
             static::$types = array_flip(static::$all);
         }
+    }
+
+    public static function getTypesList(): array
+    {
+        return array_keys(self::$all);
+    }
+
+    public static function getTypesNamesList(): array
+    {
+        return array_values(self::$all);
     }
 
 }

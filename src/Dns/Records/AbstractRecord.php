@@ -16,8 +16,11 @@ abstract class AbstractRecord implements RecordInterface, JsonSerializable
         return RecordTypes::getName($this->getTypeId());
     }
 
-    public function __construct(array $data)
+    public function __construct(?array $data = [])
     {
+        if (empty($data)) {
+            return;
+        }
         $this->setData($data);
     }
 
@@ -77,6 +80,10 @@ abstract class AbstractRecord implements RecordInterface, JsonSerializable
                 $this->getParsedData($this->data)
             )
         );
+    }
+
+    public function __toString() {
+        return $this->toString(' ');
     }
 
     private function makeString(array $array): string

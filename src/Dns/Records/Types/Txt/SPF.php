@@ -16,8 +16,13 @@ class SPF extends TXT
 
     use ExtendedRecordTrait;
 
-    public function __construct(array $data)
+    public function __construct(?array $data= [])
     {
+
+        if (empty($data)) {
+            return;
+        }
+
         if (!empty($data['txt'])) {
             $data['txt'] = DnsUtils::sanitizeTextLineSeparators($data['txt']);
         }

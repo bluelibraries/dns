@@ -79,7 +79,7 @@ class DnsRecords
      * @throws DnsHandlerException
      * @throws RecordException
      */
-    public function get(string $host, $type, bool $useExtendedRecords = false, bool $keepOrder = true, bool $removeDuplicates = true): array
+    public function get(string $host, $type, bool $useExtendedRecords = true, bool $keepOrder = true, bool $removeDuplicates = true): array
     {
         if (is_int($type)) {
             return $this->getRecordDataForType($host, $type, $useExtendedRecords, $keepOrder);

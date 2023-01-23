@@ -18,6 +18,7 @@ use BlueLibraries\Dns\Records\Types\HTTPS;
 use BlueLibraries\Dns\Records\Types\MX;
 use BlueLibraries\Dns\Records\Types\NAPTR;
 use BlueLibraries\Dns\Records\Types\NS;
+use BlueLibraries\Dns\Records\Types\PTR;
 use BlueLibraries\Dns\Records\Types\SOA;
 use BlueLibraries\Dns\Records\Types\SRV;
 use BlueLibraries\Dns\Records\Types\TXT;
@@ -103,6 +104,7 @@ class RecordFactory
                 return new SRV($recordData);
 
             case RecordTypes::TXT:
+            case RecordTypes::DEPRECATED_SPF:
 
                 $record = new TXT($recordData);
 
@@ -118,6 +120,9 @@ class RecordFactory
 
             case RecordTypes::HTTPS:
                 return new HTTPS($recordData);
+
+            case RecordTypes::PTR:
+                return new PTR($recordData);
 
             case RecordTypes::NAPTR:
                 return new NAPTR($recordData);
