@@ -10,9 +10,6 @@ class TXT extends AbstractRecord
 
     public function __construct(array $data = [])
     {
-        if (isset($data['entries'])) {
-            unset($data['entries']);
-        }
         parent::__construct($data);
     }
 
@@ -24,6 +21,14 @@ class TXT extends AbstractRecord
     public function getTxt(): ?string
     {
         return $this->data['txt'] ?? null;
+    }
+
+    public function setData(array $data): AbstractRecord
+    {
+        if (isset($data['entries'])) {
+            unset($data['entries']);
+        }
+        return parent::setData($data);
     }
 
 }

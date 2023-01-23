@@ -4,6 +4,7 @@ namespace BlueLibraries\Dns\Test\Unit\Records;
 
 use BlueLibraries\Dns\Records\RecordException;
 use BlueLibraries\Dns\Records\RecordFactory;
+use BlueLibraries\Dns\Records\RecordInterface;
 use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
@@ -63,30 +64,88 @@ class RecordFactoryTest extends TestCase
         $this->subject->create(['type' => 'INVALID'], false);
     }
 
-    public function allRecordTypesDataProvider(): array
+    public function implementedRecordTypesDataProvider(): array
     {
-        return array_map(function ($value) {
-            return [$value];
-        }, RecordTypes::getTypesNamesList());
+        return [
+            ['A'],
+            ['NS'],
+            ['CNAME'],
+            ['SOA'],
+            ['PTR'],
+            ['HINFO'],
+            ['MX'],
+            ['TXT'],
+            ['AAAA'],
+            ['SRV'],
+            ['NAPTR'],
+            ['DS'],
+            ['RRSIG'],
+            ['NSEC'],
+            ['DNSKEY'],
+            ['NSEC3PARAM'],
+            ['CDS'],
+            ['CDNSKEY'],
+            ['TYPE65'],
+            ['CAA'],
+            ['SPF'],
+        ];
     }
 
-//    /**
-//     * @param $typeName
-//     * @return void
-//     * @dataProvider allRecordTypesDataProvider
-//     * @throws RecordException
-//     */
-//    public function testAllRecordTypesCreation($typeName)
-//    {
-//        $this->markTestSkipped('skipped for the moment');
-//        $this->assertInstanceOf(RecordInterface::class, $this->subject->create(
-//            [
-//                'host' => 'test.com',
-//                'ttl'  => 3600,
-//                'type' => $typeName,
-//            ],
-//            true
-//        ));
-//    }
+    /**
+     * @param $typeName
+     * @return void
+     * @dataProvider implementedRecordTypesDataProvider
+     * @throws RecordException
+     */
+    public function testImplementedRecordCreation($typeName)
+    {
+        $this->assertInstanceOf(
+            RecordInterface::class,
+            $this->subject->create(
+                [
+                    'host' => 'test.com',
+                    'ttl'  => 3600,
+                    'type' => $typeName,
+                ],
+                true
+            )
+        );
+    }
+
+    public function notImplementedRecordTypesDataProvider(): array
+    {
+        return
+            array_map(
+                function ($item) {
+                    return [$item];
+                },
+                array_diff(
+                    RecordTypes::getTypesNamesList(),
+                    array_map(
+                        function ($item) {
+                            return $item[0];
+                        },
+                        $this->implementedRecordTypesDataProvider()
+                    )));
+    }
+
+    /**
+     * @param string $typeName
+     * @return void
+     * @throws RecordException
+     * @dataProvider notImplementedRecordTypesDataProvider
+     */
+    public function testNotImplementedRecordCreation(string $typeName)
+    {
+        $this->assertNull(
+            $this->subject->create(
+                [
+                    'host' => 'test.com',
+                    'ttl'  => 3600,
+                    'type' => $typeName,
+                ],
+                true
+            ), "typeName:" . $typeName);
+    }
 
 }

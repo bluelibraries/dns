@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Test\Unit\Records;
 use BlueLibraries\Dns\Records\RecordTypes;
 use PHPUnit\Framework\TestCase;
 
-class DnsRecordTypesTest extends TestCase
+class RecordTypesTest extends TestCase
 {
 
     public static function testGetNameInvalid()
@@ -42,4 +42,10 @@ class DnsRecordTypesTest extends TestCase
         static::assertIsString(RecordTypes::getName($typeId));
     }
 
+    public static function testGetTypesNamesList()
+    {
+        static::assertIsArray(RecordTypes::getTypesNamesList());
+    }
+
 }
+

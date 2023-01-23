@@ -225,11 +225,6 @@ class RecordTypes
         }
     }
 
-    public static function getTypesList(): array
-    {
-        return array_keys(self::$all);
-    }
-
     public static function getTypesNamesList(): array
     {
         return array_values(self::$all);

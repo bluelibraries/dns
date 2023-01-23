@@ -15,6 +15,7 @@ use BlueLibraries\Dns\Records\Types\HTTPS;
 use BlueLibraries\Dns\Records\Types\MX;
 use BlueLibraries\Dns\Records\Types\NAPTR;
 use BlueLibraries\Dns\Records\Types\NS;
+use BlueLibraries\Dns\Records\Types\PTR;
 use BlueLibraries\Dns\Records\Types\SOA;
 use BlueLibraries\Dns\Records\Types\SRV;
 use BlueLibraries\Dns\Records\Types\TXT;
@@ -363,6 +364,18 @@ return [
         ],
         TXT::class,
         MtaSts::class,
+    ],
+
+    [
+        [
+            'host'   => 'ptr.bluelibraries.com',
+            'class'  => 'IN',
+            'ttl'    => 0,
+            'type'   => 'PTR',
+            'target' => '192.168.0.1'
+        ],
+        PTR::class,
+        PTR::class,
     ],
 
 ];

@@ -60,7 +60,7 @@ class ExtendedTxtRecords
             return null;
         }
 
-        if (empty($data['host'])) {
+        if (empty($data['host']) || empty($data['txt'])) {
             return null;
         }
 

@@ -128,11 +128,7 @@ class RecordFactory
                 return new NAPTR($recordData);
 
             default:
-                throw new RecordException(
-                    'Unable to create record type ' . json_encode($type) .
-                    ' for record data: ' . json_encode($recordData),
-                    RecordException::UNABLE_TO_CREATE_RECORD_TYPE
-                );
+               return null;
         }
 
     }
