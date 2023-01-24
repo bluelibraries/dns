@@ -144,16 +144,14 @@ class RawDataResponseTest extends TestCase
         $this->assertSame($expected, $subject->getData(), "TypeId: " . $typeId);
     }
 
-
     public function testNotImplementedType64435Response()
     {
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionMessage('Not implemented type: 65534');
         $this->expectExceptionCode(DnsHandlerException::TYPE_ID_NOT_IMPLEMENTED);
-
         $data = json_decode(
             file_get_contents(
-                '/var/www/html/Dns/test/Unit/Data/responses/type65534.json'
+                dirname(__FILE__) . '../../../Data/responses/type65534.json'
             ),
             true);
         $subject = new RawDataResponse($this->request, base64_decode($data['rawData']), DnsHandlerTypes::TCP);
