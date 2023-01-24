@@ -31,6 +31,9 @@
     }
   },
   "autoload-dev": {
+    "psr-0": {
+      "BlueLibraries\\Dns\\Test\\": "test"
+    },
     "psr-4": {
       "BlueLibraries\\Dns\\Test\\": "test"
     }
