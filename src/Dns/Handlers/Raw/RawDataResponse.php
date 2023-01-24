@@ -49,12 +49,16 @@ class RawDataResponse
     {
         if (
             $this->handlerType === DnsHandlerTypes::UDP
-            && $this->headerIsTruncated()
+            && $this->isHeaderTruncated()
         ) {
+            $typeName = is_int($this->request->getTypeId())
+                ? RecordTypes::getName($this->request->getTypeId())
+                : 'n/a';
             throw new DnsHandlerException(
                 'Response too big for UDP, truncation detected, retry TCP or DI... or else!' .
-                ' domain: ' . json_encode($this->request->getDomain() . ' typeId:' . json_encode($this->request->getTypeId()) .
-                    ' typeName: ' . RecordTypes::getName($this->request->getTypeId()),
+                ' domain: ' . json_encode($this->request->getDomain() .
+                    ' typeId:' . json_encode($this->request->getTypeId()) .
+                    ' typeName: ' . $typeName,
                 ),
                 DnsHandlerException::TRUNCATION_DETECTED
             );
@@ -160,22 +164,12 @@ class RawDataResponse
 
             case RecordTypes::A:
                 $ipBinary = $this->readResponse(4);
-                if (function_exists('inet_ntop')) {
-                    $ip = inet_ntop($ipBinary);
-                } else {
-                    $ip = implode(".", unpack("Ca/Cb/Cc/Cd", $ipBinary));
-                }
-                $result['ip'] = $ip;
+                $result['ip'] = inet_ntop($ipBinary);
                 break;
 
             case RecordTypes::AAAA:
                 $ipBinary = $this->readResponse(16);
-                if (function_exists('inet_ntop')) {
-                    $ip = inet_ntop($ipBinary);
-                } else {
-                    $ip = implode(":", unpack("H4a/H4b/H4c/H4d/H4e/H4f/H4g/H4h", $ipBinary));
-                }
-                $result['ipv6'] = DnsUtils::ipV6Shortener($ip);
+                $result['ipv6'] = DnsUtils::ipV6Shortener(inet_ntop($ipBinary));
                 break;
 
             case RecordTypes::CNAME:
@@ -270,7 +264,7 @@ class RawDataResponse
                 $readResponseLen = strLen($readResponse); // 12 = original size
 
                 $lastOffset = 0;
-                $label = implode('.', $this->getConsecutiveLabels(substr($readResponse, 18), $lastOffset));
+                $label = implode('.', DnsUtils::getConsecutiveLabels(substr($readResponse, 18), $lastOffset));
                 $newOffset = 18 + $lastOffset;
                 $signature = base64_encode(substr($readResponse, -($readResponseLen - $newOffset)));
 
@@ -289,9 +283,9 @@ class RawDataResponse
                 $response = $this->readResponse($headerData['length']);
                 $responseLen = strlen($response);
                 $lastOffset = 0;
-                $label = implode('.', $this->getConsecutiveLabels($response, $lastOffset));
+                $label = implode('.', DnsUtils::getConsecutiveLabels($response, $lastOffset));
                 $blocksString = substr($response, -$responseLen + $lastOffset + 1);
-                $blocks = $this->getBlocks($blocksString);
+                $blocks = DnsUtils::getBlocks($blocksString);
                 $recordTypes = '';
 
                 foreach ($blocks as $key => $block) {
@@ -334,20 +328,12 @@ class RawDataResponse
                 $lastOffset = 4;
                 $newOffset = 0;
 
-                $labels = $this->getConsecutiveLabels($response, $newOffset, $lastOffset, 3);
+                $labels = DnsUtils::getConsecutiveLabels($response, $newOffset, $lastOffset, 3);
 
                 $flag = $labels[0] ?? '';
                 $service = $labels[1] ?? '';
                 $regexp = $labels[2] ?? '';
                 $replacement = $labels[3] ?? '';
-                $labelsLen = count($labels);
-
-                if ($labelsLen > 3) {
-                    array_shift($labels);
-                    array_shift($labels);
-                    array_shift($labels);
-                    $replacement = implode('.', $labels);
-                }
 
                 $result['order'] = $values['order'];
                 $result['pref'] = $values['preference'];
@@ -355,6 +341,13 @@ class RawDataResponse
                 $result['services'] = $service;
                 $result['regex'] = $regexp;
                 $result['replacement'] = $replacement;
+                break;
+
+            case RecordTypes::HINFO:
+                $response = $this->readResponse($headerData['length']);
+                $values = DnsUtils::getBlocks($response);
+                $result['hardware'] = $values[0] ?? '';
+                $result['os'] = $values[1] ?? '';
                 break;
 
             default:
@@ -372,40 +365,7 @@ class RawDataResponse
         return $result;
     }
 
-    private function getConsecutiveLabels(string $text, int &$i, int $startsFrom = 0, $count = 1): array
-    {
-        if (empty($text)) {
-            return [];
-        }
 
-        $textLen = strlen($text);
-
-        $foundCount = 0;
-
-        $result = [];
-
-        for ($i = $startsFrom; $i < $textLen; $i++) {
-            $len = ord($text[$i]);
-            if ($len === 0) {
-                if ($foundCount >= $count) {
-                    $i += 1;
-                    break;
-                }
-            }
-
-            $substr = substr($text, $i + 1, $len);
-
-            if ($substr === chr(0) && $count === 1) {
-                $substr = '\000';
-            }
-
-            $result[] = $substr;
-            $i += $len;
-            $foundCount++;
-        }
-
-        return $result;
-    }
 
     /**
      * @throws DnsHandlerException
@@ -463,37 +423,11 @@ class RawDataResponse
         return $this->answers;
     }
 
-    /**
-     * @return int
-     */
-    private function headerIsTruncated(): int
+    private function isHeaderTruncated(): bool
     {
-        return ($this->headerData['spec'] >> 9) & 1;
-    }
-
-    private function getBlocks(string $string): array
-    {
-
-        if (empty($string)) {
-            return [];
-        }
-
-        $result = [];
-        $stringLen = strlen($string);
-
-        for ($i = 0; $i < $stringLen; $i++) {
-            $item = substr($string, $i, 1);
-            $len = ord($item);
-
-            if ($len === 0) {
-                break;
-            }
-
-            $result[] = substr($string, $i + 1, $len);
-            $i += $len + 1;
-        }
-
-        return $result;
+        return isset($this->headerData['spec'])
+            ? (($this->headerData['spec'] >> 9) & 1)
+            : true;
     }
 
 }

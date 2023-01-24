@@ -159,4 +159,64 @@ class DnsUtils
         return preg_replace(sprintf(Regex::TRIM_LENGTH_END, $needle, $length), '', $result);
     }
 
+    public static function getConsecutiveLabels(string $text, int &$i, int $startsFrom = 0, $count = 1): array
+    {
+        if (empty($text)) {
+            return [];
+        }
+
+        $textLen = strlen($text);
+
+        $foundCount = 0;
+
+        $result = [];
+
+        for ($i = $startsFrom; $i < $textLen; $i++) {
+            $len = ord($text[$i]);
+            if ($len === 0) {
+                if ($foundCount >= $count) {
+                    $i += 1;
+                    break;
+                }
+            }
+
+            $substr = substr($text, $i + 1, $len);
+
+            if ($substr === chr(0) && $count === 1) {
+                $substr = '\000';
+            }
+
+            $result[] = $substr;
+            $i += $len;
+            $foundCount++;
+        }
+
+        return $result;
+    }
+
+    public static function getBlocks(string $string): array
+    {
+
+        if (empty($string)) {
+            return [];
+        }
+
+        $result = [];
+        $stringLen = strlen($string);
+
+        for ($i = 0; $i < $stringLen; $i++) {
+            $item = substr($string, $i, 1);
+            $len = ord($item);
+
+            if ($len === 0) {
+                break;
+            }
+
+            $result[] = substr($string, $i + 1, $len);
+            $i += $len ;
+        }
+
+        return $result;
+    }
+
 }
