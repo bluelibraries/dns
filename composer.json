@@ -25,7 +25,7 @@
       "BlueLibraries\\Dns\\Test\\": "test"
     },
     "psr-4": {
-      "BlueLibraries\\Dns\\": "src/Dns"
+      "BlueLibraries\\Dns\\": "src"
     }
   },
   "autoload-dev": {
