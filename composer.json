@@ -26,6 +26,7 @@
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {
+    "classmap": ["src", "test"],
     "psr-0": {
       "BlueLibraries\\Dns\\Test\\": "test"
     },
