@@ -121,11 +121,14 @@ class RawDataResponseTest extends TestCase
             RecordTypes::HINFO,
         ];
 
-        return array_map(function ($item) {
+        $path = dirname(__FILE__) . '../../../Data/responses/';
+
+        return array_map(function ($item) use ($path) {
+
             return
                 json_decode(
                     file_get_contents(
-                        '/var/www/html/Dns/test/Unit/Data/responses/' . strtolower(RecordTypes::getName($item)) . '.json'
+                        $path . strtolower(RecordTypes::getName($item)) . '.json'
                     ),
                     true);
         }, $records);
@@ -154,7 +157,7 @@ class RawDataResponseTest extends TestCase
             ),
             true);
         $subject = new RawDataResponse($this->request, base64_decode($data['rawData']), DnsHandlerTypes::TCP);
-        self::assertSame([],$subject->getData());
+        self::assertSame([], $subject->getData());
     }
 
 }

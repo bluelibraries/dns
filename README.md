@@ -71,7 +71,7 @@ Array
         )
 )
 ```
-### Similar for DIG, UDP
+### Similar for UDP and DIG
 ```php
 $dnsHandler = (new UDP())
     ->setPort(53)
