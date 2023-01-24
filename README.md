@@ -5,6 +5,38 @@
 
 ## Use certain DNS handler for DNS interrogation
 
+### Example:
+```php
+$records = DNS::getRecords('bluelibraries.com', RecordTypes::ANY);
+print_r($records);
+```
+```text
+Array
+(
+    [0] => BlueLibraries\Dns\Records\Types\NS Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => bluelibraries.com
+                    [ttl] => 21600
+                    [class] => IN
+                    [type] => NS
+                    [target] => ns3.instradns.com
+                )
+        )
+    [1] => BlueLibraries\Dns\Records\Types\A Object
+        (
+            [data:protected] => Array
+                (
+                    [host] => bluelibraries.com
+                    [ttl] => 21600
+                    [class] => IN
+                    [type] => A
+                    [ip] => 198.50.252.64
+                )
+        )
+)
+```
 ### This package contains **4** types which can be used for DNS interrogations
 
 1. **DnsGetRecord** based on `dns_get_record` PHP function
