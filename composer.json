@@ -23,21 +23,14 @@
     "ext-sockets": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8.35 || ^5.6.3 || ^9.5"
+    "phpunit/phpunit": "^9.5"
   },
   "autoload": {
-    "classmap": ["src", "test"],
-    "psr-0": {
-      "BlueLibraries\\Dns\\Test\\": "test"
-    },
     "psr-4": {
       "BlueLibraries\\Dns\\": "src"
     }
   },
   "autoload-dev": {
-    "psr-0": {
-      "BlueLibraries\\Dns\\Test\\": "test"
-    },
     "psr-4": {
       "BlueLibraries\\Dns\\Test\\": "test"
     }

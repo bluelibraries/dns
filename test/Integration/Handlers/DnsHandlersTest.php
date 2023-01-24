@@ -64,11 +64,12 @@ class DnsHandlersTest extends TestCase
     {
         parent::tearDownAfterClass();
 
-        foreach (self::$recordTypesFound as $value) {
-            if (!empty($value)) {
-                print_r($value);
-            }
-        }
+// The following code should be enabled only for debug purposes
+//        foreach (self::$recordTypesFound as $value) {
+//            if (!empty($value)) {
+//                print_r($value);
+//            }
+//        }
     }
 
     /**
@@ -279,16 +280,6 @@ class DnsHandlersTest extends TestCase
     public function recordsTypesLongDataProvider(): array
     {
         return [
-//            ['www.yahoo.com'],
-//            ['fifa.org'],
-//            ['india.com'],
-//            ['net.com'],
-//            ['net.com']
-//            ['lego.com']
-//            ['publi24.ro'],
-//            ['adevarul.ro']
-//            ['france.fr'],
-//            ['vodafone.ro'],
             ['metallica.com'],
         ];
     }
@@ -335,16 +326,6 @@ class DnsHandlersTest extends TestCase
     public function recordsTypesTCPandDIGDataProvider(): array
     {
         return [
-//            ['www.yahoo.com'],
-//            ['fifa.org'],
-//            ['india.com'],
-//            ['net.com'],
-//            ['net.com']
-//            ['lego.com']
-//            ['publi24.ro'],
-//            ['adevarul.ro']
-//            ['france.fr'],
-//            ['vodafone.ro'],
             ['coliva.ro'],
         ];
     }
