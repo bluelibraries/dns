@@ -7,7 +7,7 @@
     </testsuites>
     <coverage>
         <include>
-            <directory suffix=".php">src/Dns</directory>
+            <directory suffix=".php">src</directory>
         </include>
         <exclude>
             <directory suffix=".php">test</directory>
