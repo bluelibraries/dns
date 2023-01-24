@@ -1,8 +1,14 @@
 {
   "name": "bluelibraries/dns",
   "description": "PHP DNS utility",
+  "keywords": [
+    "dns",
+    "php",
+    "bluelibraries",
+    "records"
+  ],
   "type": "library",
-  "license": "GPL-2.0-or-later",
+  "license": "LGPL-2.1",
   "authors": [
     {
       "name": "Molnar Raul Alexandru",
