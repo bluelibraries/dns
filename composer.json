@@ -26,20 +26,13 @@
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {
-    "classmap": ["src", "test"],
-    "psr-0": {
-      "BlueLibraries\\Dns\\Test\\": "test"
-    },
     "psr-4": {
-      "BlueLibraries\\Dns\\": "src"
+      "BlueLibraries\\Dns\\": "src/"
     }
   },
   "autoload-dev": {
-    "psr-0": {
-      "BlueLibraries\\Dns\\Test\\": "test"
-    },
     "psr-4": {
-      "BlueLibraries\\Dns\\Test\\": "test"
+      "BlueLibraries\\Dns\\Test\\": "test/"
     }
   },
   "scripts": {
