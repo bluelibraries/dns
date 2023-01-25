@@ -12,16 +12,13 @@ permissions:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
       run: composer install -n
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: PHPUnit Coverage Tests
       run: vendor/bin/phpunit --coverage-clover coverage.xml

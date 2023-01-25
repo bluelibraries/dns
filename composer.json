@@ -34,8 +34,5 @@
     "psr-4": {
       "BlueLibraries\\Dns\\Test\\": "test/"
     }
-  },
-  "scripts": {
-    "test": "phpunit"
   }
 }
