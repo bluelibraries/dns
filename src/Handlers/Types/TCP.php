@@ -31,20 +31,20 @@ class TCP extends AbstractDnsHandler
 
     private function getSocket()
     {
-        $result = $this->socket
-            ?? fsockopen(
-                $this->nameserver,
-                $this->port,
-                $errorCode,
-                $errorMessage,
-                $this->timeout
-            );
 
-        if ($result === false) {
-            return null;
+        if (!is_null($this->socket)) {
+            return $this->socket;
         }
 
-        return $this->socket = $result;
+        $result = fsockopen(
+            $this->nameserver,
+            $this->port,
+            $errorCode,
+            $errorMessage,
+            $this->timeout
+        );
+
+        return $this->socket = ($result === false ? null : $result);
     }
 
     /**
@@ -57,26 +57,12 @@ class TCP extends AbstractDnsHandler
         return $this;
     }
 
-    private function closeSocket()
-    {
-        if (is_null($this->socket)) {
-            return;
-        }
-        fclose($this->socket);
-        $this->socket = null;
-    }
-
     /**
      * @throws DnsHandlerException
      * @throws RawDataException
      */
-    private function query(string $hostName, int $typeId, int $retry = 0): ?RawDataResponse
+    protected function query(string $hostName, int $typeId, int $retry = 0): ?RawDataResponse
     {
-        $socket = $this->getSocket();
-
-        if (is_null($socket)) {
-            return null;
-        }
 
         $request = new RawDataRequest($hostName, $typeId, $this->timeout);
 
@@ -84,34 +70,34 @@ class TCP extends AbstractDnsHandler
         $headerLen = strlen($header);
         $headerBinLen = $request->getBinaryHeaderLength($headerLen);
 
-        if (!fwrite($socket, $headerBinLen)) // write the socket
+        if (!$this->write($headerBinLen)) // write the socket
         {
             if ($retry < $this->retries) {
                 return $this->query($hostName, $typeId, $retry + 1);
             }
-            $this->closeSocket();
+            $this->close();
             throw new DnsHandlerException(
                 "Failed to write question length to TCP socket",
                 DnsHandlerException::ERR_UNABLE_TO_WRITE_QUESTION_LENGTH_TO_TCP_SOCKET
             );
         }
 
-        if (!fwrite($socket, $header, $headerLen)) {
+        if (!$this->write($header, $headerLen)) {
             if ($retry < $this->retries) {
                 return $this->query($hostName, $typeId, $retry + 1);
             }
-            $this->closeSocket();
+            $this->close();
             throw new DnsHandlerException(
                 "Failed to write question to TCP socket",
                 DnsHandlerException::ERR_UNABLE_TO_WRITE_QUESTION_TO_TCP_SOCKET
             );
         }
 
-        if (!$returnLen = fread($socket, 2)) {
+        if (!$returnLen = $this->read(2)) {
             if ($retry < $this->retries) {
                 return $this->query($hostName, $typeId, $retry + 1);
             }
-            $this->closeSocket();
+            $this->close();
             throw new DnsHandlerException(
                 "Failed to read size from TCP socket",
                 DnsHandlerException::ERR_UNABLE_TO_READ_SIZE_FROM_TCP_SOCKET
@@ -120,10 +106,10 @@ class TCP extends AbstractDnsHandler
 
         $returnLenData = unpack("nlength", $returnLen);
         $dataLen = $returnLenData['length'];
-        $rawDataResponse = fread($socket, $dataLen);
-        $this->closeSocket();
+        $rawDataResponse = $this->read($dataLen);
+        $this->close();
 
-        if ($rawDataResponse === false) {
+        if ($rawDataResponse === null) {
             if ($retry < $this->retries) {
                 return $this->query($hostName, $typeId, $retry + 1);
             }
@@ -131,6 +117,29 @@ class TCP extends AbstractDnsHandler
         }
 
         return new RawDataResponse($request, $rawDataResponse, $this->getType());
+    }
+
+    private function close()
+    {
+        if (is_null($this->socket)) {
+            return;
+        }
+        fclose($this->socket);
+        $this->socket = null;
+    }
+
+    protected function write(string $data, ?int $length = null): ?int
+    {
+        $result = is_null($length)
+            ? fwrite($this->getSocket(), $data)
+            : fwrite($this->getSocket(), $data, $length);
+        return is_int($result) ? $result : null;
+    }
+
+    public function read(int $length): ?string
+    {
+        $result = fread($this->getSocket(), $length);
+        return is_string($result) ? $result : null;
     }
 
     /**

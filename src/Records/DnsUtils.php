@@ -155,11 +155,25 @@ class DnsUtils
             return $haystack;
         }
 
-        $result = preg_replace(sprintf(Regex::TRIM_LENGTH_START, $needle, $length), '', $haystack);
-        return preg_replace(sprintf(Regex::TRIM_LENGTH_END, $needle, $length), '', $result);
+        $result = preg_replace(
+            sprintf(
+                Regex::TRIM_LENGTH_START, $needle, $length),
+            '',
+            $haystack
+        );
+        return preg_replace(
+            sprintf(Regex::TRIM_LENGTH_END, $needle, $length),
+            '',
+            $result
+        );
     }
 
-    public static function getConsecutiveLabels(string $text, int &$i, int $startsFrom = 0, $count = 1): array
+    public static function getConsecutiveLabels(
+        string $text,
+        int    &$i,
+        int    $startsFrom = 0,
+               $count = 1
+    ): array
     {
         if (empty($text)) {
             return [];
@@ -213,7 +227,7 @@ class DnsUtils
             }
 
             $result[] = substr($string, $i + 1, $len);
-            $i += $len ;
+            $i += $len;
         }
 
         return $result;
