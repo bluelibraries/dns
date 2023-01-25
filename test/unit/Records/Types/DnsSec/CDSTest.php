@@ -3,12 +3,12 @@
 namespace Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\CDS;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property CDS $subject
  */
-class CDSTest extends AbstractRecordTestClass
+class CDSTest extends RecordTestClass
 {
     public function setUp(): void
     {

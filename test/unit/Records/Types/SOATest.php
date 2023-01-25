@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\SOA;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property SOA $subject
  */
-class SOATest extends AbstractRecordTestClass
+class SOATest extends RecordTestClass
 {
     public function setUp(): void
     {

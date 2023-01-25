@@ -3,12 +3,12 @@
 namespace Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\NSEC3PARAM;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property NSEC3PARAM $subject
  */
-class NSEC3ParamTest extends AbstractRecordTestClass
+class NSEC3ParamTest extends RecordTestClass
 {
     public function setUp(): void
     {

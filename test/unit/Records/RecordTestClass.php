@@ -5,7 +5,7 @@ namespace BlueLibraries\Dns\Test\Unit\Records;
 use BlueLibraries\Dns\Records\RecordInterface;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractRecordTestClass extends TestCase
+class RecordTestClass extends TestCase
 {
 
     protected RecordInterface $subject;

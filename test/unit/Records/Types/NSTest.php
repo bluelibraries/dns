@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\NS;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property NS $subject
  */
-class NSTest extends AbstractRecordTestClass
+class NSTest extends RecordTestClass
 {
     public function setUp(): void
     {

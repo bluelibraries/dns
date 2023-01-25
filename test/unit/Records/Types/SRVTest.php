@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\SRV;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property SRV $subject
  */
-class SRVTest extends AbstractRecordTestClass
+class SRVTest extends RecordTestClass
 {
     public function setUp(): void
     {

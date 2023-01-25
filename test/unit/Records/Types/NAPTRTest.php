@@ -3,12 +3,12 @@
 namespace Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\NAPTR;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property NAPTR $subject
  */
-class NAPTRTest extends AbstractRecordTestClass
+class NAPTRTest extends RecordTestClass
 {
     public function setUp(): void
     {

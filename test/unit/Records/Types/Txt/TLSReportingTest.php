@@ -4,12 +4,12 @@ namespace Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\TLSReporting;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property TLSReporting $subject
  */
-class TLSReportingTest extends AbstractRecordTestClass
+class TLSReportingTest extends RecordTestClass
 {
     public function setUp(): void
     {

@@ -3,12 +3,12 @@
 namespace Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\DNSKey;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property DNSKey $subject
  */
-class DNSKeyTest extends AbstractRecordTestClass
+class DNSKeyTest extends RecordTestClass
 {
     public function setUp(): void
     {

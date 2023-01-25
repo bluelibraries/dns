@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\PTR;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property PTR $subject
  */
-class PTRTest extends AbstractRecordTestClass
+class PTRTest extends RecordTestClass
 {
     public function setUp(): void
     {

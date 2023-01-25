@@ -3,12 +3,12 @@
 namespace Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\RRSIG;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property RRSIG $subject
  */
-class RRSIGTest extends AbstractRecordTestClass
+class RRSIGTest extends RecordTestClass
 {
     public function setUp(): void
     {

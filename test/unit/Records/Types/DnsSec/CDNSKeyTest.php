@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\CDNSKey;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property CDNSKey $subject
  */
-class CDNSKeyTest extends AbstractRecordTestClass
+class CDNSKeyTest extends RecordTestClass
 {
     public function setUp(): void
     {

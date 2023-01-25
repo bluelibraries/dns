@@ -4,12 +4,12 @@ namespace BlueLibraries\Dns\Test\Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\SPF;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property SPF $subject
  */
-class SPFTest extends AbstractRecordTestClass
+class SPFTest extends RecordTestClass
 {
     public function setUp(): void
     {

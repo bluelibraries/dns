@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\AAAA;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property AAAA $subject
  */
-class AAAATest extends AbstractRecordTestClass
+class AAAATest extends RecordTestClass
 {
     public function setUp(): void
     {

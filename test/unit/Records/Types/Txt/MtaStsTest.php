@@ -4,12 +4,12 @@ namespace Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\MtaSts;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property MtaSts $subject
  */
-class MtaStsTest extends AbstractRecordTestClass
+class MtaStsTest extends RecordTestClass
 {
     public function setUp(): void
     {

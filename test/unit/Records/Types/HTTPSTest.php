@@ -3,12 +3,12 @@
 namespace Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\HTTPS;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property HTTPS $subject
  */
-class HTTPSTest extends AbstractRecordTestClass
+class HTTPSTest extends RecordTestClass
 {
     public function setUp(): void
     {

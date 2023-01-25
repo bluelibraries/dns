@@ -3,12 +3,12 @@
 namespace Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\HINFO;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property HINFO $subject
  */
-class HInfoTest extends AbstractRecordTestClass
+class HInfoTest extends RecordTestClass
 {
     public function setUp(): void
     {

@@ -4,12 +4,12 @@ namespace Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\DomainVerification;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property DomainVerification $subject
  */
-class DomainVerificationTest extends AbstractRecordTestClass
+class DomainVerificationTest extends RecordTestClass
 {
     public function setUp(): void
     {

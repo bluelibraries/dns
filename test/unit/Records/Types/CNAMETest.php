@@ -3,12 +3,12 @@
 namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\CNAME;
-use BlueLibraries\Dns\Test\Unit\Records\AbstractRecordTestClass;
+use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
 
 /**
  * @property CNAME $subject
  */
-class CNAMETest extends AbstractRecordTestClass
+class CNAMETest extends RecordTestClass
 {
     public function setUp(): void
     {
