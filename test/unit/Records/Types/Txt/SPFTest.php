@@ -4,18 +4,65 @@ namespace BlueLibraries\Dns\Test\Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\SPF;
-use BlueLibraries\Dns\Test\Unit\Records\RecordTestClass;
+use PHPUnit\Framework\TestCase;
 
-/**
- * @property SPF $subject
- */
-class SPFTest extends RecordTestClass
+class SPFTest extends TestCase
 {
+
+    protected SPF $subject;
+
     public function setUp(): void
     {
         $this->subject = new SPF([]);
         parent::setUp();
     }
+
+    public function testGetTypeId()
+    {
+        $this->assertIsInt($this->subject->getTypeId());
+    }
+
+    public function testSetDataReturnsSameModel()
+    {
+        $this->assertSame(get_class($this->subject), get_class($this->subject->setData([])));
+    }
+
+    public function testGetHostDefaultNull()
+    {
+        $this->assertSame('', $this->subject->getHost());
+    }
+
+    public function testGetHostValue()
+    {
+        $value = 'test' . time() . '.com';
+        $this->subject->setData(['host' => $value]);
+        $this->assertSame($value, $this->subject->getHost());
+    }
+
+    public function testGetClass()
+    {
+        $this->assertSame('IN', $this->subject->getClass());
+    }
+
+    public function testGetClassValue()
+    {
+        $value = 'IN';
+        $this->subject->setData(['class' => $value]);
+        $this->assertSame($value, $this->subject->getClass());
+    }
+
+    public function testGetTtl()
+    {
+        $this->assertSame(0, $this->subject->getTtl());
+    }
+
+    public function testGetTtlValue()
+    {
+        $value = strval(time());
+        $this->subject->setData(['ttl' => $value]);
+        $this->assertSame((int)$value, $this->subject->getTtl());
+    }
+
 
     public function testGetTxt()
     {
