@@ -24,13 +24,7 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: PHPUnit Coverage Tests
-      uses: php-actions/phpunit@v3
-      env:
-        XDEBUG_MODE: coverage
-      with:
-        configuration: phpunit.xml.dist
-        php_extensions: xdebug
-        run: vendor/bin/phpunit --coverage-clover coverage.xml
+      run: vendor/bin/phpunit --coverage-clover coverage.xml
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3
