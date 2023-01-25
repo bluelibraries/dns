@@ -21,7 +21,13 @@ jobs:
       run: composer install -n
 
     - name: PHPUnit Coverage Tests
-      run: vendor/bin/phpunit --coverage-clover coverage.xml
+      uses: php-actions/phpunit@v3
+      env:
+        XDEBUG_MODE: coverage
+      with:
+        configuration: phpunit.xml.dist
+        php_extensions: xdebug
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3

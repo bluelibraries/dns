@@ -2,7 +2,10 @@
 
 namespace BlueLibraries\Dns\Test\Unit\Handlers\Types;
 
+use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\Types\TCP;
+use BlueLibraries\Dns\Records\RecordTypes;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class TCPTest extends TestCase
@@ -21,6 +24,112 @@ class TCPTest extends TestCase
     public function testSetPort()
     {
         $this->assertSame($this->subject, $this->subject->setPort(54));
+    }
+
+    public function testUnableTOWriteQuestionLengthToSocket()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_WRITE_QUESTION_LENGTH_TO_TCP_SOCKET);
+        $this->expectExceptionMessage('Failed to write question length to TCP socket');
+
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('write')
+            ->willReturn(null);
+
+        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+    }
+
+    public function testUnableTOReadSizeFromSocket()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_READ_SIZE_FROM_TCP_SOCKET);
+        $this->expectExceptionMessage('Failed to read size from TCP socket');
+
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('write')
+            ->willReturn(1);
+
+        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+    }
+
+    public function testUnableToWriteQuestionToSocketNoRetries()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_WRITE_QUESTION_TO_TCP_SOCKET);
+        $this->expectExceptionMessage('Failed to write question to TCP socket');
+
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('read')
+            ->willReturn('test');
+
+        $subject->method('write')
+            ->willReturnOnConsecutiveCalls(1, null);
+
+        $subject->setRetries(-1);
+
+        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+    }
+
+    public function testUnableTOWriteSocketWithRetries()
+    {
+        $this->expectException(DnsHandlerException::class);
+        $this->expectExceptionCode(DnsHandlerException::ERR_UNABLE_TO_WRITE_QUESTION_LENGTH_TO_TCP_SOCKET);
+        $this->expectExceptionMessage('Failed to write question length to TCP socket');
+
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('read')
+            ->willReturnOnConsecutiveCalls('test', null);
+
+        $subject->method('write')
+            ->willReturnOnConsecutiveCalls(2, 2);
+
+        $subject->setRetries(1);
+
+        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+    }
+
+    public function testGetDnsDataNull()
+    {
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('read')
+            ->willReturnOnConsecutiveCalls('test', null);
+
+        $subject->method('write')
+            ->willReturnOnConsecutiveCalls(2, 2);
+
+        $subject->setRetries(-1);
+
+        $this->assertSame([], $subject->getDnsData('bluelibraries.com', RecordTypes::TXT));
     }
 
 }

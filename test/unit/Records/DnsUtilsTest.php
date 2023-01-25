@@ -211,4 +211,51 @@ class DnsUtilsTest extends TestCase
         self::assertSame($expected, DnsUtils::trim($haystack, $needle, $length));
     }
 
+    public function getBlocksDataProvider(): array
+    {
+        return [
+            ['', []],
+            [chr(1) . 'x', ['x']],
+            [chr(2).'xx'.chr(0) . 'x', ['xx']],
+            [chr(1) . 'x' . chr(2) . 'xy', ['x', 'xy']],
+        ];
+    }
+
+    /**
+     * @param string $string
+     * @param array $expected
+     * @return void
+     * @dataProvider getBlocksDataProvider
+     */
+    public function testGetBlocks(string $string, array $expected)
+    {
+        static::assertSame($expected, DnsUtils::getBlocks($string));
+    }
+
+    public function getConsecutiveLabelsDataProvider(): array
+    {
+        return [
+            ['', 0, 0, 1, []],
+            [chr(1).chr(0).chr(4).'test', 0, 0, 1, ['\000', 'test']],
+            [chr(1) . 'x', 0, 0, 1, ['x']],
+            [chr(1) . 'x' . chr(0) . chr(2) . 'xy', 0, 0, 1, ['x']],
+            [chr(1) . 'x' . chr(0) . chr(2) . 'xy', 0, 0, 2, ['x', '', 'xy']],
+            [chr(1) . 'x' . chr(0) . chr(2) . 'xy', 0, 0, 2, ['x', '', 'xy']],
+        ];
+    }
+
+    /**
+     * @param string $text
+     * @param int $index
+     * @param int $from
+     * @param int $count
+     * @param array $expected
+     * @dataProvider getConsecutiveLabelsDataProvider
+     * @return void
+     */
+    public function testGetConsecutiveLabels(string $text, int $index, int $from, int $count, array $expected)
+    {
+        static::assertSame($expected, DnsUtils::getConsecutiveLabels($text, $index, $from, $count));
+    }
+
 }
