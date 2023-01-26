@@ -10,10 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class UDPTest extends TestCase
 {
-    /**
-     * @var UDP
-     */
-    protected $subject;
+
+    protected UDP $subject;
 
     public function setUp(): void
     {
@@ -41,8 +39,11 @@ class UDPTest extends TestCase
          * @var UDP|MockObject $subject
          */
         $subject = $this->getMockBuilder(UDP::class)
-            ->onlyMethods(['read', 'write', 'close'])
+            ->onlyMethods(['read', 'write', 'close', 'getSocket'])
             ->getMock();
+
+        $subject->method('getSocket')
+            ->willReturn(false);
 
         $subject->method('write')
             ->willReturn(null);
@@ -60,11 +61,13 @@ class UDPTest extends TestCase
          * @var UDP|MockObject $subject
          */
         $subject = $this->getMockBuilder(UDP::class)
-            ->onlyMethods(['read', 'write', 'close'])
+            ->onlyMethods(['read', 'write', 'close', 'getSocket'])
             ->getMock();
 
         $subject->method('write')
             ->willReturn(1);
+        $subject->method('getSocket')
+            ->willReturn(false);
 
         $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
     }
