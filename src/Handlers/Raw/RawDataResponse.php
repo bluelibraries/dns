@@ -55,7 +55,7 @@ class RawDataResponse
                 ? RecordTypes::getName($this->request->getTypeId())
                 : 'n/a';
             throw new DnsHandlerException(
-                'Response too big for UDP, truncation detected, retry TCP or DI... or else!' .
+                'Response too big, truncation detected, retry TCP or DI... or else!' .
                 ' domain: ' . json_encode($this->request->getDomain() .
                     ' typeId:' . json_encode($this->request->getTypeId()) .
                     ' typeName: ' . $typeName,
@@ -366,15 +366,11 @@ class RawDataResponse
     }
 
 
-
     /**
      * @throws DnsHandlerException
      */
     private function readAnswers(): array
     {
-        if (empty($this->rawResponse)) {
-            return [];
-        }
 
         $answersCount = $this->getHeaderAnswersCount();
 
@@ -394,7 +390,7 @@ class RawDataResponse
         return $result;
     }
 
-    private function readQuestions(): array
+    protected function readQuestions(): array
     {
         if (empty($this->rawResponse)) {
             return [];
@@ -419,7 +415,13 @@ class RawDataResponse
     public function getData(): array
     {
         $this->questions = $this->readQuestions();
+
+        if (empty($this->questions)) {
+            return [];
+        }
+
         $this->answers = $this->readAnswers();
+
         return $this->answers;
     }
 

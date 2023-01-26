@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Records;
+namespace BlueLibraries\Dns\Test\Unit\Records;
 
 use BlueLibraries\Dns\Records\DnsUtils;
 use PHPUnit\Framework\TestCase;

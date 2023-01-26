@@ -29,27 +29,24 @@ class UDP extends AbstractDnsHandler
         return function_exists('socket_create');
     }
 
-    private function getSocket()
+    protected function getSocket()
     {
-        $result = $this->socket
-            ?? socket_create(
-                AF_INET, SOCK_DGRAM, SOL_UDP
-            );
+
+        if (!is_null($this->socket)) {
+            return $this->socket;
+        }
+
+        $result = socket_create(
+            AF_INET, SOCK_DGRAM, SOL_UDP
+        );
 
         socket_set_option($result, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $this->timeout, 'usec' => 0));
 
-        if ($result === false) {
-            return null;
-        }
-
-        return $this->socket = $result;
+        return $this->socket = ($result === false ? null : $result);
     }
 
-    private function closeSocket()
+    private function close()
     {
-        if (is_null($this->socket)) {
-            return;
-        }
         socket_close($this->socket);
         $this->socket = null;
     }
@@ -76,7 +73,7 @@ class UDP extends AbstractDnsHandler
      * @throws DnsHandlerException
      * @throws RawDataException
      */
-    private function query($hostName, $typeId, $retry = 0): ?RawDataResponse
+    protected function query($hostName, $typeId, $retry = 0): ?RawDataResponse
     {
         $socket = $this->getSocket();
 
@@ -87,33 +84,32 @@ class UDP extends AbstractDnsHandler
         $request = new RawDataRequest($hostName, $typeId, $this->timeout);
 
         $header = $request->generateHeader();
-        $headerLen = strlen($header);
 
         socket_setopt($socket, SOL_SOCKET, SO_RCVBUF, 4096);
         socket_setopt($socket, SOL_SOCKET, SO_SNDBUF, 4096);
 
-        if (!socket_sendto($socket, $header, $headerLen, 0, $this->nameserver, $this->port)) {
+        if (!$this->write($header)) {
             if ($retry < $this->retries) {
                 return $this->query($hostName, $typeId, $retry + 1);
             }
-            $this->closeSocket();
+            $this->close();
             throw new DnsHandlerException(
                 "Failed to write question to UDP socket",
                 DnsHandlerException::ERR_UNABLE_TO_WRITE_TO_UDP_SOCKET
             );
         }
 
-        $rawDataResponse = socket_read($socket, 512);
+        $rawDataResponse = $this->read();
 
         if (empty($rawDataResponse)) {
-            $this->closeSocket();
+            $this->close();
             throw new DnsHandlerException(
                 "Failed to read data buffer",
                 DnsHandlerException::ERR_UNABLE_TO_READ_DATA_BUFFER
             );
         }
 
-        $this->closeSocket();
+        $this->close();
 
         return new RawDataResponse($request, $rawDataResponse, $this->getType());
     }
@@ -135,6 +131,18 @@ class UDP extends AbstractDnsHandler
         }
 
         return $result->getData();
+    }
+
+    protected function read(): ?string
+    {
+        $result = socket_read($this->getSocket(), 512);
+        return is_string($result) ? $result : null;
+    }
+
+    protected function write(string $header): ?int
+    {
+        $result = socket_sendto($this->getSocket(), $header, strlen($header), 0, $this->nameserver, $this->port);
+        return is_int($result) ? $result : null;
     }
 
 }

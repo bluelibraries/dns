@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Handlers\Raw;
+namespace BlueLibraries\Dns\Test\Unit\Handlers\Raw;
 
 use BlueLibraries\Dns\Handlers\Raw\RawClassTypes;
 use PHPUnit\Framework\TestCase;

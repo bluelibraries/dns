@@ -1,12 +1,13 @@
 <?php
 
-namespace Unit\Handlers\Raw;
+namespace BlueLibraries\Dns\Test\Unit\Handlers\Raw;
 
 use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
 use BlueLibraries\Dns\Handlers\Raw\RawDataRequest;
 use BlueLibraries\Dns\Handlers\Raw\RawDataResponse;
 use BlueLibraries\Dns\Records\RecordTypes;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class RawDataResponseTest extends TestCase
@@ -24,7 +25,7 @@ class RawDataResponseTest extends TestCase
     public function testIsUDPTruncatedHeaderThrowsException()
     {
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Response too big for UDP, truncation detected, retry TCP or DI... or else! domain: " typeId:null typeName: n\/a"');
+        $this->expectExceptionMessage('Response too big, truncation detected, retry TCP or DI... or else! domain: " typeId:null typeName: n\/a"');
         $this->expectExceptionCode(DnsHandlerException::TRUNCATION_DETECTED);
         new RawDataResponse(
             $this->request,
@@ -33,10 +34,38 @@ class RawDataResponseTest extends TestCase
         );
     }
 
+    public function testEmptyRawResponse()
+    {
+        /**
+         * @var RawDataResponse|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(RawDataResponse::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getHeaderQuestionsCount'])
+            ->getMock();
+        $this->assertSame([], $subject->getData());
+    }
+
+
+    public function testEmptyQuestionsCountNoRawResponse()
+    {
+        /**
+         * @var RawDataResponse|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(RawDataResponse::class)
+            ->onlyMethods(['readQuestions'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $subject->method('readQuestions')
+            ->willReturn([]);
+        $this->assertSame([], $subject->getData());
+    }
+
+
     public function testIsUDPTruncatedHeaderValidRecordTypeIdThrowsException()
     {
         $this->expectException(DnsHandlerException::class);
-        $this->expectExceptionMessage('Response too big for UDP, truncation detected, retry TCP or DI... or else! domain: " typeId:16 typeName: TXT"');
+        $this->expectExceptionMessage('Response too big, truncation detected, retry TCP or DI... or else! domain: " typeId:16 typeName: TXT"');
         $this->expectExceptionCode(DnsHandlerException::TRUNCATION_DETECTED);
         $this->request->method('getTypeId')
             ->willReturn(RecordTypes::TXT);
@@ -52,7 +81,6 @@ class RawDataResponseTest extends TestCase
      */
     public function testGetDataValidData()
     {
-
         $this->request->method('getTypeId')
             ->willReturn(RecordTypes::TXT);
         $response = new RawDataResponse(
@@ -80,7 +108,6 @@ class RawDataResponseTest extends TestCase
 
     public function testInvalidHeaderLengthThrowsException()
     {
-
         $this->expectException(DnsHandlerException::class);
         $this->expectExceptionMessage('Unable to parse header data, it\'s length must be 10, got: 0 bytes, label: ""');
         $this->expectExceptionCode(DnsHandlerException::ERR_INVALID_RECORD_HEADER_LENGTH);

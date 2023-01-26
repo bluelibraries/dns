@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Records\Types\Txt;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types\Txt;
 
 use BlueLibraries\Dns\Records\ExtendedTxtRecords;
 use BlueLibraries\Dns\Records\Types\Txt\MtaSts;

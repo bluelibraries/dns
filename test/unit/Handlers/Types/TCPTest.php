@@ -61,7 +61,7 @@ class TCPTest extends TestCase
         $subject->method('write')
             ->willReturn(1);
 
-        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+        $this->assertSame([], $subject->getDnsData('bluelibraries.com', RecordTypes::TXT));
     }
 
     public function testUnableToWriteQuestionToSocketNoRetries()
@@ -85,7 +85,7 @@ class TCPTest extends TestCase
 
         $subject->setRetries(-1);
 
-        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+        $this->assertSame([], $subject->getDnsData('bluelibraries.com', RecordTypes::TXT));
     }
 
     public function testUnableTOWriteSocketWithRetries()
@@ -109,8 +109,42 @@ class TCPTest extends TestCase
 
         $subject->setRetries(1);
 
-        $subject->getDnsData('bluelibraries.com', RecordTypes::TXT);
+        $this->assertSame([], $subject->getDnsData('bluelibraries.com', RecordTypes::TXT));
     }
+
+    public function testUnableTOWriteSocketWithValidAnswerAfterRetry()
+    {
+        /**
+         * @var TCP|MockObject $subject
+         */
+        $subject = $this->getMockBuilder(TCP::class)
+            ->onlyMethods(['read', 'write', 'close'])
+            ->getMock();
+
+        $subject->method('read')
+            ->willReturnOnConsecutiveCalls(chr(0) . chr(42),
+                base64_decode('hnKBgAABAAEAAAAABGFzdXMDY29tAAABAAHADAABAAEAADDvAARnCgTY'
+                )
+            );
+
+        $subject->method('write')
+            ->willReturnOnConsecutiveCalls(0, 2, 2, 2, 0, 2);
+
+        $subject->setRetries(2);
+
+        $this->assertSame([
+            [
+                'host'  => 'asus.com',
+                'ttl'   => 12527,
+                'class' => 'IN',
+                'type'  => 'A',
+                'ip'    => '103.10.4.216',
+            ]
+        ],
+            $subject->getDnsData('bluelibraries.com', RecordTypes::TXT)
+        );
+    }
+
 
     public function testGetDnsDataNull()
     {

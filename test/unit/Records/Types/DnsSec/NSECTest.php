@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Records\Types\DnsSec;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types\DnsSec;
 
 use BlueLibraries\Dns\Records\Types\DnsSec\NSEC;
 use PHPUnit\Framework\TestCase;

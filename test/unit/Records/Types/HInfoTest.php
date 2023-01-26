@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Records\Types;
+namespace BlueLibraries\Dns\Test\Unit\Records\Types;
 
 use BlueLibraries\Dns\Records\Types\HINFO;
 use PHPUnit\Framework\TestCase;

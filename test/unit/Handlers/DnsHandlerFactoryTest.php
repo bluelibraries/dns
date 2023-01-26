@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Handlers;
+namespace BlueLibraries\Dns\Test\Unit\Handlers;
 
 use BlueLibraries\Dns\Handlers\DnsHandlerFactory;
 use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
