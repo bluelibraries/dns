@@ -47,7 +47,7 @@ class UDP extends AbstractDnsHandler
 
     private function close()
     {
-        socket_close($this->socket);
+        $this->socket && socket_close($this->socket);
         $this->socket = null;
     }
 
@@ -85,8 +85,10 @@ class UDP extends AbstractDnsHandler
 
         $header = $request->generateHeader();
 
-        socket_setopt($socket, SOL_SOCKET, SO_RCVBUF, 4096);
-        socket_setopt($socket, SOL_SOCKET, SO_SNDBUF, 4096);
+        if ($socket) {
+            socket_setopt($socket, SOL_SOCKET, SO_RCVBUF, 4096);
+            socket_setopt($socket, SOL_SOCKET, SO_SNDBUF, 4096);
+        }
 
         if (!$this->write($header)) {
             if ($retry < $this->retries) {
