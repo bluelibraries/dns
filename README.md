@@ -1,6 +1,7 @@
 # DNS
 
 [![Build](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build.yml)
+[![PHPUnit](https://github.com/bluelibraries/dns/actions/workflows/phpunit.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/phpunit.yml)
 [![codecov](https://codecov.io/gh/bluelibraries/dns/branch/main/graph/badge.svg?token=CQBMZ4EDED)](https://codecov.io/gh/bluelibraries/dns)
 
 ## Use certain DNS handler for DNS interrogation
