@@ -1,6 +1,8 @@
 # DNS
 
-[![**PHP 7.4**, **PHP 8.0**, **PHP 8.1**](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build.yml)
+[![PHP 7.4](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build-7.4.yml)
+[![PHP 8.0](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build-8.0.yml)
+[![PHP 8.1](https://github.com/bluelibraries/dns/actions/workflows/build.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/build-8.1.yml)
 [![PHPUnit](https://github.com/bluelibraries/dns/actions/workflows/phpunit.yml/badge.svg)](https://github.com/bluelibraries/dns/actions/workflows/phpunit.yml)
 [![codecov](https://codecov.io/gh/bluelibraries/dns/branch/main/graph/badge.svg?token=CQBMZ4EDED)](https://codecov.io/gh/bluelibraries/dns)
 
