@@ -21,7 +21,7 @@ on:
       - 'infection.json.dist'
       - 'psalm.xml'
 
-name: PHP 8.1
+name: "PHP 8.1"
 
 jobs:
   tests:
