@@ -40,6 +40,13 @@ Array
         )
 )
 ```
+
+## Install via `composer`
+```text
+composer require bluelibraries/dns
+```
+
+
 ### This package contains **4** types which can be used for DNS interrogations
 
 1. **DnsGetRecord** based on `dns_get_record` PHP function
