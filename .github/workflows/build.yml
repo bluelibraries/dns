@@ -19,7 +19,7 @@ on:
       - 'infection.json.dist'
       - 'psalm.xml'
 
-name: "PHP (7.4, 8.0, 8.1)"
+name: "PHP [7.4, 8.0, 8.1]"
 
 jobs:
   tests:
