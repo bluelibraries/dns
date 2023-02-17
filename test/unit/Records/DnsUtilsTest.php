@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class DnsUtilsTest extends TestCase
 {
 
-    public function isValidDomainOrSubdomainDataProvider(): array
+    public static function isValidDomainOrSubdomainDataProvider(): array
     {
         return [
             ['', false],
@@ -33,7 +33,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::isValidDomainOrSubdomain($domain), $expected);
     }
 
-    public function ipV6ShortenerDataProvider(): array
+    public static function ipV6ShortenerDataProvider(): array
     {
         return [
             ['', ''],
@@ -51,12 +51,12 @@ class DnsUtilsTest extends TestCase
      * @dataProvider ipV6ShortenerDataProvider
      * @return void
      */
-    public function testIpV6Shortener(string $ipv6, string $expected)
+    public static function testIpV6Shortener(string $ipv6, string $expected)
     {
         static::assertSame(DnsUtils::ipV6Shortener($ipv6), $expected);
     }
 
-    public function sanitizeRecordTxtDataProvider(): array
+    public static function sanitizeRecordTxtDataProvider(): array
     {
         return [
             ['', ''],
@@ -75,7 +75,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::sanitizeRecordTxt($value), $expected);
     }
 
-    public function getBitsFromStringDataProvider(): array
+    public static function getBitsFromStringDataProvider(): array
     {
         return [
             ['', []],
@@ -96,7 +96,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getBitsFromString($string), $expected);
     }
 
-    public function getRecordsNamesFromBinaryDataProvider(): array
+    public static function getRecordsNamesFromBinaryDataProvider(): array
     {
         return [
             [[], 0, ''],
@@ -117,7 +117,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getRecordsNamesFromBinary($binary, $offset), $expected);
     }
 
-    public function getHumanReadableDateTimeDataProvider(): array
+    public static function getHumanReadableDateTimeDataProvider(): array
     {
         return [
             [0, 19700101000000],
@@ -137,7 +137,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getHumanReadableDateTime($timestamp), $expected);
     }
 
-    public function getSplitSignatureDataProvider(): array
+    public static function getSplitSignatureDataProvider(): array
     {
         return [
             ['', 58, ' ', ''],
@@ -160,7 +160,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame(DnsUtils::getSplitSignature($signature, $bufferLen, $separator), $expected);
     }
 
-    public function asciiStringDataProvider(): array
+    public static function asciiStringDataProvider(): array
     {
         return [
             ['', '', ''],
@@ -184,7 +184,7 @@ class DnsUtilsTest extends TestCase
         self::assertSame($expected, DnsUtils::asciiString($value, $glue));
     }
 
-    public function trimDataProvider(): array
+    public static function trimDataProvider(): array
     {
         return [
             ['', '' , 0, ''],
@@ -211,7 +211,7 @@ class DnsUtilsTest extends TestCase
         self::assertSame($expected, DnsUtils::trim($haystack, $needle, $length));
     }
 
-    public function getBlocksDataProvider(): array
+    public static function getBlocksDataProvider(): array
     {
         return [
             ['', []],
@@ -232,7 +232,7 @@ class DnsUtilsTest extends TestCase
         static::assertSame($expected, DnsUtils::getBlocks($string));
     }
 
-    public function getConsecutiveLabelsDataProvider(): array
+    public static function getConsecutiveLabelsDataProvider(): array
     {
         return [
             ['', 0, 0, 1, []],

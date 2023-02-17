@@ -177,7 +177,7 @@ class DigTest extends TestCase
         $this->assertIsBool($subject->canUseIt());
     }
 
-    public function validCommandsDataProvider(): array
+    public static function validCommandsDataProvider(): array
     {
         return [
             ['', false],

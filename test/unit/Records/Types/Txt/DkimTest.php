@@ -123,7 +123,7 @@ class DKIMTest extends TestCase
         $this->assertSame(ExtendedTxtRecords::DKIM, $this->subject->getTypeName());
     }
 
-    public function parseValuesDataProvider(): array
+    public static function parseValuesDataProvider(): array
     {
         return [
             ['', false],
@@ -154,7 +154,7 @@ class DKIMTest extends TestCase
         $this->assertSame($expected, $this->subject->parseValues());
     }
 
-    public function valuesDataProvider(): array
+    public static function valuesDataProvider(): array
     {
         return [
             ['', []],

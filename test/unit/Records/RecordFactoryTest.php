@@ -19,7 +19,7 @@ class RecordFactoryTest extends TestCase
         $this->subject = new RecordFactory();
     }
 
-    public function allRecordTypesFormattedClassesDataProvider(): array
+    public static function allRecordTypesFormattedClassesDataProvider(): array
     {
         return require dirname(__FILE__) . "/../Data/allRecordsTypesFormattedClasses.php";
     }
@@ -64,7 +64,7 @@ class RecordFactoryTest extends TestCase
         $this->subject->create(['type' => 'INVALID'], false);
     }
 
-    public function implementedRecordTypesDataProvider(): array
+    public static function implementedRecordTypesDataProvider(): array
     {
         return [
             ['A'],
@@ -112,7 +112,7 @@ class RecordFactoryTest extends TestCase
         );
     }
 
-    public function notImplementedRecordTypesDataProvider(): array
+    public static function notImplementedRecordTypesDataProvider(): array
     {
         return
             array_map(
@@ -125,7 +125,7 @@ class RecordFactoryTest extends TestCase
                         function ($item) {
                             return $item[0];
                         },
-                        $this->implementedRecordTypesDataProvider()
+                        static::implementedRecordTypesDataProvider()
                     )));
     }
 

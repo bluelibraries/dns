@@ -152,7 +152,7 @@ class SOATest extends TestCase
         $this->assertNull($this->subject->getAdministratorEmailAddress());
     }
 
-    public function getAdministratorEmailAddressDataProvider(): array
+    public static function getAdministratorEmailAddressDataProvider(): array
     {
         return [
             ['', null],

@@ -123,7 +123,7 @@ class DomainVerificationTest extends TestCase
         $this->assertSame(ExtendedTxtRecords::DOMAIN_VERIFICATION, $this->subject->getTypeName());
     }
 
-    public function domainVerificationValidDataProvider(): array
+    public static function domainVerificationValidDataProvider(): array
     {
         return [
             ['google-site-verification=Mama-._Omida10', 'google'],

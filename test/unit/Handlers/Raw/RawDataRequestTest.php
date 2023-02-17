@@ -74,7 +74,7 @@ class RawDataRequestTest extends TestCase
         $this->assertSame(true, $this->subject->useRecursionIfAvailable());
     }
 
-    public function generateHeaderDataProvider(): array
+    public static function generateHeaderDataProvider(): array
     {
         return [
             ['1.1.1.1', RecordTypes::A, RawClassTypes::IN, '01100100000071051104597100100114497114112971491491491490010100030'],

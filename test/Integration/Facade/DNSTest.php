@@ -1,6 +1,6 @@
 <?php
 
-namespace Integration\Facade;
+namespace BlueLibraries\Dns\Test\Integration\Facade;
 
 use BlueLibraries\Dns\Facade\DNS;
 use BlueLibraries\Dns\Handlers\DnsHandlerException;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class DNSTest extends TestCase
 {
 
-    public function getRecordsDataProvider(): array
+    public static function getRecordsDataProvider(): array
     {
         return [
             ['', [], []],

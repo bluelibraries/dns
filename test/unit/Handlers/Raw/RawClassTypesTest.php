@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class RawClassTypesTest extends TestCase
 {
 
-    public function rawClassesDataProvider(): array
+    public static function rawClassesDataProvider(): array
     {
         return [
             [1, 'IN'],

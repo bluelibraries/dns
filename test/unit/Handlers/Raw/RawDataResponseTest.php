@@ -122,7 +122,7 @@ class RawDataResponseTest extends TestCase
         $response->getData();
     }
 
-    public function rawResponsesDataProvider(): array
+    public static function rawResponsesDataProvider(): array
     {
 
         $records = [

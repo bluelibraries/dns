@@ -237,7 +237,7 @@ class DnsHandlersTest extends TestCase
         ];
     }
 
-    public function recordsTypesShortDataProvider(): array
+    public static function recordsTypesShortDataProvider(): array
     {
         return [
             ['www.test.com'],
@@ -277,7 +277,7 @@ class DnsHandlersTest extends TestCase
         );
     }
 
-    public function recordsTypesLongDataProvider(): array
+    public static function recordsTypesLongDataProvider(): array
     {
         return [
             ['metallica.com'],
@@ -323,7 +323,7 @@ class DnsHandlersTest extends TestCase
         );
     }
 
-    public function recordsTypesTCPandDIGDataProvider(): array
+    public static function recordsTypesTCPandDIGDataProvider(): array
     {
         return [
             ['coliva.ro'],
@@ -368,7 +368,7 @@ class DnsHandlersTest extends TestCase
         );
     }
 
-    public function recordsTypesTCPOnlyDataProvider(): array
+    public static function recordsTypesTCPOnlyDataProvider(): array
     {
         return [
             ['asus.com'],
@@ -406,7 +406,7 @@ class DnsHandlersTest extends TestCase
         );
     }
 
-    public function recordsTypesDuplicatesProvider(): array
+    public static function recordsTypesDuplicatesProvider(): array
     {
         return [
             ['test.com'],
@@ -445,7 +445,7 @@ class DnsHandlersTest extends TestCase
         );
     }
 
-    public function recordsTypesEmptyResultsProvider(): array
+    public static function recordsTypesEmptyResultsProvider(): array
     {
         return [
             ['test.com'],

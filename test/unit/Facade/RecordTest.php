@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class RecordTest extends TestCase
 {
 
-    public function fromStringDataProvider(): array
+    public static function fromStringDataProvider(): array
     {
         return [
             [
@@ -115,7 +115,7 @@ class RecordTest extends TestCase
         self::assertEquals($expected, Record::fromString($string));
     }
 
-    public function fromNormalizedArrayDataProvider(): array
+    public static function fromNormalizedArrayDataProvider(): array
     {
         return [
             [

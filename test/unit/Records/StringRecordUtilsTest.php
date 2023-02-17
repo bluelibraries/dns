@@ -35,7 +35,7 @@ class StringRecordUtilsTest extends TestCase
     }
 
 
-    public function getPropertiesDataProvider(): array
+    public static function getPropertiesDataProvider(): array
     {
         return [
             [RecordTypes::A, ['ip'],],
@@ -63,7 +63,7 @@ class StringRecordUtilsTest extends TestCase
         static::assertSame($finalData, StringRecordUtils::getPropertiesData($recordTypeId));
     }
 
-    public function normalizeRawResultDataProvider(): array
+    public static function normalizeRawResultDataProvider(): array
     {
         return [
             [

@@ -22,7 +22,7 @@ class DnsHandlerFactoryTest extends TestCase
         $this->subject = new DnsHandlerFactory();
     }
 
-    public function validHandlersDataProvider(): array
+    public static function validHandlersDataProvider(): array
     {
         return [
             [DnsHandlerTypes::DNS_GET_RECORD, DnsGetRecord::class],

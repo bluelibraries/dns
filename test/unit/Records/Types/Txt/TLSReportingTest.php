@@ -123,7 +123,7 @@ class TLSReportingTest extends TestCase
         $this->assertSame(ExtendedTxtRecords::TLS_REPORTING, $this->subject->getTypeName());
     }
 
-    public function parseValuesDataProvider(): array
+    public static function parseValuesDataProvider(): array
     {
         return [
             ['', false],
@@ -157,7 +157,7 @@ class TLSReportingTest extends TestCase
         $this->assertSame($expected, $this->subject->parseValues());
     }
 
-    public function valuesDataProvider(): array
+    public static function valuesDataProvider(): array
     {
         return [
             ['', []],

@@ -20,7 +20,7 @@ class ExtendedTxtRecordsTest extends TestCase
         $this->subject = new ExtendedTxtRecords();
     }
 
-    public function isTxtRecordDataProvider(): array
+    public static function isTxtRecordDataProvider(): array
     {
         return [
             [[], false],
@@ -44,7 +44,7 @@ class ExtendedTxtRecordsTest extends TestCase
         $this->assertSame($expected, $this->subject->isTxtRecord($data));
     }
 
-    public function getExtendedTxtRecordsDataProvider(): array
+    public static function getExtendedTxtRecordsDataProvider(): array
     {
         return [
             [[], null],
