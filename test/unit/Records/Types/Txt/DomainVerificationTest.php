@@ -179,7 +179,7 @@ class DomainVerificationTest extends TestCase
         $this->assertSame($this->subject->getProvider(), $expectedProvider);
     }
 
-    public function domainVerificationValidDataValuesProvider(): array
+    public static function domainVerificationValidDataValuesProvider(): array
     {
         return [
             ['google-site-verification=Mama-._Omida10', 'Mama-._Omida10'],
