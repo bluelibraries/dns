@@ -13,4 +13,7 @@
             <directory suffix=".php">src</directory>
         </include>
     </coverage>
+    <logging>
+        <testdoxXml outputFile="coverage.xml"/>
+    </logging>
 </phpunit>
