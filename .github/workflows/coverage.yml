@@ -27,7 +27,7 @@ jobs:
       with:
         configuration: phpunit.xml.dist
         php_extensions: xdebug
-        args: test --migrate-configuration --coverage-clover
+        args: --migrate-configuration --coverage-clover coverage.xml
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3
