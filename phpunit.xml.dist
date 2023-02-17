@@ -8,13 +8,10 @@
             <directory suffix="Test.php">test</directory>
         </testsuite>
     </testsuites>
-    <coverage>
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
-        <exclude>
-            <directory>./test</directory>
-        </exclude>
     </coverage>
     <logging>
         <testdoxXml outputFile="coverage.xml"/>
