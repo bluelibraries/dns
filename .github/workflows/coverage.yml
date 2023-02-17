@@ -2,9 +2,9 @@ name: Coverage
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 permissions:
   contents: read
@@ -27,7 +27,7 @@ jobs:
       with:
         configuration: phpunit.xml.dist
         php_extensions: xdebug
-        args: test --coverage-clover coverage.xml
+        args: test --coverage-clover --migrate-configuration coverage.xml
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3
