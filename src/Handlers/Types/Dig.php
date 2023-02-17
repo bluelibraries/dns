@@ -12,6 +12,8 @@ use BlueLibraries\Dns\Regex;
 class Dig extends AbstractDnsHandler
 {
 
+    protected ?string $nameserver = '';
+
     public function getType(): string
     {
         return DnsHandlerTypes::DIG;
