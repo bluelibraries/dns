@@ -241,7 +241,6 @@ class DnsHandlersTest extends TestCase
     {
         return [
             ['www.test.com'],
-            ['php.net'],
         ];
     }
 

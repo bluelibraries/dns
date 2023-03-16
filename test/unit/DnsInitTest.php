@@ -4,6 +4,7 @@ namespace BlueLibraries\Dns\Test\Unit;
 
 use BlueLibraries\Dns\DnsRecords;
 use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Handlers\Types\TCP;
 use BlueLibraries\Dns\Records\RecordFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +14,7 @@ class DnsInitTest extends TestCase
     public function testInjectNullHandler()
     {
         $subject = new DnsRecords(null, new RecordFactory());
-        $this->assertEquals($subject->getHandler(), new DnsGetRecord());
+        $this->assertEquals($subject->getHandler(), new TCP());
     }
 
     public function testInjectNullFactory()
@@ -25,7 +26,7 @@ class DnsInitTest extends TestCase
     public function testInjectNullDependencies()
     {
         $subject = new DnsRecords(null, null);
-        $this->assertEquals($subject->getHandler(), new DnsGetRecord());
+        $this->assertEquals($subject->getHandler(), new TCP());
         $this->assertEquals($subject->getFactory(), new RecordFactory());
     }
 

@@ -4,7 +4,7 @@ namespace BlueLibraries\Dns;
 
 use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\DnsHandlerInterface;
-use BlueLibraries\Dns\Handlers\Types\DnsGetRecord;
+use BlueLibraries\Dns\Handlers\Types\TCP;
 use BlueLibraries\Dns\Records\DnsUtils;
 use BlueLibraries\Dns\Records\RecordException;
 use BlueLibraries\Dns\Records\RecordFactory;
@@ -22,7 +22,7 @@ class DnsRecords
     public function __construct(DnsHandlerInterface $handler = null, RecordFactory $factory = null)
     {
         if (is_null($handler)) {
-            $handler = new DnsGetRecord();
+            $handler = new TCP();
         }
 
         if (is_null($factory)) {
@@ -118,7 +118,10 @@ class DnsRecords
         $result = [];
 
         foreach ($recordsData as $recordData) {
-            $result[] = $this->factory->create($recordData, $useExtendedRecords);
+            $record = $this->factory->create($recordData, $useExtendedRecords);
+            if ($record->getTypeId() === $typeId) {
+                $result[] = $record;
+            }
         }
 
         if ($keepOrder) {
