@@ -9,6 +9,8 @@
 
 ## Use certain DNS handler for DNS interrogation
 
+<font size="5">[Demo](https://gethostinfo.com/records/)</font>
+
 ### Example:
 ```php
 $records = DNS::getRecords('bluelibraries.com', RecordTypes::ANY);
