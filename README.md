@@ -8,8 +8,8 @@
 [![codecov](https://codecov.io/gh/bluelibraries/dns/branch/main/graph/badge.svg?token=CQBMZ4EDED)](https://codecov.io/gh/bluelibraries/dns)
 
 ## Use certain DNS handler for DNS interrogation
-
-<font size="5">[Demo](https://gethostinfo.com/records/)</font>
+ 
+**[Demo](https://gethostinfo.com/records/)**
 
 ### Example:
 ```php
