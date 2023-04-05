@@ -13,7 +13,7 @@
 
 ## **For older PHP version** we strongly suggest **[bluelibraries/php5-dns](https://github.com/bluelibraries/php5-dns)**
  
-**[Demo](https://gethostinfo.com/records/)**
+## **[Demo](https://gethostinfo.com/records/)**
 
 ### Example:
 ```php
