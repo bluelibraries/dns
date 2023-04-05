@@ -7,6 +7,7 @@ use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\DnsHandlerFactory;
 use BlueLibraries\Dns\Handlers\DnsHandlerFactoryException;
 use BlueLibraries\Dns\Handlers\DnsHandlerTypes;
+use BlueLibraries\Dns\Handlers\Raw\RawDataException;
 use BlueLibraries\Dns\Records\RecordException;
 
 class DNS
@@ -31,6 +32,7 @@ class DNS
      * @throws DnsHandlerException
      * @throws DnsHandlerFactoryException
      * @throws RecordException
+     * @throws RawDataException
      */
     public static function getRecords(
         string  $host,

@@ -7,7 +7,6 @@ use BlueLibraries\Dns\Records\DnsUtils;
 class RawDataRequest
 {
     /**
-     * @var int
      * See RawClassTypes.php
      */
     private int $classId = 1;

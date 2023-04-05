@@ -4,7 +4,6 @@ namespace BlueLibraries\Dns;
 
 class Regex
 {
-    public const DOMAIN = '/^([\w\d]+){1,63}\.(\w+){2,63}$/';
     public const DOMAIN_OR_SUBDOMAIN = '/^(([\w\d\_\-]+){1,63}\.)+(\w+){2,63}$/i';
     public const HOSTNAME_LENGTH = '/^.{3,253}$/';
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1] - 2023-03-16 
+
+### Fixed
+
+- updated wrongfully set tag 1.1.0
+- few code tweaks/cleanup
+
 ## [1.1.0] - 2023-03-16
 
 ### Added

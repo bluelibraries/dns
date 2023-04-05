@@ -4,6 +4,7 @@ namespace BlueLibraries\Dns;
 
 use BlueLibraries\Dns\Handlers\DnsHandlerException;
 use BlueLibraries\Dns\Handlers\DnsHandlerInterface;
+use BlueLibraries\Dns\Handlers\Raw\RawDataException;
 use BlueLibraries\Dns\Handlers\Types\TCP;
 use BlueLibraries\Dns\Records\DnsUtils;
 use BlueLibraries\Dns\Records\RecordException;
@@ -78,6 +79,7 @@ class DnsRecords
      * @return array
      * @throws DnsHandlerException
      * @throws RecordException
+     * @throws RawDataException
      */
     public function get(string $host, $type, bool $useExtendedRecords = true, bool $keepOrder = true, bool $removeDuplicates = true): array
     {
@@ -106,6 +108,7 @@ class DnsRecords
      * @return array|RecordInterface[]
      * @throws DnsHandlerException
      * @throws RecordException
+     * @throws RawDataException
      */
     private function getRecordDataForType(string $host, $typeId, bool $useExtendedRecords, bool $keepOrder): array
     {

@@ -16,10 +16,7 @@ class RawDataResponse
     private ?string $rawResponseHeader = null;
     private array $headerData = [];
     private int $responseCounter = 12;
-    private ?array $questions = null;
-    private ?array $answers = null;
     private ?string $handlerType = null;
-    private ?array $lastResult = null;
     private int $lastIndex = 0;
 
     /**
@@ -359,12 +356,10 @@ class RawDataResponse
 
         }
 
-        $this->lastResult = $result;
         $this->lastIndex++;
 
         return $result;
     }
-
 
     /**
      * @throws DnsHandlerException
@@ -403,7 +398,7 @@ class RawDataResponse
         }
 
         do {
-            $byteValue = ord($this->readResponse(1));
+            $byteValue = ord($this->readResponse());
         } while ($byteValue != 0);
 
         return [$this->readResponse(4)];
@@ -414,15 +409,13 @@ class RawDataResponse
      */
     public function getData(): array
     {
-        $this->questions = $this->readQuestions();
+        $questions = $this->readQuestions();
 
-        if (empty($this->questions)) {
+        if (empty($questions)) {
             return [];
         }
 
-        $this->answers = $this->readAnswers();
-
-        return $this->answers;
+        return $this->readAnswers();
     }
 
     private function isHeaderTruncated(): bool
