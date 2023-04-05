@@ -8,6 +8,10 @@
 [![codecov](https://codecov.io/gh/bluelibraries/dns/branch/main/graph/badge.svg?token=CQBMZ4EDED)](https://codecov.io/gh/bluelibraries/dns)
 
 ## Use certain DNS handler for DNS interrogation
+
+## FOR PHP  >= 7.4 ONLY
+
+## **For older PHP version** we strongly suggest **[bluelibraries/php5-dns](https://github.com/bluelibraries/php5-dns)**
  
 **[Demo](https://gethostinfo.com/records/)**
 
