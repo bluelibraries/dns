@@ -88,24 +88,10 @@ abstract class AbstractDnsHandler implements DnsHandlerInterface
 
         $hostnameErrorInfo = 'Invalid hostname ' . json_encode($hostName);
 
-        if (strlen($hostName) < 3) {
+        if (!filter_var($hostName, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
             throw new DnsHandlerException(
-                $hostnameErrorInfo . ' length. It must be 3 or more!',
-                DnsHandlerException::HOSTNAME_LENGTH_TOO_SMALL
-            );
-        }
-
-        if (!preg_match(Regex::DOMAIN_OR_SUBDOMAIN, $hostName)) {
-            throw new DnsHandlerException(
-                $hostnameErrorInfo . ' format! (characters "A-Za-z0-9.-", max length 63 chars allowed)',
+                $hostnameErrorInfo . ' format!',
                 DnsHandlerException::HOSTNAME_FORMAT_INVALID
-            );
-        }
-
-        if (!preg_match(Regex::HOSTNAME_LENGTH, $hostName)) {
-            throw new DnsHandlerException(
-                $hostnameErrorInfo . ' length! (min 3, max 253 characters allowed)',
-                DnsHandlerException::HOSTNAME_LENGTH_INVALID
             );
         }
     }
