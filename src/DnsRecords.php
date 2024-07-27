@@ -10,6 +10,7 @@ use BlueLibraries\Dns\Records\DnsUtils;
 use BlueLibraries\Dns\Records\RecordException;
 use BlueLibraries\Dns\Records\RecordFactory;
 use BlueLibraries\Dns\Records\RecordInterface;
+use BlueLibraries\Dns\Records\RecordTypes;
 
 class DnsRecords
 {
@@ -122,7 +123,7 @@ class DnsRecords
 
         foreach ($recordsData as $recordData) {
             $record = $this->factory->create($recordData, $useExtendedRecords);
-            if ($record->getTypeId() === $typeId) {
+            if ($typeId === RecordTypes::ALL || $record->getTypeId() === $typeId) {
                 $result[] = $record;
             }
         }
