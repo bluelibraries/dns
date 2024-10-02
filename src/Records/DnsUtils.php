@@ -13,7 +13,7 @@ class DnsUtils
         if (empty($domain) || strlen($domain) < 4) {
             return false;
         }
-        return preg_match(Regex::DOMAIN_OR_SUBDOMAIN, $domain) === 1;
+        return (bool) filter_var($domain, FILTER_VALIDATE_DOMAIN);
     }
 
     public static function ipV6Shortener(string $ipv6): string
