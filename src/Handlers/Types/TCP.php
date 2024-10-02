@@ -131,8 +131,8 @@ class TCP extends AbstractDnsHandler
     protected function write(string $data, ?int $length = null): ?int
     {
         $result = is_null($length)
-            ? fwrite($this->getSocket(), $data)
-            : fwrite($this->getSocket(), $data, $length);
+            ? @fwrite($this->getSocket(), $data)
+            : @fwrite($this->getSocket(), $data, $length);
         return is_int($result) ? $result : null;
     }
 

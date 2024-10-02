@@ -137,7 +137,7 @@ class UDP extends AbstractDnsHandler
 
     protected function read(): ?string
     {
-        $result = socket_read($this->getSocket(), 512);
+        $result = @socket_read($this->getSocket(), 512);
         return is_string($result) ? $result : null;
     }
 
