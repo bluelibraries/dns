@@ -72,7 +72,7 @@ class RawDataResponse
         return $this->headerData['qdcount'] ?? 0;
     }
 
-    function readResponse(int $count = 1, int $offset = null): string
+    function readResponse(int $count = 1, ?int $offset = null): string
     {
         if (is_null($offset)) {
             $return = substr($this->rawBuffer, $this->responseCounter, $count);

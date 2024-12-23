@@ -28,7 +28,7 @@ class RecordFactory
 
     private ExtendedTxtRecords $extendedTxtRecords;
 
-    public function __construct(ExtendedTxtRecords $extendedTxtRecords = null)
+    public function __construct(?ExtendedTxtRecords $extendedTxtRecords = null)
     {
         if (is_null($extendedTxtRecords)) {
             $extendedTxtRecords = new ExtendedTxtRecords();

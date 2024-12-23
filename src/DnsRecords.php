@@ -20,7 +20,7 @@ class DnsRecords
      * @param DnsHandlerInterface|null $handler
      * @param RecordFactory|null $factory
      */
-    public function __construct(DnsHandlerInterface $handler = null, RecordFactory $factory = null)
+    public function __construct(?DnsHandlerInterface $handler = null, ?RecordFactory $factory = null)
     {
         if (is_null($handler)) {
             $handler = new TCP();
